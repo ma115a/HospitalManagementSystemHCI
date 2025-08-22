@@ -10,4 +10,3 @@ namespace HospitalManagementSystem;
 public partial class App : Application
 {
 }
-

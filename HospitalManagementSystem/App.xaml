@@ -1,9 +1,20 @@
 ﻿<Application x:Class="HospitalManagementSystem.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
-             StartupUri="MainWindow.xaml">
+             StartupUri="LoginWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <materialDesign:BundledTheme BaseTheme="Light"
+                                             PrimaryColor="Indigo"
+                                             SecondaryColor="Blue" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="MaterialDesign.Brush.PasswordBox.HoverBorder" Color="#3f51b5"/>
+            <SolidColorBrush x:Key="MaterialDesign.Brush.TextBox.HoverBorder" Color="#3f51b5"/>
+            <SolidColorBrush x:Key="LoginGridBackground" Color="#F8F8F8"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
