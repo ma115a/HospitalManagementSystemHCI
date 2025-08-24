@@ -1,20 +1,20 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using MaterialDesignThemes.Wpf;
 using MaterialDesignThemes.Wpf.Transitions;
 
 namespace HospitalManagementSystem;
 
-public partial class DoctorHomePage : UserControl
+public partial class MedicalRecordView : UserControl
 {
-    public DoctorHomePage()
+    public MedicalRecordView()
     {
         InitializeComponent();
     }
 
-    private void MedicalRecord_Click(Object sender, RoutedEventArgs e)
+
+    private void GoToDashboard_Click(object sender, System.Windows.RoutedEventArgs e)
     {
         var parentWindow = Window.GetWindow(this) as DoctorWindow;
-        parentWindow?.GoToMedicalRecords();
+        parentWindow?.GoToDashboard();
     }
 }

@@ -7,13 +7,15 @@
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <materialDesign:BundledTheme BaseTheme="Light"
-                                             PrimaryColor="Indigo"
-                                             SecondaryColor="Blue" />
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
+                <materialDesign:BundledTheme BaseTheme="Light" 
+                                           PrimaryColor="Indigo" 
+                                           SecondaryColor="Blue" />
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="MaterialDesign.Brush.PasswordBox.HoverBorder" Color="#3f51b5"/>
-            <SolidColorBrush x:Key="MaterialDesign.Brush.TextBox.HoverBorder" Color="#3f51b5"/>
+
+         
+
+            <!-- Additional custom brushes -->
             <SolidColorBrush x:Key="LoginGridBackground" Color="#F8F8F8"/>
         </ResourceDictionary>
     </Application.Resources>

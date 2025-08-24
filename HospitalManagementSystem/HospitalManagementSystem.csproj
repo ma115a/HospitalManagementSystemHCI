@@ -14,8 +14,10 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
       <PackageReference Include="MaterialDesignColors" Version="5.*" />
       <PackageReference Include="MaterialDesignThemes" Version="5.*" />
+      <PackageReference Include="RelayCommand" Version="1.0.2" />
     </ItemGroup>
 
 </Project>

@@ -19,7 +19,7 @@ namespace HospitalManagementSystem
 
         private async void OnSignInClick(object sender, RoutedEventArgs e)
         {
-            var shell = new DoctorHomePage();
+            var shell = new DoctorWindow();
             shell.Show();
             Close();
         }
