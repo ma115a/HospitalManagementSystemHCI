@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:HospitalManagementSystem"
         mc:Ignorable="d"
-        Title="Doctor Dashboard" Height="800" Width="900"
+        Title="Doctor Dashboard" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen">
 
     <DockPanel>
@@ -19,6 +19,21 @@
             </materialDesign:TransitionerSlide>
             <materialDesign:TransitionerSlide>
                 <local:MedicalRecordView></local:MedicalRecordView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide>
+                <local:PrescriptionView></local:PrescriptionView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide>
+                <local:LaboratoryResultsView></local:LaboratoryResultsView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide>
+                <local:LaboratoryRequestsView></local:LaboratoryRequestsView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide>
+                <local:MakeAdmissionView></local:MakeAdmissionView>
+            </materialDesign:TransitionerSlide>
+            <materialDesign:TransitionerSlide>
+                <local:SurgeriesView></local:SurgeriesView>
             </materialDesign:TransitionerSlide>
         </materialDesign:Transitioner>
     </DockPanel>

@@ -42,6 +42,31 @@ namespace HospitalManagementSystem
             ContentSwitcher.SelectedIndex = 1;
         }
 
+        public void GoToPrescriptions()
+        {
+            ContentSwitcher.SelectedIndex = 2;
+        }
+
+        public void GoToLaboratoryResults()
+        {
+            ContentSwitcher.SelectedIndex = 3;
+        }
+
+        public void GoToLaboratoryRequests()
+        {
+            ContentSwitcher.SelectedIndex = 4;
+        }
+
+        public void GoToAdmissions()
+        {
+            ContentSwitcher.SelectedIndex = 5;
+        }
+
+        public void GoToSurgeries()
+        {
+            ContentSwitcher.SelectedIndex = 6;
+        }
+
 
        
 

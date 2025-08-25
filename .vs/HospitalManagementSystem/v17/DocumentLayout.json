@@ -3,8 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\prescriptionview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\prescriptionview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\medicalrecordview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\medicalrecordview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\prescriptionview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\prescriptionview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\doctorhomepage.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -21,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\doctorhomepage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\doctorhomepage.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\medicalrecordview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\medicalrecordview.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\patientbasicinfo.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
@@ -50,7 +54,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -62,20 +66,32 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "MedicalRecordView.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\MedicalRecordView.xaml.cs",
-              "RelativeDocumentMoniker": "HospitalManagementSystem\\MedicalRecordView.xaml.cs",
-              "ToolTip": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\MedicalRecordView.xaml.cs",
-              "RelativeToolTip": "HospitalManagementSystem\\MedicalRecordView.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAlAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "PrescriptionView.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\PrescriptionView.xaml.cs",
+              "RelativeDocumentMoniker": "HospitalManagementSystem\\PrescriptionView.xaml.cs",
+              "ToolTip": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\PrescriptionView.xaml.cs",
+              "RelativeToolTip": "HospitalManagementSystem\\PrescriptionView.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-24T15:29:15.373Z",
+              "WhenOpened": "2025-08-24T16:31:20.451Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 0,
+              "Title": "PrescriptionView.xaml",
+              "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\PrescriptionView.xaml",
+              "RelativeDocumentMoniker": "HospitalManagementSystem\\PrescriptionView.xaml",
+              "ToolTip": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\PrescriptionView.xaml",
+              "RelativeToolTip": "HospitalManagementSystem\\PrescriptionView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-08-24T16:30:21.818Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "PatientBasicInfo.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\PatientBasicInfo.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\PatientBasicInfo.xaml",
@@ -87,7 +103,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MedicalRecordView.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\MedicalRecordView.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\MedicalRecordView.xaml",
@@ -99,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "DoctorWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\DoctorWindow.xaml.cs",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\DoctorWindow.xaml.cs",
@@ -112,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "DoctorWindow.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\DoctorWindow.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\DoctorWindow.xaml",
@@ -124,7 +140,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "DoctorHomePage.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\DoctorHomePage.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\DoctorHomePage.xaml",
@@ -136,7 +152,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "DoctorHomePage.xaml.cs",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\DoctorHomePage.xaml.cs",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\DoctorHomePage.xaml.cs",
@@ -149,7 +165,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "LoginWindow.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\LoginWindow.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\LoginWindow.xaml",
@@ -161,7 +177,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "App.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\App.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\App.xaml",
@@ -173,7 +189,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 10,
               "Title": "LoginWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\LoginWindow.xaml.cs",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\LoginWindow.xaml.cs",

@@ -126,6 +126,7 @@
                                     <Button Grid.Row="2" Margin="0,12,0,0"
               Content="Open" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
+              Click="Prescription_Click"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
@@ -159,6 +160,7 @@
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
               Content="Open" Width="100" Height="30"
+              Click="LaboratoryResults_Click"
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
@@ -194,6 +196,7 @@
                                     <Button Grid.Row="2" Margin="0,12,0,0"
               Content="Open" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
+              Click="LaboratoryRequests_Click"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
@@ -228,6 +231,7 @@
                                     <Button Grid.Row="2" Margin="0,12,0,0"
               Content="Open" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
+              Click="Admissions_Click"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
@@ -261,6 +265,7 @@
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
               Content="Open" Width="100" Height="30"
+              Click="Surgeries_Click"
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
