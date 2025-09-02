@@ -1,0 +1,140 @@
+﻿<UserControl x:Class="HospitalManagementSystem.Admin.Views.AdminHomePageView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:HospitalManagementSystem"
+             mc:Ignorable="d"
+             >
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        
+
+                        <UniformGrid Grid.Row="1" Columns="2">
+                            <!-- Reusable card style -->
+                            <UniformGrid.Resources>
+                                <Style TargetType="materialDesign:Card">
+                                    <Setter Property="Padding" Value="20"/>
+                                    <Setter Property="UniformCornerRadius" Value="12"/>
+                                    <Setter Property="Margin" Value="12"/>
+                                    <Setter Property="materialDesign:ElevationAssist.Elevation" Value="Dp8"/>
+                                </Style>
+                            </UniformGrid.Resources>
+
+                            <!-- Manage User Profiles -->
+                            <materialDesign:Card Padding="20" Margin="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="AccountGroup" Width="32" Height="32"/>
+                                        <TextBlock Text="Manage User Profiles" Margin="10,0,0,0"
+                                                   FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="1" Margin="0,12,0,0"
+                                               Text="Create and manage Nurses, Surgeons, Doctors and Lab Workers."
+                                               TextWrapping="Wrap" Opacity=".9"/>
+
+                                    <Button Grid.Row="2" Content="Open"
+                                            Style="{DynamicResource MaterialDesignRaisedLightButton}"
+                                            Width="120" Margin="0,14,0,0"
+                                            Click="ManageUserProfiles_Click"
+                                            Command="{Binding GoToUsersCommand}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Manage Departments & Rooms -->
+                            <materialDesign:Card Padding="20" Margin="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="OfficeBuildingMarkerOutline" Width="32" Height="32"/>
+                                        <TextBlock Text="Departments Rooms" Margin="10,0,0,0"
+                                                   FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="1" Margin="0,12,0,0"
+                                               Text="Create departments, assign rooms and manage capacities."
+                                               TextWrapping="Wrap" Opacity=".9"/>
+
+                                    <Button Grid.Row="2" Content="Open"
+                                            Style="{DynamicResource MaterialDesignRaisedLightButton}"
+                                            Width="120" Margin="0,14,0,0"
+                                            Click="DepartmentRooms_Click"
+                                            Command="{Binding GoToDepartmentsCommand}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Manage Vehicles -->
+                            <materialDesign:Card Padding="20" Margin="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="Ambulance" Width="32" Height="32"/>
+                                        <TextBlock Text="Vehicles" Margin="10,0,0,0"
+                                                   FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="1" Margin="0,12,0,0"
+                                               Text="Register and maintain ambulances and other vehicles."
+                                               TextWrapping="Wrap" Opacity=".9"/>
+
+                                    <Button Grid.Row="2" Content="Open"
+                                            Style="{DynamicResource MaterialDesignRaisedLightButton}"
+                                            Width="120" Margin="0,14,0,0"
+                                            Click="Vehicles_Click"
+                                            Command="{Binding GoToVehiclesCommand}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Medications & Inventory -->
+                            <materialDesign:Card Padding="20" Margin="20">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon Kind="PillMultiple" Width="32" Height="32"/>
+                                        <TextBlock Text="Medications Inventory" Margin="10,0,0,0"
+                                                   FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
+                                    </StackPanel>
+
+                                    <TextBlock Grid.Row="1" Margin="0,12,0,0"
+                                               Text="Manage drug catalog and stock levels across departments."
+                                               TextWrapping="Wrap" Opacity=".9"/>
+
+                                    <Button Grid.Row="2" Content="Open"
+                                            Style="{DynamicResource MaterialDesignRaisedLightButton}"
+                                            Width="120" Margin="0,14,0,0"
+                                            Click="MedicationInventory_Click"
+                                            Command="{Binding GoToInventoryCommand}"/>
+                                </Grid>
+                            </materialDesign:Card>
+                        </UniformGrid>
+                    </Grid>
+                </ScrollViewer>
+</UserControl>

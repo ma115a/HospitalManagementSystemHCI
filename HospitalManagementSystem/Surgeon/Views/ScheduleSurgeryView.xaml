@@ -1,0 +1,105 @@
+﻿<UserControl x:Class="HospitalManagementSystem.Surgeon.Views.ScheduleSurgeryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             >
+    <DockPanel>
+                    <!-- Back -->
+                    <Border DockPanel.Dock="Top"
+                            Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                            BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                            BorderThickness="0,0,0,1" Padding="8,6">
+                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                                Command="{Binding GoToSurgeriesCommand}">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
+                                <TextBlock Text="Back to My Surgeries"/>
+                            </StackPanel>
+                        </Button>
+                    </Border>
+
+                    <materialDesign:Card Margin="10"
+                                         Padding="20" UniformCornerRadius="12"
+                                         materialDesign:ElevationAssist.Elevation="Dp8"
+                                         ClipToBounds="True">
+                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>  <!-- title -->
+                                    <RowDefinition Height="Auto"/>  <!-- patient -->
+                                    <RowDefinition Height="Auto"/>  <!-- date/time -->
+                                    <RowDefinition Height="Auto"/>  <!-- duration / room -->
+                                    <RowDefinition Height="Auto"/>  <!-- procedure -->
+                                    <RowDefinition Height="*"/>     <!-- notes -->
+                                    <RowDefinition Height="Auto"/>  <!-- buttons -->
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Grid.ColumnSpan="2" Text="Schedule Surgery"
+                                           FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
+
+                                <ComboBox Grid.Row="1" Grid.ColumnSpan="2"
+                                          IsEditable="True" StaysOpenOnEdit="True"
+                                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                          materialDesign:HintAssist.Hint="Patient"
+                                          ItemsSource="{Binding Patients}"
+                                          Text="{Binding NewSurgery.PatientName, Mode=TwoWay}"/>
+
+                                <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <DatePicker Grid.Column="0"
+                                                Style="{DynamicResource MaterialDesignFilledDatePicker}"
+                                                materialDesign:HintAssist.Hint="Date"
+                                                SelectedDate="{Binding NewSurgery.Date}"/>
+                                    <TextBox Grid.Column="1"
+                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                             materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                             Text="{Binding NewSurgery.Time}"/>
+                                </Grid>
+
+                                <Grid Grid.Row="3" Grid.ColumnSpan="2">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <TextBox Grid.Column="0"
+                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                             materialDesign:HintAssist.Hint="Duration (min)"
+                                             Text="{Binding NewSurgery.Duration}"/>
+                                    <ComboBox Grid.Column="1"
+                                              Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                              materialDesign:HintAssist.Hint="OR / Room"
+                                              ItemsSource="{Binding Rooms}"
+                                              SelectedItem="{Binding NewSurgery.Room}"/>
+                                </Grid>
+
+                                <TextBox Grid.Row="4" Grid.ColumnSpan="2"
+                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                         materialDesign:HintAssist.Hint="Procedure"
+                                         Text="{Binding NewSurgery.Procedure}"/>
+
+                                <TextBox Grid.Row="5" Grid.ColumnSpan="2"
+                                         AcceptsReturn="True" TextWrapping="Wrap"
+                                         VerticalAlignment="Stretch" MinHeight="140"
+                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                         materialDesign:HintAssist.Hint="Notes"
+                                         Text="{Binding NewSurgery.Notes}"/>
+
+                                <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
+                                    <Button Content="Create" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"/>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </materialDesign:Card>
+                </DockPanel>
+</UserControl>

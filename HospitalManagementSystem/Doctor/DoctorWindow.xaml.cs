@@ -25,12 +25,8 @@ namespace HospitalManagementSystem
         {
             InitializeComponent();
             DataContext = this;
-            CurrentSlideIndex = 0;
             ContentSwitcher.SelectedIndex = 0;
         }
-        
-        public int CurrentSlideIndex { get; set; }
-       
 
         public void GoToDashboard()
         {

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using HospitalManagementSystem.Surgeon;
 
 
 namespace HospitalManagementSystem
@@ -19,7 +20,19 @@ namespace HospitalManagementSystem
 
         private async void OnSignInClick(object sender, RoutedEventArgs e)
         {
-            var shell = new DoctorWindow();
+            // var shell = new DoctorWindow();
+            // shell.Show();
+            // Close();
+            // var shell = new AdminWindow();
+            //shell.Show();
+            //Close();
+            // var shell = new NurseWindow();
+            // shell.Show();
+            // Close();
+            // var shell = new LabWindow();
+            // shell.Show();
+            // Close();
+            var shell = new SurgeonWindow();
             shell.Show();
             Close();
         }

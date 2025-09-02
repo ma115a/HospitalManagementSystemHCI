@@ -1,0 +1,89 @@
+﻿<Window x:Class="HospitalManagementSystem.Surgeon.SurgeonWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:surgeon="clr-namespace:HospitalManagementSystem.Surgeon.Views"
+        mc:Ignorable="d"
+        Title="Surgeon Console"
+        Height="800" Width="1100"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesign.Brush.Background}">
+
+    
+
+    <DockPanel>
+        <!-- TOP APP BAR -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource MaterialDesign.Brush.Primary}">
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Hospital Icon -->
+                <materialDesign:PackIcon Kind="HospitalBuilding" Width="36" Height="36"
+                                         VerticalAlignment="Center"
+                                         Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+
+                <!-- Title -->
+                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="City General Hospital"
+                               FontSize="20" FontWeight="SemiBold"
+                               Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                    <TextBlock Text="Surgeon Console"
+                               FontSize="12" Opacity=".9"
+                               Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                </StackPanel>
+
+                <!-- Logged-in Surgeon -->
+                <Border Grid.Column="2" Padding="12,8" CornerRadius="20"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary.Container}"
+                        VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Knife" Width="20" Height="20"
+                                                 VerticalAlignment="Center"
+                                                 Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                        <Separator Width="10" Background="Transparent"/>
+                        <StackPanel>
+                            <TextBlock Text="Surgeon: John Smith"
+                                       FontWeight="SemiBold" FontSize="14"
+                                       Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                            <TextBlock Text="@jsmith" FontSize="12" Opacity=".9"
+                                       Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- CONTENT SWITCHER -->
+        <materialDesign:Transitioner x:Name="SurgeonSwitcher"
+                                     SelectedIndex="0"
+                                     Padding="28">
+
+            <!-- SLIDE 0: DASHBOARD -->
+            <materialDesign:TransitionerSlide>
+                <surgeon:SurgeonHomePageView/>
+            </materialDesign:TransitionerSlide>
+
+            <!-- SLIDE 1: MY SURGERIES (List + Details Tabs) -->
+            <materialDesign:TransitionerSlide>
+                <surgeon:SurgeriesView></surgeon:SurgeriesView>
+            </materialDesign:TransitionerSlide>
+
+            <!-- SLIDE 2: SCHEDULE SURGERY -->
+            <materialDesign:TransitionerSlide>
+                <surgeon:ScheduleSurgeryView></surgeon:ScheduleSurgeryView>
+            </materialDesign:TransitionerSlide>
+
+            <!-- SLIDE 3: HISTORY -->
+            <materialDesign:TransitionerSlide>
+                <surgeon:SurgeryHistoryView></surgeon:SurgeryHistoryView>
+            </materialDesign:TransitionerSlide>
+
+        </materialDesign:Transitioner>
+    </DockPanel>
+</Window>
