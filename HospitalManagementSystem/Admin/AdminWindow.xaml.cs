@@ -7,6 +7,7 @@ public partial class AdminWindow : Window
     public AdminWindow()
     {
         InitializeComponent();
+        DataContext = new ViewModels.AdminWindowViewModel();
     }
 
     public void GoToDashboard()
@@ -33,6 +34,6 @@ public partial class AdminWindow : Window
     {
         AdminSwitcher.SelectedIndex = 4;
     }
-    
-    
+
+
 }

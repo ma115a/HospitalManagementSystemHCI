@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace HospitalManagementSystem;
+namespace HospitalManagementSystem.Nurse.Views;
 
 public partial class NurseSurgeries : UserControl
 {

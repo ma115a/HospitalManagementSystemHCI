@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:HospitalManagementSystem"
+        xmlns:adminViews="clr-namespace:HospitalManagementSystem.Admin.Views"
         mc:Ignorable="d"
         Title="Administrator Dashboard"
         Height="800" Width="1000"
@@ -71,32 +71,32 @@
 
         <!-- TRANSITIONER -->
         <materialDesign:Transitioner x:Name="AdminSwitcher"
-                                     SelectedIndex="0"
+                                     SelectedIndex="{Binding CurrentSlideIndex}"
                                      Padding="32">
 
             <!-- SLIDE 0: DASHBOARD -->
             <materialDesign:TransitionerSlide>
-                <local:AdminHomePageView></local:AdminHomePageView>
+                <adminViews:AdminHomePageView></adminViews:AdminHomePageView>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 1: USER PROFILES -->
             <materialDesign:TransitionerSlide>
-               <local:UserProfilesView></local:UserProfilesView>
+               <adminViews:UserProfilesView></adminViews:UserProfilesView>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 2: DEPARTMENTS & ROOMS -->
             <materialDesign:TransitionerSlide>
-                <local:DepartmentRoomView></local:DepartmentRoomView>
+                <adminViews:DepartmentRoomView></adminViews:DepartmentRoomView>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 3: VEHICLES -->
             <materialDesign:TransitionerSlide>
-                <local:VehiclesView></local:VehiclesView>
+                <adminViews:VehiclesView></adminViews:VehiclesView>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 4: MEDICATIONS & INVENTORY -->
             <materialDesign:TransitionerSlide>
-                <local:MedicationInventoryView></local:MedicationInventoryView>
+                <adminViews:MedicationInventoryView></adminViews:MedicationInventoryView>
             </materialDesign:TransitionerSlide>
 
         </materialDesign:Transitioner>

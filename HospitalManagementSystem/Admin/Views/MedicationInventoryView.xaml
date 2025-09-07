@@ -14,7 +14,8 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                                Click="GoToDashboard">
+                                Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
                                 <TextBlock Text="Back to Dashboard"/>

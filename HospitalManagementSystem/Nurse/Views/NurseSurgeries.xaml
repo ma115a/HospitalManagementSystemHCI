@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HospitalManagementSystem.NurseAdmissions"
+﻿<UserControl x:Class="HospitalManagementSystem.Nurse.Views.NurseSurgeries"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             >
     <DockPanel>
                     <Border DockPanel.Dock="Top"
                             HorizontalAlignment="Left"
@@ -28,7 +28,7 @@
                             <ColumnDefinition Width="2.5*"/>
                         </Grid.ColumnDefinitions>
 
-                        <!-- Rooms & occupancy -->
+                        <!-- List -->
                         <materialDesign:Card Grid.Column="0" Margin="10,0,5,0"
                                              Padding="16" UniformCornerRadius="12"
                                              materialDesign:ElevationAssist.Elevation="Dp8">
@@ -37,22 +37,23 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Rooms (occupancy)" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                                <TextBlock Text="Surgeries" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
                                 <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
                                           AutoGenerateColumns="False"
-                                          ItemsSource="{Binding Rooms}"
-                                          SelectedItem="{Binding SelectedRoom}">
+                                          ItemsSource="{Binding Surgeries}"
+                                          SelectedItem="{Binding SelectedSurgery}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Room" Binding="{Binding Number}" Width="*"/>
-                                        <DataGridTextColumn Header="Dept" Binding="{Binding DepartmentName}" Width="2*"/>
-                                        <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="Auto"/>
-                                        <DataGridTextColumn Header="Occupied" Binding="{Binding Occupied}" Width="Auto"/>
+                                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*"/>
+                                        <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="Auto"/>
+                                        <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
+                                        <DataGridTextColumn Header="Procedure" Binding="{Binding Procedure}" Width="2*"/>
+                                        <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
                         </materialDesign:Card>
 
-                        <!-- Admit / Discharge -->
+                        <!-- Details + nurse assignment -->
                         <materialDesign:Card Grid.Column="1" Margin="5,0,10,0"
                                              Padding="16" UniformCornerRadius="12"
                                              materialDesign:ElevationAssist.Elevation="Dp8"
@@ -67,63 +68,65 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="*"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Admission / Discharge"
+                                    <TextBlock Grid.ColumnSpan="2" Text="Surgery Details"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
-                                    <ComboBox Grid.Row="1" Grid.ColumnSpan="2"
-                                              IsEditable="True" StaysOpenOnEdit="True"
-                                              Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Patient"
-                                              ItemsSource="{Binding Patients}"
-                                              Text="{Binding Admission.Patient, Mode=TwoWay}"/>
-
-                                    <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                                    <Grid Grid.Row="1" Grid.ColumnSpan="2">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
                                         <DatePicker Grid.Column="0"
                                                     Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                    materialDesign:HintAssist.Hint="Admit date"
-                                                    SelectedDate="{Binding Admission.AdmitDate}"/>
-                                        <DatePicker Grid.Column="1"
-                                                    Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                    materialDesign:HintAssist.Hint="Expected discharge"
-                                                    SelectedDate="{Binding Admission.ExpectedDischarge}"/>
+                                                    materialDesign:HintAssist.Hint="Date"
+                                                    SelectedDate="{Binding SelectedSurgery.Date}"/>
+                                        <TextBox Grid.Column="1"
+                                                 Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                                 materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                                 Text="{Binding SelectedSurgery.Time}"/>
                                     </Grid>
 
+                                    <TextBox Grid.Row="2" Grid.ColumnSpan="2"
+                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                             materialDesign:HintAssist.Hint="Procedure"
+                                             Text="{Binding SelectedSurgery.Procedure}"/>
+
+                                    <!-- Assignment area -->
                                     <Grid Grid.Row="3" Grid.ColumnSpan="2">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
                                             <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
-                                        <ComboBox Grid.Column="0"
-                                                  Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                                  materialDesign:HintAssist.Hint="Department"
-                                                  ItemsSource="{Binding Departments}"
-                                                  SelectedItem="{Binding Admission.Department}"/>
-                                        <ComboBox Grid.Column="1"
-                                                  Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                                  materialDesign:HintAssist.Hint="Room"
-                                                  ItemsSource="{Binding Rooms}"
-                                                  SelectedItem="{Binding Admission.Room}"/>
+
+                                        <StackPanel Grid.Column="0">
+                                            <TextBlock Text="Available nurses" FontWeight="SemiBold"/>
+                                            <ListBox ItemsSource="{Binding Nurses}"
+                                                     SelectedItem="{Binding SelectedNurse}"
+                                                     MinHeight="160"/>
+                                            <Button Content="Assign to surgery"
+                                                    Style="{DynamicResource MaterialDesignRaisedButton}"
+                                                    Margin="0,8,0,0"
+                                                    Command="{Binding AssignNurseCommand}"/>
+                                        </StackPanel>
+
+                                        <StackPanel Grid.Column="1">
+                                            <TextBlock Text="Assigned nurses" FontWeight="SemiBold"/>
+                                            <ListBox ItemsSource="{Binding AssignedNurses}"
+                                                     SelectedItem="{Binding SelectedAssignedNurse}"
+                                                     MinHeight="160"/>
+                                            <Button Content="Remove selected"
+                                                    Style="{DynamicResource MaterialDesignFlatButton}"
+                                                    Margin="0,8,0,0"
+                                                    Command="{Binding RemoveAssignedNurseCommand}"/>
+                                        </StackPanel>
                                     </Grid>
 
-                                    <TextBox Grid.Row="4" Grid.ColumnSpan="2"
-                                             AcceptsReturn="True" TextWrapping="Wrap"
-                                             VerticalAlignment="Stretch" MinHeight="120"
-                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Reason / Notes"
-                                             Text="{Binding Admission.Notes}"/>
-
-                                    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button Content="Discharge" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                        <Button Content="Admit"     Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"/>
+                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                        <Button Content="Close" Style="{DynamicResource MaterialDesignFlatButton}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

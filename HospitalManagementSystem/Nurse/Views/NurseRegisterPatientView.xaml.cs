@@ -1,11 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace HospitalManagementSystem;
+namespace HospitalManagementSystem.Nurse.Views;
 
-public partial class NurseScheduleAppointment : UserControl
+public partial class NurseRegisterPatientView : UserControl
 {
-    public NurseScheduleAppointment()
+    public NurseRegisterPatientView()
     {
         InitializeComponent();
     }

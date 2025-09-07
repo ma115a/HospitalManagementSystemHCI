@@ -1,16 +1,30 @@
-﻿<Window x:Class="HospitalManagementSystem.NurseWindow"
+﻿<Window x:Class="HospitalManagementSystem.Nurse.Views.NurseWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:HospitalManagementSystem"
+        xmlns:views="clr-namespace:HospitalManagementSystem.Nurse.Views"
+        xmlns:vm="clr-namespace:HospitalManagementSystem.Nurse.ViewModels"
         mc:Ignorable="d"
         Title="Nurse Dashboard"
-        Height="600" Width="1050"
+        Height="800" Width="1050"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesign.Brush.Background}">
-    
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:NurseRegisterPatientViewModel}">
+            <views:NurseRegisterPatientView></views:NurseRegisterPatientView>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NurseScheduleAppointmentViewModel}">
+            <views:NurseScheduleAppointmentView></views:NurseScheduleAppointmentView>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NurseAppointmentsViewModel}">
+            <views:NurseAppointments></views:NurseAppointments>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NurseAdmissionsViewModel}">
+            <views:NurseAdmissions></views:NurseAdmissions>
+        </DataTemplate>
+    </Window.Resources>
 
     <DockPanel>
 
@@ -59,42 +73,42 @@
 
         <!-- CONTENT SWITCHER -->
         <materialDesign:Transitioner x:Name="NurseSwitcher"
-                                     SelectedIndex="0"
+                                     SelectedIndex="{Binding CurrentSlideIndex}"
                                      Padding="28">
 
             <!-- SLIDE 0: DASHBOARD -->
             <materialDesign:TransitionerSlide>
-                <local:NurseHomePage></local:NurseHomePage>
+                <views:NurseHomePage></views:NurseHomePage>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 1: APPOINTMENTS -->
             <materialDesign:TransitionerSlide>
-                <local:NurseAppointments></local:NurseAppointments>
+                <ContentPresenter Content="{Binding AppointmentsVm}"></ContentPresenter>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 2: SCHEDULE APPOINTMENT -->
             <materialDesign:TransitionerSlide>
-                <local:NurseScheduleAppointment></local:NurseScheduleAppointment>
+                <ContentPresenter Content="{Binding ScheduleVm }"/>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 3: ADMISSIONS & BEDS -->
             <materialDesign:TransitionerSlide>
-                <local:NurseAdmissions></local:NurseAdmissions>
+                <ContentPresenter Content="{Binding AdmissionVm}"/>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 4: LAB (REQUESTS & RESULTS) -->
             <materialDesign:TransitionerSlide>
-                <local:NurseLab></local:NurseLab>
+                <views:NurseLab></views:NurseLab>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 5: SURGERIES (assign nurses) -->
             <materialDesign:TransitionerSlide>
-                <local:NurseSurgeries></local:NurseSurgeries>
+                <views:NurseSurgeries></views:NurseSurgeries>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 6: PATIENTS (registry) -->
             <materialDesign:TransitionerSlide>
-                <local:NurseRegisterPatient></local:NurseRegisterPatient>
+                <ContentPresenter Content="{Binding PatientsVm}" />
             </materialDesign:TransitionerSlide>
 
             

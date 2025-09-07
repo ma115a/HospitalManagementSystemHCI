@@ -1,12 +1,14 @@
 ﻿using System.Windows;
+using HospitalManagementSystem.Nurse.ViewModels;
 
-namespace HospitalManagementSystem;
+namespace HospitalManagementSystem.Nurse.Views;
 
 public partial class NurseWindow : Window
 {
-    public NurseWindow()
+    public NurseWindow(NurseWindowViewModel vm)
     {
         InitializeComponent();
+        DataContext = vm;
     }
 
     public void GoToDashboard()

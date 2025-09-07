@@ -16,13 +16,13 @@ public partial class AdminHomePageView : UserControl
         var parentWindow = Window.GetWindow(this) as AdminWindow;
         parentWindow?.GoToUserProfiles();
     }
-    
+
     private void DepartmentRooms_Click(object sender, RoutedEventArgs e)
     {
         var parentWindow = Window.GetWindow(this) as AdminWindow;
         parentWindow?.GoToDepartmentsView();
     }
-    
+
     private void Vehicles_Click(object sender, RoutedEventArgs e)
     {
         var parentWindow = Window.GetWindow(this) as AdminWindow;

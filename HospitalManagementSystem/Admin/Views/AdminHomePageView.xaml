@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:viewModels="clr-namespace:HospitalManagementSystem.Admin.ViewModels"
+             d:DataContext="{d:DesignInstance Type=viewModels:AdminWindowViewModel}"
              mc:Ignorable="d"
              >
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -49,8 +51,7 @@
                                     <Button Grid.Row="2" Content="Open"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
-                                            Click="ManageUserProfiles_Click"
-                                            Command="{Binding GoToUsersCommand}"/>
+                                            Command="{Binding DataContext.GoToManageUsersCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                 </Grid>
                             </materialDesign:Card>
 
@@ -76,8 +77,8 @@
                                     <Button Grid.Row="2" Content="Open"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
-                                            Click="DepartmentRooms_Click"
-                                            Command="{Binding GoToDepartmentsCommand}"/>
+                                            Command="{Binding DataContext.GoToDepartmentsRoomsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            />
                                 </Grid>
                             </materialDesign:Card>
 
@@ -103,8 +104,7 @@
                                     <Button Grid.Row="2" Content="Open"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
-                                            Click="Vehicles_Click"
-                                            Command="{Binding GoToVehiclesCommand}"/>
+                                            Command="{Binding DataContext.GoToVehiclesCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                 </Grid>
                             </materialDesign:Card>
 
@@ -130,8 +130,7 @@
                                     <Button Grid.Row="2" Content="Open"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
-                                            Click="MedicationInventory_Click"
-                                            Command="{Binding GoToInventoryCommand}"/>
+                                            Command="{Binding DataContext.GoToMedicationInventoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                 </Grid>
                             </materialDesign:Card>
                         </UniformGrid>

@@ -5,86 +5,259 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
-             mc:Ignorable="d"
-             >
-    <DockPanel>
-                    <Border DockPanel.Dock="Top"
-                            HorizontalAlignment="Left"
-                            Background="{DynamicResource MaterialDesign.Brush.Surface}"
-                            BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
-                            BorderThickness="0,0,0,1" Padding="8,6">
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                                Click="GoToDashboard">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
-                            </StackPanel>
-                        </Button>
-                    </Border>
+             mc:Ignorable="d">
 
-                    <Border DockPanel.Dock="Top"
-                            Background="{DynamicResource MaterialDesign.Brush.Surface}"
-                            BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
-                            BorderThickness="0,0,0,1" Padding="8,6">
-                        <StackPanel Orientation="Horizontal">
-                            <Button Content="New Department" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                            <Button Content="New Room"       Style="{DynamicResource MaterialDesignFlatButton}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                        </StackPanel>
-                    </Border>
+    <!-- Helpers -->
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
 
-                    <Grid Margin="0,8,0,0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*"/>
-                            <ColumnDefinition Width="2*"/>
-                        </Grid.ColumnDefinitions>
+    <!-- One host for all dialogs -->
+    <materialDesign:DialogHost
+        IsOpen="{Binding IsAnyDialogOpen}"
+        CloseOnClickAway="True"
+        Background="{DynamicResource MaterialDesign.Brush.DialogHost.Background}">
 
-                        <!-- Departments -->
-                        <materialDesign:Card Grid.Column="0" Margin="10,0,5,0"
-                                             Padding="16" UniformCornerRadius="12"
-                                             materialDesign:ElevationAssist.Elevation="Dp8">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="Departments" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
-                                <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
-                                          AutoGenerateColumns="False"
-                                          ItemsSource="{Binding Departments}"
-                                          SelectedItem="{Binding SelectedDepartment}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="2*"/>
-                                        <DataGridTextColumn Header="Code" Binding="{Binding Code}" Width="*"/>
-                                        <DataGridTextColumn Header="Head" Binding="{Binding Head}" Width="2*"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </materialDesign:Card>
+        <!-- Main content -->
+        <DockPanel>
+            <!-- Back bar -->
+            <Border DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                    BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                    BorderThickness="0,0,0,1" Padding="8,6">
+                <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                        Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
+                        <TextBlock Text="Back to Dashboard"/>
+                    </StackPanel>
+                </Button>
+            </Border>
 
-                        <!-- Rooms -->
-                        <materialDesign:Card Grid.Column="1" Margin="5,0,10,0"
-                                             Padding="16" UniformCornerRadius="12"
-                                             materialDesign:ElevationAssist.Elevation="Dp8">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>
-                                    <RowDefinition Height="*"/>
-                                </Grid.RowDefinitions>
-                                <TextBlock Text="Rooms" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
-                                <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
-                                          AutoGenerateColumns="False"
-                                          ItemsSource="{Binding Rooms}"
-                                          SelectedItem="{Binding SelectedRoom}">
-                                    <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Number" Binding="{Binding Number}" Width="*"/>
-                                        <DataGridTextColumn Header="Department" Binding="{Binding DepartmentName}" Width="2*"/>
-                                        <DataGridTextColumn Header="Capacity" Binding="{Binding Capacity}" Width="*"/>
-                                        <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="*"/>
-                                    </DataGrid.Columns>
-                                </DataGrid>
-                            </Grid>
-                        </materialDesign:Card>
+            <!-- Toolbar -->
+            <Border DockPanel.Dock="Top"
+                    Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                    BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                    BorderThickness="0,0,0,1" Padding="8,6">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="New Department" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewDepartmentCommand}"/>
+                    <Button Content="New Room"       Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewRoomCommand}"/>
+                    <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteCommand}"/>
+                </StackPanel>
+            </Border>
+
+            <!-- Body -->
+            <Grid Margin="0,8,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Departments -->
+                <materialDesign:Card Grid.Column="0" Margin="10,0,5,0"
+                                     Padding="16" UniformCornerRadius="12"
+                                     materialDesign:ElevationAssist.Elevation="Dp8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Departments" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <DataGrid Grid.Row="1"
+                                  SelectionMode="Extended"
+                                  Style="{DynamicResource MaterialDesignDataGrid}"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  ItemsSource="{Binding Departments}"
+                                  SelectedItem="{Binding SelectedDepartment}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="2*"/>
+                                <DataGridTextColumn Header="Code" Binding="{Binding code}" Width="*"/>
+                                <DataGridTextColumn Header="Head" Binding="{Binding doctor_employee.employee.name}" Width="2*"/>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <!-- Press Esc to clear -->
+                                <KeyBinding Key="Escape" Command="{Binding ClearDepartmentSelectionCommand}" />
+                            </DataGrid.InputBindings>
+                        </DataGrid>
                     </Grid>
-                </DockPanel>
+                </materialDesign:Card>
+
+                <!-- Rooms -->
+                <materialDesign:Card Grid.Column="1" Margin="5,0,10,0"
+                                     Padding="16" UniformCornerRadius="12"
+                                     materialDesign:ElevationAssist.Elevation="Dp8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Rooms" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                        <DataGrid Grid.Row="1"
+                                  Style="{DynamicResource MaterialDesignDataGrid}"
+                                  AutoGenerateColumns="False"
+                                  IsReadOnly="True"
+                                  CanUserAddRows="False"
+                                  CanUserDeleteRows="False"
+                                  ItemsSource="{Binding Rooms}"
+                                  SelectedItem="{Binding SelectedRoom}">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Number" Binding="{Binding number}" Width="*"/>
+                                <DataGridTextColumn Header="Capacity" Binding="{Binding capacity}" Width="*"/>
+                                <DataGridTextColumn Header="Type" Binding="{Binding current_patients_number}" Width="*"/>
+                            </DataGrid.Columns>
+                            <DataGrid.InputBindings>
+                                <!-- Press Esc to clear -->
+                                <KeyBinding Key="Escape" Command="{Binding ClearRoomSelectionCommand}" />
+                            </DataGrid.InputBindings>
+                        </DataGrid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </DockPanel>
+
+        <!-- Dialog content (centered) -->
+        <materialDesign:DialogHost.DialogContent>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16">
+                <!-- Department Form -->
+                <Grid Visibility="{Binding IsNewDepartmentOpen, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:Card Padding="16" UniformCornerRadius="12" Width="420">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>  <!-- title -->
+                                <RowDefinition Height="Auto"/>  <!-- name -->
+                                <RowDefinition Height="Auto"/>  <!-- code -->
+                                <RowDefinition Height="Auto"/>  <!-- head -->
+                                <RowDefinition Height="Auto"/>  <!-- actions -->
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Create Department"
+                                       FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+
+                            <TextBox Grid.Row="1"
+                                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                     materialDesign:HintAssist.Hint="Department Name"
+                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     Margin="0,0,0,12"
+                                     Text="{Binding SelectedDepartment.name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                            <TextBox Grid.Row="2"
+                                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                     materialDesign:HintAssist.Hint="Code"
+                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                     Text="{Binding SelectedDepartment.code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="0,0,0,12"/>
+
+                            <ComboBox Grid.Row="3"
+                                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                      materialDesign:HintAssist.Hint="Head of department"
+                                      ItemsSource="{Binding Doctors}"
+                                      SelectedItem="{Binding SelectedHeadDoctor, Mode=TwoWay}"
+                                      Margin="0,0,0,16">
+                                <ComboBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding employee.name}"/>
+                                            <TextBlock Text=" (" Margin="4,0,0,0"/>
+                                            <TextBlock Text="{Binding specialty}"/>
+                                            <TextBlock Text=")"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ComboBox.ItemTemplate>
+                            </ComboBox>
+
+                            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Cancel"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        Command="{Binding CloseNewDepartmentCommand}"/>
+                                <Button Content="Save"
+                                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                                        Margin="8,0,0,0"
+                                        Command="{Binding SaveDepartmentCommand}"
+                                        IsEnabled="{Binding CanSaveDepartment}"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+
+                <!-- Room Form -->
+                <Grid Visibility="{Binding IsNewRoomOpen, Converter={StaticResource BoolToVis}}">
+                    <materialDesign:Card Padding="16" UniformCornerRadius="12" Width="420">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>  <!-- title -->
+                                <RowDefinition Height="Auto"/>  <!-- department -->
+                                <RowDefinition Height="Auto"/>  <!-- number -->
+                                <RowDefinition Height="Auto"/>  <!-- capacity -->
+                                <RowDefinition Height="Auto"/>  <!-- current patients -->
+                                <RowDefinition Height="Auto"/>  <!-- actions -->
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="Create Room"
+                                       FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+
+                            <ComboBox Grid.Row="1"
+                                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                      materialDesign:HintAssist.Hint="Department"
+                                      ItemsSource="{Binding Departments}"
+                                      DisplayMemberPath="name"
+                                      SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}"
+                                      Margin="0,0,0,12"/>
+
+                            <TextBox Grid.Row="2"
+                                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                     materialDesign:HintAssist.Hint="Room number"
+                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     Text="{Binding SelectedRoom.number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="0,0,0,12"/>
+
+                            <TextBox Grid.Row="3"
+                                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                     materialDesign:HintAssist.Hint="Capacity"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                     Text="{Binding SelectedRoom.capacity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="0,0,0,12"/>
+
+                            <TextBox Grid.Row="4"
+                                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                     materialDesign:HintAssist.Hint="Current patients (optional)"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                     Text="{Binding SelectedRoom.current_patients_number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Margin="0,0,0,16"/>
+
+                            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button Content="Cancel"
+                                        Style="{DynamicResource MaterialDesignFlatButton}"
+                                        Command="{Binding CloseNewRoomCommand}"/>
+                                <Button Content="Save"
+                                        Style="{DynamicResource MaterialDesignRaisedButton}"
+                                        Margin="8,0,0,0"
+                                        Command="{Binding SaveRoomCommand}"
+                                        />
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </Grid>
+            </Grid>
+        </materialDesign:DialogHost.DialogContent>
+    </materialDesign:DialogHost>
 </UserControl>

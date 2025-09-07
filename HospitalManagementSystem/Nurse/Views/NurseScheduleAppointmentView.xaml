@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="HospitalManagementSystem.NurseScheduleAppointment"
+﻿<UserControl x:Class="HospitalManagementSystem.Nurse.Views.NurseScheduleAppointmentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+    d:DesignHeight="600" d:DesignWidth="800">
     <DockPanel>
                     <Border DockPanel.Dock="Top"
                             HorizontalAlignment="Left"
@@ -25,7 +25,7 @@
                     <materialDesign:Card Margin="10"
                                          Padding="20" UniformCornerRadius="12"
                                          materialDesign:ElevationAssist.Elevation="Dp8"
-                                         ClipToBounds="True">
+                                        >
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <Grid>
                                 <Grid.ColumnDefinitions>
@@ -45,17 +45,43 @@
                                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                 <ComboBox Grid.Row="1" Grid.ColumnSpan="2"
-                                          IsEditable="True" StaysOpenOnEdit="True"
                                           Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                                           materialDesign:HintAssist.Hint="Patient"
+                                          materialDesign:HintAssist.IsFloating="False"
                                           ItemsSource="{Binding Patients}"
-                                          Text="{Binding NewAppointment.PatientName, Mode=TwoWay}"/>
+                                          IsTextSearchEnabled="True"
+                                          SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
+                                          Margin="0,0,0,10">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding name}"></TextBlock>
+                                                <TextBlock Text=" (" Margin="4,0,0,0"></TextBlock>
+                                                <TextBlock Text="{Binding umcn}"></TextBlock>
+                                                <TextBlock Text=" )"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
 
                                 <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
                                           Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                                           materialDesign:HintAssist.Hint="Doctor"
+                                          materialDesign:HintAssist.IsFloating="False"
                                           ItemsSource="{Binding Doctors}"
-                                          SelectedItem="{Binding NewAppointment.DoctorName}"/>
+                                          Margin="0,0,0,10"
+                                          SelectedItem="{Binding SelectedDoctor, Mode=TwoWay}">
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="{Binding employee.name}"></TextBlock>
+                                                <TextBlock Text=" (" Margin="4,0,0,0"></TextBlock>
+                                                <TextBlock Text="{Binding specialty}"></TextBlock>
+                                                <TextBlock Text=" )"></TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                </ComboBox>
 
                                 <Grid Grid.Row="3" Grid.ColumnSpan="2">
                                     <Grid.ColumnDefinitions>
@@ -64,24 +90,42 @@
                                     </Grid.ColumnDefinitions>
                                     <DatePicker Grid.Column="0"
                                                 Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                materialDesign:HintAssist.Hint="Date"
-                                                SelectedDate="{Binding NewAppointment.Date}"/>
+                                                materialDesign:HintAssist.Hint="Date" 
+                                                materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                materialDesign:HintAssist.IsFloating="False"
+                                                Margin="0,0,5,10"
+                                                SelectedDate="{Binding NewAppointmentDate}"/>
                                     <TextBox Grid.Column="1"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
                                              materialDesign:HintAssist.Hint="Time (HH:mm)"
-                                             Text="{Binding NewAppointment.Time}"/>
+                                             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                             materialDesign:HintAssist.IsFloating="False"
+                                             Margin="5,0,0,10"
+                                             PreviewTextInput="TimeBox_PreviewTextInput"
+                                             TextChanged="TimeBox_TextChanged"
+                                             PreviewKeyDown="TimeBox_PreviewKeyDown"
+                                             Text="{Binding NewAppointmentTime, UpdateSourceTrigger=PropertyChanged}"/>
                                 </Grid>
 
                                 <TextBox Grid.Row="4" Grid.ColumnSpan="2"
                                          AcceptsReturn="True" TextWrapping="Wrap"
                                          VerticalAlignment="Stretch" MinHeight="140"
                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                         materialDesign:HintAssist.Hint="Reason / Notes"
-                                         Text="{Binding NewAppointment.Notes}"/>
+                                         materialDesign:HintAssist.Hint="Reason / Notes" 
+                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                         materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                         materialDesign:HintAssist.IsFloating="False"
+                                         Margin="0,0,0,10"
+                                         Text="{Binding NewAppointmentNotes}"/>
 
                                 <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
                                     <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                    <Button Content="Create" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"/>
+                                    <Button Content="Create" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAppointmentCommand }"/>
                                 </StackPanel>
                             </Grid>
                         </ScrollViewer>

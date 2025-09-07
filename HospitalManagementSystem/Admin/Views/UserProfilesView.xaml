@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -15,7 +16,8 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                                Click="GoToDashboard">
+                                Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
                                 <TextBlock Text="Back to Dashboard"/>
@@ -30,10 +32,9 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}"/>
-                            <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                            <Button Content="Reset password" Style="{DynamicResource MaterialDesignFlatButton}"/>
+                            <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewUserCommand}"/>
+                            <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditUserCommand}"/>
+                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteUserCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -57,13 +58,17 @@
                                 <DataGrid Grid.Row="1"
                                           Style="{DynamicResource MaterialDesignDataGrid}"
                                           AutoGenerateColumns="False"
-                                          ItemsSource="{Binding Users}"
-                                          SelectedItem="{Binding SelectedUser}">
+                                          IsReadOnly="True"
+                                          CanUserAddRows="False"
+                                          CanUserReorderColumns="False"
+                                          CanUserDeleteRows="False"
+                                          ItemsSource="{Binding Employees}"
+                                          SelectedItem="{Binding SelectedEmployee}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Username" Binding="{Binding Username}" Width="*"/>
-                                        <DataGridTextColumn Header="Name" Binding="{Binding FullName}" Width="2*"/>
+                                        <DataGridTextColumn Header="Username" Binding="{Binding username}" Width="*"/>
+                                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="2*"/>
                                         <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
-                                        <DataGridCheckBoxColumn Header="Active" Binding="{Binding IsActive}" Width="Auto"/>
+                                        <DataGridCheckBoxColumn Header="Active" Binding="{Binding active}" Width="Auto"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -75,7 +80,7 @@
                                              materialDesign:ElevationAssist.Elevation="Dp8"
                                              >
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                <Grid>
+                                <Grid DataContext="{Binding SelectedEmployee}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="*"/>
                                         <ColumnDefinition Width="*"/>
@@ -97,43 +102,73 @@
                                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
                                              materialDesign:HintAssist.Hint="Full name"
+                                             IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
                                              Margin="0,0,0,10"
-                                             Text="{Binding SelectedUser.FullName}"/>
+                                             Text="{Binding name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <TextBox Grid.Row="2" Grid.Column="0"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
                                              materialDesign:HintAssist.Hint="Username"
+                                             IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                             Name="UsernameTextBox"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
                                              Margin="0,0,5,10"
-                                             Text="{Binding SelectedUser.Username}"/>
+                                             Text="{Binding username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <PasswordBox Grid.Row="2" Grid.Column="1"
                                                  materialDesign:HintAssist.Hint="Password (set/reset)"
                                                  materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  materialDesign:HintAssist.IsFloating="False"
+                                                 IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                 Name="PasswordTextBox"
                                                  Margin="5,0,0,10"
+                                                 utils:PasswordBoxAssistant.BindPassword="True"
+                                                 utils:PasswordBoxAssistant.BoundPassword="{Binding DataContext.Password, RelativeSource={RelativeSource AncestorType=UserControl} , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                                  Style="{DynamicResource MaterialDesignFilledPasswordBox}"/>
 
                                     <ComboBox Grid.Row="3" Grid.Column="0"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                                               materialDesign:HintAssist.Hint="Role"
-                                              ItemsSource="{Binding Roles}"
                                               Margin="0,0,5,10"
-                                              SelectedItem="{Binding SelectedUser.Role}"/>
+                                              SelectedValuePath="Content"
+                                              Name="RoleBox"
+                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                              SelectedValue="{Binding DataContext.SelectedRole, Mode=TwoWay, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}">
+                                        <ComboBoxItem>Administrator</ComboBoxItem>
+                                        <ComboBoxItem>Doctor</ComboBoxItem>
+                                        <ComboBoxItem>Nurse</ComboBoxItem>
+                                        <ComboBoxItem>Surgeon</ComboBoxItem>
+                                        <ComboBoxItem>Lab Technician</ComboBoxItem>
+                                    </ComboBox>
                                     <ComboBox Grid.Row="3" Grid.Column="1"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                                               materialDesign:HintAssist.Hint="Department (optional)"
-                                              ItemsSource="{Binding Departments}"
                                               Margin="5,0,0,10"
-                                              SelectedItem="{Binding SelectedUser.Department}"/>
+                                              SelectedValuePath="Content"
+                                              IsEnabled="{Binding DataContext.IsDepartmentEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                              Name="DepartmentBox"
+                                              SelectedValue="{Binding DataContext.SelectedDepartment ,Mode=TwoWay,RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}">
+                                        <ComboBoxItem>Cardiology</ComboBoxItem>
+                                        <ComboBoxItem>Neurology</ComboBoxItem>
+                                        <ComboBoxItem>Orthopedics</ComboBoxItem>
+                                        <ComboBoxItem>Pediatrics</ComboBoxItem>
+                                        <ComboBoxItem>Oncology</ComboBoxItem>
+                                        <ComboBoxItem>Radiology</ComboBoxItem>
+                                        <ComboBoxItem>Emergency</ComboBoxItem>
+                                        <ComboBoxItem>Intensive Care Unit (ICU)</ComboBoxItem>
+                                        <ComboBoxItem>Surgery</ComboBoxItem>
+                                        <ComboBoxItem>Laboratory</ComboBoxItem>
+                                        <ComboBoxItem>Pharmacy</ComboBoxItem>
+                                        <ComboBoxItem>Gynecology &amp; Obstetrics</ComboBoxItem>
+                                    </ComboBox>
 
                                     <TextBox Grid.Row="4" Grid.Column="0"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
@@ -142,21 +177,27 @@
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
+                                             IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                             Name="PhoneTextBox"
                                              Margin="0,0,5,10"
-                                             Text="{Binding SelectedUser.Phone}"/>
+                                             Text="{Binding phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <TextBox Grid.Row="4" Grid.Column="1"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
                                              materialDesign:HintAssist.Hint="Email"
+                                             IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                             Name="EmailTextBox"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
                                              Margin="5,0,0,10"
-                                             Text="{Binding SelectedUser.Email}"/>
+                                             Text="{Binding email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <CheckBox Grid.Row="5" Grid.ColumnSpan="2"
                                               Content="Active"
-                                              IsChecked="{Binding SelectedUser.IsActive}"
+                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                              Name="ActiveBox"
+                                              IsChecked="{Binding active}"
                                               Margin="0,0,0,10"
                                               Style="{DynamicResource MaterialDesignCheckBox}"/>
 
@@ -167,15 +208,17 @@
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
+                                             IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                             Name="NotesTextBox"
                                              Margin="0,0,0,10"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
                                              materialDesign:HintAssist.Hint="Notes"
-                                             Text="{Binding SelectedUser.Notes}"/>
+                                             Text="{Binding notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal"
                                                 HorizontalAlignment="Right">
-                                        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"/>
+                                        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>
