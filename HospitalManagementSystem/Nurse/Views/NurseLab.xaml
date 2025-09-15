@@ -5,8 +5,12 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
     d:DesignHeight="600" d:DesignWidth="800">
+    <UserControl.Resources>
+        <utils:DateConverter x:Key="DateConverter"></utils:DateConverter>
+    </UserControl.Resources>
     <DockPanel>
                     <Border DockPanel.Dock="Top"
                             HorizontalAlignment="Left"
@@ -27,17 +31,18 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewAdmissionCommand}"/>
-                            <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditAdmissionCommand}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteAdmissionCommand}"/>
+                            <Button Content="New" IsEnabled="{Binding IsOptionsEnabled}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewTestCommand}"/>
+                            <Button Content="Edit" IsEnabled="{Binding IsOptionsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditTestCommand}"/>
+                            <Button Content="Delete" IsEnabled="{Binding IsOptionsEnabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteLabTestCommand}"/>
                         </StackPanel>
                     </Border>
 
                     <materialDesign:Card Margin="10"
                                          Padding="5" UniformCornerRadius="12"
                                          materialDesign:ElevationAssist.Elevation="Dp8"
-                                         ClipToBounds="True">
+                                         >
                         <TabControl>
+                            <!-- <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}"> -->
                             <!-- Requests -->
                             <TabItem Header="Requests">
                                 <Grid Margin="8,4,8,8">
@@ -52,18 +57,55 @@
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Text="Lab Requests" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                                            <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
+                                            
+                                            <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <ComboBox Grid.Column="0"
+                                                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                                          materialDesign:HintAssist.Hint="Patient"
+                                                          materialDesign:HintAssist.IsFloating="False"
+                                                          ItemsSource="{Binding Patients}"
+                                                          Margin="0,0,0,10"
+                                                          SelectedItem="{Binding SelectedPatientFilter, Mode=TwoWay}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding name}"></TextBlock>
+                                                                <TextBlock Text=" (" Margin="4,0,0,0"></TextBlock>
+                                                                <TextBlock Text="{Binding umcn}"></TextBlock>
+                                                                <TextBlock Text=" )"></TextBlock>
+                                                            </StackPanel>       
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+
+                                                <Border Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,10">
+                                                    <Button Content="Clear"
+                                                            Style="{DynamicResource MaterialDesignFlatButton}"
+                                                            Command="{Binding ClearFilterCommand}"/>
+                                                </Border>
+                                            </Grid>
+                                            <DataGrid Grid.Row="2" Style="{DynamicResource MaterialDesignDataGrid}"
                                                       AutoGenerateColumns="False"
-                                                      ItemsSource="{Binding LabRequests}"
-                                                      SelectedItem="{Binding SelectedLabRequest}">
+                                                      ItemsSource="{Binding LaboratoryTests}"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      IsReadOnly="True"
+                                                      SelectedItem="{Binding SelectedLaboratoryTest}">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Date" Binding="{Binding RequestedAt, StringFormat=d}" Width="*"/>
-                                                    <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
-                                                    <DataGridTextColumn Header="Doctor" Binding="{Binding DoctorName}" Width="2*"/>
-                                                    <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                                                    <DataGridTextColumn Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                                    <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="Doctor" Binding="{Binding doctor.employee.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="Nurse" Binding="{Binding nurse.employee.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
                                         </Grid>
@@ -83,6 +125,7 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="*"/>
                                                     <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
@@ -99,7 +142,7 @@
                                                           ItemsSource="{Binding Patients}"
                                                           IsEnabled="{Binding IsControlsEnabled}"
                                                           SelectedValuePath="umcn"
-                                                          SelectedValue="{Binding SelectedAdmission.patient_umcn, Mode=TwoWay}"
+                                                          SelectedValue="{Binding SelectedLaboratoryTest.patient_umcn, Mode=TwoWay}"
                                                           SelectedItem="{Binding SelectedPatient}"
                                                           Margin="0,0,0,10"
                                                 >
@@ -114,9 +157,31 @@
                                                         </DataTemplate>
                                                     </ComboBox.ItemTemplate>
                                                 </ComboBox>
+                                               
+                                    <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
+                                              Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                              materialDesign:HintAssist.Hint="Lab Tehnician"
+                                              materialDesign:HintAssist.IsFloating="False"
+                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                              ItemsSource="{Binding Technicians}"
+                                              IsEnabled="{Binding IsControlsEnabled}"
+                                              SelectedValuePath="employee_id"
+                                              SelectedValue="{Binding SelectedLaboratoryTest.laboratory_tehnician_id, Mode=TwoWay}"
+                                              SelectedItem="{Binding SelectedLaboratoryTechnician}"
+                                              Margin="0,0,0,10"
+                                    >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding employee.name}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+
 
                                                 
-                                                <TextBox Grid.Row="2" Grid.ColumnSpan="2"
+                                                <TextBox Grid.Row="3" Grid.ColumnSpan="2"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
                                                          materialDesign:HintAssist.Hint="Test name"
                                                          materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
@@ -124,9 +189,10 @@
                                                          materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                                          materialDesign:HintAssist.IsFloating="False"
                                                          Margin="0,0,0,10"
-                                                         Text="{Binding SelectedLabRequest.TestName, Mode=TwoWay}"/>
+                                                         IsEnabled="{Binding IsControlsEnabled}"
+                                                         Text="{Binding SelectedLaboratoryTest.name, Mode=TwoWay}"/>
 
-                                                <TextBox Grid.Row="3" Grid.ColumnSpan="2"
+                                                <TextBox Grid.Row="4" Grid.ColumnSpan="2"
                                                          AcceptsReturn="True" TextWrapping="Wrap"
                                                          VerticalAlignment="Stretch" MinHeight="120"
                                                          Margin="0,0,0,10"
@@ -136,11 +202,12 @@
                                                          materialDesign:HintAssist.IsFloating="False"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
                                                          materialDesign:HintAssist.Hint="Clinical information / Reason"
-                                                         Text="{Binding SelectedLabRequest.ClinicalInfo}"/>
+                                                         IsEnabled="{Binding IsControlsEnabled}"
+                                                         Text="{Binding SelectedLaboratoryTest.description}"/>
 
-                                                <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                                    <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                                    <Button Content="Submit" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"/>
+                                                <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelTestCommand}"/>
+                                                    <Button Content="Save" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveTestCommand}"/>
                                                 </StackPanel>
                                             </Grid>
                                         </ScrollViewer>
@@ -153,49 +220,99 @@
                                 <Grid Margin="8,4,8,8">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
-                                        <ColumnDefinition Width="2.5*"/>
+                                        <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <!-- List -->
-                                    <materialDesign:Card Grid.Column="0" Margin="0,0,8,0" Padding="12"
+                                    <materialDesign:Card Grid.Column="0" Margin="0,0,8,0" Padding="10"
                                                          materialDesign:ElevationAssist.Elevation="Dp2">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Text="Lab Results" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
-                                            <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
+                                             <Grid Grid.Row="1">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+
+                                                <ComboBox Grid.Column="0"
+                                                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                                          materialDesign:HintAssist.Hint="Patient"
+                                                          materialDesign:HintAssist.IsFloating="False"
+                                                          ItemsSource="{Binding Patients}"
+                                                          Margin="0,0,0,10"
+                                                          SelectedItem="{Binding SelectedPatientFilterResult, Mode=TwoWay}">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding name}"></TextBlock>
+                                                                <TextBlock Text=" (" Margin="4,0,0,0"></TextBlock>
+                                                                <TextBlock Text="{Binding umcn}"></TextBlock>
+                                                                <TextBlock Text=" )"></TextBlock>
+                                                            </StackPanel>       
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+
+                                                <Border Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,10">
+                                                    <Button Content="Clear"
+                                                            Style="{DynamicResource MaterialDesignFlatButton}"
+                                                            Command="{Binding ClearFilterResultsCommand}"/>
+                                                </Border>
+                                            </Grid>
+                                            <DataGrid Grid.Row="2" Style="{DynamicResource MaterialDesignDataGrid}"
                                                       AutoGenerateColumns="False"
-                                                      ItemsSource="{Binding LabResults}"
-                                                      SelectedItem="{Binding SelectedLabResult}">
-                                                <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*"/>
-                                                    <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
-                                                    <DataGridTextColumn Header="Test" Binding="{Binding TestName}" Width="2*"/>
-                                                    <DataGridTextColumn Header="Doctor" Binding="{Binding DoctorName}" Width="2*"/>
-                                                </DataGrid.Columns>
+                                                      IsReadOnly="True"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      ItemsSource="{Binding LaboratoryTestResults}"
+                                                      SelectedItem="{Binding SelectedLaboratoryTestResult}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                                        <DataGridTextColumn Header="Name" Binding="{Binding laboratory_test.name, StringFormat=d}" Width="*"/>
+                                                    </DataGrid.Columns>
                                             </DataGrid>
                                         </Grid>
                                     </materialDesign:Card>
 
                                     <!-- Viewer -->
-                                    <materialDesign:Card Grid.Column="1" Margin="8,0,0,0" Padding="12"
+                                    <materialDesign:Card Grid.Column="1" Margin="8,0,0,0" Padding="10"
                                                          materialDesign:ElevationAssist.Elevation="Dp2"
                                                          ClipToBounds="True">
                                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                                             <Grid>
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
                                                 <TextBlock Text="Result Details" FontSize="16" FontWeight="SemiBold"/>
-                                                <TextBox Grid.Row="1"
+                                                
+                                                <DatePicker Grid.Row="1"
+                                                            Style="{DynamicResource MaterialDesignFilledDatePicker}"
+                                                            materialDesign:HintAssist.Hint="Date"
+                                                            materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                            materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                            materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                            materialDesign:HintAssist.IsFloating="False"
+                                                            Margin="0,0,0,10"
+                                                            IsEnabled="False"
+                                                            SelectedDate="{Binding SelectedLaboratoryTestResult.laboratory_test.date, Converter={StaticResource DateConverter}}"/>
+                                                <TextBox Grid.Row="2"
                                                          AcceptsReturn="True" TextWrapping="Wrap"
                                                          VerticalAlignment="Stretch" MinHeight="200"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
                                                          materialDesign:HintAssist.Hint="Result data"
-                                                         Text="{Binding SelectedLabResult.ResultData}"/>
+                                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                         materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                         materialDesign:HintAssist.IsFloating="False"
+                                                         IsEnabled="False"
+                                                         Text="{Binding SelectedLaboratoryTestResult.result_data}"/>
                                             </Grid>
                                         </ScrollViewer>
                                     </materialDesign:Card>

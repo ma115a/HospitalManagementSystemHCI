@@ -6,6 +6,8 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
+using HospitalManagementSystem.Utils;
+
 namespace HospitalManagementSystem.Nurse.ViewModels;
 
 public partial class NurseRegisterPatientViewModel : ObservableObject, IActivable

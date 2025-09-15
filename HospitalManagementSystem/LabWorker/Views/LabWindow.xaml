@@ -1,0 +1,103 @@
+﻿<Window x:Class="HospitalManagementSystem.LabWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:views="clr-namespace:HospitalManagementSystem.LabWorker.Views"
+        xmlns:vm="clr-namespace:HospitalManagementSystem.LabWorker.ViewModels" 
+        mc:Ignorable="d"
+        Title="Laboratory Console"
+        Height="600" Width="1050"
+        WindowStartupLocation="CenterScreen"
+        Background="{DynamicResource MaterialDesign.Brush.Background}">
+
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:LabWorkerRequestsViewModel}">
+            <views:LabWorkerRequests></views:LabWorkerRequests>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LabWorkerResultsViewModel}">
+            <views:LabWorkerResults></views:LabWorkerResults>
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:LabWorkerHistoryViewModel}">
+            <views:LabWorkerHistory></views:LabWorkerHistory>
+        </DataTemplate>
+    </Window.Resources>
+
+    
+
+    <DockPanel>
+        <!-- TOP APP BAR -->
+        <Border DockPanel.Dock="Top" Background="{DynamicResource MaterialDesign.Brush.Primary}">
+            <Grid Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- Hospital Icon -->
+                <materialDesign:PackIcon Kind="HospitalBuilding" Width="36" Height="36"
+                                         VerticalAlignment="Center"
+                                         Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+
+                <!-- Title -->
+                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="City General Hospital"
+                               FontSize="20" FontWeight="SemiBold"
+                               Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                    <TextBlock Text="Laboratory Console"
+                               FontSize="12" Opacity=".9"
+                               Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                </StackPanel>
+
+                <!-- Logged-in Lab Worker -->
+                <Border Grid.Column="2" Padding="12,8" CornerRadius="20"
+                        Background="{DynamicResource MaterialDesign.Brush.Primary.Container}"
+                        VerticalAlignment="Center">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="FlaskOutline" Width="20" Height="20"
+                                                 VerticalAlignment="Center"
+                                                 Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                        <Separator Width="10" Background="Transparent"/>
+                        <StackPanel>
+                            <TextBlock Text="Lab Tech: Alex Lee"
+                                       FontWeight="SemiBold" FontSize="14"
+                                       Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                            <TextBlock Text="@alee" FontSize="12" Opacity=".9"
+                                       Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Border>
+
+        <!-- CONTENT SWITCHER -->
+        <materialDesign:Transitioner x:Name="LabSwitcher"
+                                     SelectedIndex="{Binding CurrentSlideIndex}"
+                                     Padding="28">
+
+            <!-- SLIDE 0: DASHBOARD -->
+            <materialDesign:TransitionerSlide>
+                <views:LabWorkerHomePage></views:LabWorkerHomePage>
+            </materialDesign:TransitionerSlide>
+            
+
+            <!-- SLIDE 1: REQUESTS QUEUE -->
+            <materialDesign:TransitionerSlide>
+                <ContentPresenter Content="{Binding RequestsVm }"/>
+            </materialDesign:TransitionerSlide>
+
+            <!-- SLIDE 2: ENTER RESULTS -->
+            <materialDesign:TransitionerSlide>
+                <ContentPresenter Content="{Binding ResultsVm }"/>
+            </materialDesign:TransitionerSlide>
+
+            <!-- SLIDE 3: RESULTS HISTORY -->
+            <materialDesign:TransitionerSlide>
+                <ContentPresenter Content="{Binding HistoryVm }"/>
+            </materialDesign:TransitionerSlide>
+
+        </materialDesign:Transitioner>
+    </DockPanel>
+</Window>

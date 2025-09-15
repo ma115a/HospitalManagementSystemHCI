@@ -4,6 +4,8 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HospitalManagementSystem.Nurse.Views;
+using HospitalManagementSystem.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
@@ -46,11 +48,14 @@ public partial class NurseWindowViewModel : ObservableObject
     public NurseAdmissionsViewModel? AdmissionVm
         => _slides.TryGetValue(3, out var l) ? (NurseAdmissionsViewModel) l.Value : null;
     
+    
+    public NurseLabViewModel? LabVm
+        => _slides.TryGetValue(4, out var l) ? (NurseLabViewModel) l.Value : null;
+    
     [ObservableProperty]
     private int _currentSlideIndex;
     partial void OnCurrentSlideIndexChanged(int value)
     {
-        Console.WriteLine("index changed");
         _ = ActivateSelectedAsync(value);
     }
 
@@ -78,7 +83,6 @@ public partial class NurseWindowViewModel : ObservableObject
     [RelayCommand]
     private void GoToScheduleAppointment()
     {
-        Console.WriteLine("Schedule Appointment");
         CurrentSlideIndex = 2;
     }
 

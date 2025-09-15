@@ -66,6 +66,12 @@ public class DepartmentService
         
     }
 
+    public async Task<IEnumerable<room>> GetSurgeryRooms()
+    {
+        await using var context = await _factory.CreateDbContextAsync();
+        return await context.rooms.Include(r => r.department).Where(r => r.department.surgery_department == true && r.current_patients_number <= r.capacity).AsNoTracking().ToListAsync();
+    }
+
 
     public async Task<department> DeleteDepartment(department department)
     {

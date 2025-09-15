@@ -5,12 +5,25 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:surgeon="clr-namespace:HospitalManagementSystem.Surgeon.Views"
+        xmlns:vm="clr-namespace:HospitalManagementSystem.Surgeon.ViewModels"
+        xmlns:views="clr-namespace:HospitalManagementSystem.Surgeon.Views"
         mc:Ignorable="d"
         Title="Surgeon Console"
         Height="800" Width="1100"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesign.Brush.Background}">
 
+    <Window.Resources>
+        <DataTemplate DataType="{x:Type vm:SurgeriesViewViewModel}">
+           <views:SurgeriesView></views:SurgeriesView> 
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:ScheduleSurgeryViewModel}">
+            <views:ScheduleSurgeryView></views:ScheduleSurgeryView> 
+        </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:SurgeriesHistoryViewViewModel}">
+            <views:SurgeryHistoryView></views:SurgeryHistoryView> 
+        </DataTemplate>
+    </Window.Resources>
     
 
     <DockPanel>
@@ -61,7 +74,7 @@
 
         <!-- CONTENT SWITCHER -->
         <materialDesign:Transitioner x:Name="SurgeonSwitcher"
-                                     SelectedIndex="0"
+                                     SelectedIndex="{Binding CurrentSlideIndex }"
                                      Padding="28">
 
             <!-- SLIDE 0: DASHBOARD -->
@@ -71,17 +84,17 @@
 
             <!-- SLIDE 1: MY SURGERIES (List + Details Tabs) -->
             <materialDesign:TransitionerSlide>
-                <surgeon:SurgeriesView></surgeon:SurgeriesView>
+                <ContentPresenter Content="{Binding SurgeriesVm}"></ContentPresenter>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 2: SCHEDULE SURGERY -->
             <materialDesign:TransitionerSlide>
-                <surgeon:ScheduleSurgeryView></surgeon:ScheduleSurgeryView>
+                <ContentPresenter Content="{Binding ScheduleSurgeryVm}"></ContentPresenter>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 3: HISTORY -->
             <materialDesign:TransitionerSlide>
-                <surgeon:SurgeryHistoryView></surgeon:SurgeryHistoryView>
+                <ContentPresenter Content="{Binding HistoryVm}"></ContentPresenter>
             </materialDesign:TransitionerSlide>
 
         </materialDesign:Transitioner>

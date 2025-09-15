@@ -1,0 +1,294 @@
+﻿<UserControl x:Class="HospitalManagementSystem.Doctor.Views.LaboratoryRequestsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:HospitalManagementSystem"
+             mc:Ignorable="d">
+
+    <!-- ESC to go back -->
+    <UserControl.InputBindings>
+        <KeyBinding Key="Escape"
+                    Command="{Binding DataContext.GoToDashboardCommand,
+                                      RelativeSource={RelativeSource AncestorType=Window}}"/>
+    </UserControl.InputBindings>
+
+    <DockPanel>
+
+        <!-- BACK BAR -->
+        <Border DockPanel.Dock="Top"
+                Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                BorderThickness="0,0,0,1"
+                Padding="8,6">
+            <StackPanel Orientation="Horizontal">
+                <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                        Click="GoToDashboard">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
+                        <TextBlock Text="Back to Dashboard"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Border>
+
+        <!-- TOP TOOLBAR (responsive grid) -->
+        <Border DockPanel.Dock="Top" 
+                Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                BorderThickness="0,0,0,1"
+                Padding="8,6">
+            <Grid VerticalAlignment="Center">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>            <!-- New -->
+                    
+                    <ColumnDefinition Width="Auto"/>            <!-- magnify -->
+                    
+                    <ColumnDefinition Width="3*" MinWidth="200"/> <!-- search -->
+                    <ColumnDefinition Width="16"/>              <!-- spacer -->
+                    <ColumnDefinition Width="2*" MinWidth="140"/> <!-- To -->
+                    <ColumnDefinition Width="16"/>              <!-- spacer -->
+                    <ColumnDefinition Width="2*" MinWidth="140"/> <!-- From -->
+                    <ColumnDefinition Width="Auto"/>            <!-- Status lbl -->
+                    <ColumnDefinition Width="1.5*" MinWidth="140"/> <!-- Status -->
+                    <ColumnDefinition Width="Auto"/>            <!-- Priority lbl -->
+                    <ColumnDefinition Width="1.5*" MinWidth="140"/> <!-- Priority -->
+                </Grid.ColumnDefinitions>
+
+                <Button Grid.Column="0" Content="New Request"
+                        Style="{DynamicResource MaterialDesignFlatButton}"/>
+                <!-- <Button Grid.Column="1" Content="Submit" -->
+                <!--         Margin="8,0,0,0" -->
+                <!--         Style="{DynamicResource MaterialDesignFlatButton}"/> -->
+                <!-- <Button Grid.Column="2" Content="Print" -->
+                <!--         Margin="8,0,0,0" -->
+                <!--         Style="{DynamicResource MaterialDesignFlatButton}"/> -->
+
+                <materialDesign:PackIcon Grid.Column="1" Kind="Magnify"
+                                         Height="20" VerticalAlignment="Center" Margin="0,0,6,0"/>
+                <TextBox Grid.Column="2"
+                         HorizontalAlignment="Stretch"
+                         materialDesign:HintAssist.Hint="Search requests (test, status, sample)"
+                         materialDesign:HintAssist.IsFloating="False"
+                         materialDesign:TextFieldAssist.HasClearButton="True"
+                         Style="{DynamicResource MaterialDesignOutlinedTextBox}"/>
+
+                <DatePicker Grid.Column="4"
+                            HorizontalAlignment="Stretch"
+                            materialDesign:HintAssist.Hint="From date"
+                            materialDesign:HintAssist.IsFloating="False"
+                            Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
+                <DatePicker Grid.Column="6" Margin="8,0,0,0"
+                            HorizontalAlignment="Stretch"
+                            materialDesign:HintAssist.Hint="To date"
+                            materialDesign:HintAssist.IsFloating="False"
+                            Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
+
+                <TextBlock Grid.Column="7" Text="Status:"
+                           VerticalAlignment="Center" Margin="12,0,6,0"
+                           Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"/>
+                <ComboBox Grid.Column="8"
+                          ItemsSource="{Binding RequestStatuses}"
+                          SelectedItem="{Binding SelectedStatusFilter}"
+                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                          materialDesign:HintAssist.Hint="All statuses"
+                          materialDesign:HintAssist.IsFloating="False"/>
+
+                <TextBlock Grid.Column="9" Text="Priority:"
+                           VerticalAlignment="Center" Margin="12,0,6,0"
+                           Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"/>
+                <ComboBox Grid.Column="10"
+                          ItemsSource="{Binding Priorities}"
+                          SelectedItem="{Binding SelectedPriorityFilter}"
+                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                          materialDesign:HintAssist.Hint="Any priority"
+                          materialDesign:HintAssist.IsFloating="False"/>
+            </Grid>
+        </Border>
+
+        <!-- PATIENT BANNER -->
+        <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4" DockPanel.Dock="Top" Margin="10" VerticalContentAlignment="Center" UniformCornerRadius="12" Padding="5">
+        <local:PatientBasicInfo DockPanel.Dock="Top"/>
+        </materialDesign:Card>
+
+        <!-- MAIN: LIST (left) / FORM (right) -->
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="2.5*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- LEFT: Requests list -->
+            <materialDesign:Card Grid.Column="0"
+                                 Padding="20"
+                                 UniformCornerRadius="12"
+                                 Margin="10,0,5,0"
+                                 materialDesign:ElevationAssist.Elevation="Dp8">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0"
+                               Text="Laboratory Requests" 
+                               FontSize="16" FontWeight="SemiBold"
+                               Margin="0,0,0,17"
+                               Foreground="{DynamicResource MaterialDesign.Brush.OnSurface}" />
+
+                    <DataGrid Grid.Row="1"
+                              Style="{DynamicResource MaterialDesignDataGrid}"
+                              Margin="10,0"
+                              AutoGenerateColumns="False"
+                              ItemsSource="{Binding LabRequests}"
+                              CanUserAddRows="False"
+                              CanUserDeleteRows="False"
+                              IsReadOnly="True"
+                              SelectionMode="Single"
+                              SelectedItem="{Binding SelectedLabRequest, Mode=TwoWay}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                                Header="Requested" Binding="{Binding RequestedDate, StringFormat=d}" Width="*"/>
+                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                                Header="Test" Binding="{Binding TestName}" Width="2*"/>
+                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                                Header="Priority" Binding="{Binding Priority}" Width="*"/>
+                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
+                                                Header="Status" Binding="{Binding Status}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </Grid>
+            </materialDesign:Card>
+
+            <!-- RIGHT: New / Edit request form -->
+            <materialDesign:Card Grid.Column="1"
+                                 Padding="20"
+                                 Margin="5,0,10,0"
+                                 UniformCornerRadius="12"
+                                 materialDesign:ElevationAssist.Elevation="Dp8">
+               <ScrollViewer VerticalScrollBarVisibility="Auto"
+                  HorizontalScrollBarVisibility="Disabled"
+                  CanContentScroll="True"
+                  Focusable="False">
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Rows 5 & 6 are star so the multi-line boxes grow/shrink; buttons stay Auto -->
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>  <!-- 0: title -->
+                <RowDefinition Height="Auto"/>  <!-- 1: date -->
+                <RowDefinition Height="Auto"/>  <!-- 2: test -->
+                <RowDefinition Height="Auto"/>  <!-- 3: priority / sample -->
+                <RowDefinition Height="Auto"/>  <!-- 4: fasting / location -->
+                <RowDefinition Height="2*"/>    <!-- 5: clinical info (grows/shrinks) -->
+                <RowDefinition Height="*"/>     <!-- 6: additional notes (grows/shrinks) -->
+                <RowDefinition Height="Auto"/>  <!-- 7: buttons -->
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.ColumnSpan="2" Text="New Laboratory Request"
+                       FontSize="16" FontWeight="SemiBold" Margin="0,0,0,17"/>
+
+            <!-- Requested date -->
+            <DatePicker Grid.Row="1" Grid.ColumnSpan="2"
+                        Style="{DynamicResource MaterialDesignFilledDatePicker}"
+                        materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                        materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                        materialDesign:HintAssist.Hint="Requested date"
+                        materialDesign:HintAssist.IsFloating="False"
+                        Margin="0,0,0,10"
+                        SelectedDate="{Binding DraftRequest.RequestedDate, Mode=TwoWay}"/>
+
+            <!-- Test (editable for type-ahead) -->
+            <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
+                      IsEditable="True"
+                      StaysOpenOnEdit="True"
+                      IsTextSearchEnabled="False"
+                      ItemsSource="{Binding AvailableTests}"
+                      Text="{Binding DraftRequest.TestName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                      materialDesign:HintAssist.Hint="Test name"
+                      materialDesign:HintAssist.IsFloating="False"
+                      Margin="0,0,0,10"/>
+
+            <!-- Priority / Sample type -->
+            <ComboBox Grid.Row="3" Grid.Column="0"
+                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                      materialDesign:HintAssist.Hint="Priority"
+                      materialDesign:HintAssist.IsFloating="False"
+                      Margin="0,0,8,10"
+                      ItemsSource="{Binding Priorities}"
+                      SelectedItem="{Binding DraftRequest.Priority, Mode=TwoWay}"/>
+
+            <ComboBox Grid.Row="3" Grid.Column="1"
+                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                      materialDesign:HintAssist.Hint="Sample type"
+                      materialDesign:HintAssist.IsFloating="False"
+                      Margin="8,0,0,10"
+                      ItemsSource="{Binding SampleTypes}"
+                      SelectedItem="{Binding DraftRequest.SampleType, Mode=TwoWay}"/>
+
+            <!-- Fasting / Collection location -->
+            <CheckBox Grid.Row="4" Grid.Column="0"
+                      Content="Fasting required"
+                      Style="{DynamicResource MaterialDesignCheckBox}"
+                      Margin="0,4,8,10"
+                      IsChecked="{Binding DraftRequest.IsFastingRequired, Mode=TwoWay}"/>
+
+            <TextBox Grid.Row="4" Grid.Column="1"
+                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                     materialDesign:HintAssist.Hint="Collection location (e.g., Room 204)"
+                     materialDesign:HintAssist.IsFloating="False"
+                     Margin="8,0,0,10"
+                     Text="{Binding DraftRequest.CollectionLocation, Mode=TwoWay}"/>
+
+            <!-- Clinical information (grows/shrinks) -->
+            <TextBox Grid.Row="5" Grid.ColumnSpan="2"
+                     AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalAlignment="Stretch" MinHeight="100"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                     materialDesign:HintAssist.Hint="Clinical information / Reason"
+                     materialDesign:HintAssist.IsFloating="False"
+                     Margin="0,0,0,10"
+                     Text="{Binding DraftRequest.ClinicalInformation, Mode=TwoWay}"/>
+
+            <!-- Additional notes (grows/shrinks) -->
+            <TextBox Grid.Row="6" Grid.ColumnSpan="2"
+                     AcceptsReturn="True" TextWrapping="Wrap"
+                     VerticalAlignment="Stretch" MinHeight="80"
+                     ScrollViewer.VerticalScrollBarVisibility="Auto"
+                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                     materialDesign:HintAssist.Hint="Additional notes"
+                     materialDesign:HintAssist.IsFloating="False"
+                     Margin="0,0,0,10"
+                     Text="{Binding DraftRequest.Notes, Mode=TwoWay}"/>
+
+            <!-- Buttons -->
+            <StackPanel Grid.Row="7" Grid.ColumnSpan="2"
+                        Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
+                <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" />
+                <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" />
+                <Button Content="Submit" Margin="8,0,0,0" Style="{DynamicResource MaterialDesignRaisedButton}" />
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
+
+            </materialDesign:Card>
+        </Grid>
+    </DockPanel>
+</UserControl>

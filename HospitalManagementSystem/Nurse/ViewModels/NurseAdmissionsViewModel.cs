@@ -6,6 +6,7 @@ using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
+using HospitalManagementSystem.Utils;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
 

@@ -4,6 +4,7 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Nurse.Services;
+using HospitalManagementSystem.Utils;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
 

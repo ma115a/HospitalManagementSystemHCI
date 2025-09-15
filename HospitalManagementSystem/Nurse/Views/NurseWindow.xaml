@@ -24,6 +24,9 @@
         <DataTemplate DataType="{x:Type vm:NurseAdmissionsViewModel}">
             <views:NurseAdmissions></views:NurseAdmissions>
         </DataTemplate>
+        <DataTemplate DataType="{x:Type vm:NurseLabViewModel}">
+            <views:NurseLab></views:NurseLab>
+        </DataTemplate>
     </Window.Resources>
 
     <DockPanel>
@@ -98,7 +101,7 @@
 
             <!-- SLIDE 4: LAB (REQUESTS & RESULTS) -->
             <materialDesign:TransitionerSlide>
-                <views:NurseLab></views:NurseLab>
+                <ContentPresenter Content="{Binding LabVm}"/>
             </materialDesign:TransitionerSlide>
 
             <!-- SLIDE 5: SURGERIES (assign nurses) -->

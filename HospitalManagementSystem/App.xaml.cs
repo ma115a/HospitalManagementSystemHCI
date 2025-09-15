@@ -1,5 +1,6 @@
 ﻿using System.Configuration;
 using System.Data;
+using System.Net.Security;
 using System.Windows;
 using HospitalManagementSystem.Admin;
 using HospitalManagementSystem.Data;
@@ -9,10 +10,17 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Admin.ViewModels;
+using HospitalManagementSystem.Doctor.ViewModels;
+using HOspitalManagementSystem.Doctor.ViewModels;
+using HospitalManagementSystem.Doctor.Views;
+using HospitalManagementSystem.LabWorker.ViewModels;
 using HospitalManagementSystem.Nurse.Services;
 using HospitalManagementSystem.Nurse.ViewModels;
 using HospitalManagementSystem.Nurse.Views;
 using HospitalManagementSystem.Services;
+using HospitalManagementSystem.Surgeon;
+using HospitalManagementSystem.Surgeon.ViewModels;
+using SurgeriesViewViewModel = HospitalManagementSystem.Surgeon.ViewModels.SurgeriesViewViewModel;
 
 namespace HospitalManagementSystem;
 
@@ -65,7 +73,41 @@ public partial class App : Application
                 
                 
                 
+                //doctor
+
+                services.AddTransient<DoctorWindow>();
                 
+                
+                services.AddTransient<DoctorWindowViewModel>();
+                services.AddTransient<DoctorHomePageViewModel>();
+                services.AddTransient<LaboratoryRequestsViewViewModel>();
+                services.AddTransient<LaboratoryResultsViewViewModel>();
+                services.AddTransient<MakeAdmissionViewViewModel>();
+                services.AddTransient<MedicalRecordViewViewModel>();
+                services.AddTransient<PrescriptionViewViewModel>();
+                services.AddTransient<SurgeriesViewViewModel>();
+                
+                
+                
+                
+                
+                //surgeon
+                services.AddSingleton<SurgeryService>();
+                services.AddTransient<SurgeonWindow>();
+                services.AddTransient<SurgeonWindowViewModel>();
+                services.AddTransient<ScheduleSurgeryViewModel>() ;
+                services.AddTransient<SurgeriesHistoryViewViewModel>();
+                services.AddTransient<SurgeriesViewViewModel>();
+                
+                
+                //lab tehnician
+                services.AddTransient<LabWindow>();
+                
+                
+                services.AddTransient<LabWindowViewModel>();
+                services.AddTransient<LabWorkerRequestsViewModel>();
+                services.AddTransient<LabWorkerResultsViewModel>();
+                services.AddTransient<LabWorkerHistoryViewModel>();
                 
                 services.AddTransient<LoginWindow>();
             }).Build();

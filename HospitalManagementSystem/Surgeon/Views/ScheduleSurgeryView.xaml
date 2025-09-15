@@ -4,102 +4,295 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"
-             >
-    <DockPanel>
-                    <!-- Back -->
-                    <Border DockPanel.Dock="Top"
-                            Background="{DynamicResource MaterialDesign.Brush.Surface}"
-                            BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
-                            BorderThickness="0,0,0,1" Padding="8,6">
-                        <Button Style="{DynamicResource MaterialDesignFlatButton}"
-                                Command="{Binding GoToSurgeriesCommand}">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to My Surgeries"/>
-                            </StackPanel>
-                        </Button>
-                    </Border>
+             mc:Ignorable="d">
 
-                    <materialDesign:Card Margin="10"
-                                         Padding="20" UniformCornerRadius="12"
-                                         materialDesign:ElevationAssist.Elevation="Dp8"
-                                         ClipToBounds="True">
-                        <ScrollViewer VerticalScrollBarVisibility="Auto">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto"/>  <!-- title -->
-                                    <RowDefinition Height="Auto"/>  <!-- patient -->
-                                    <RowDefinition Height="Auto"/>  <!-- date/time -->
-                                    <RowDefinition Height="Auto"/>  <!-- duration / room -->
-                                    <RowDefinition Height="Auto"/>  <!-- procedure -->
-                                    <RowDefinition Height="*"/>     <!-- notes -->
-                                    <RowDefinition Height="Auto"/>  <!-- buttons -->
-                                </Grid.RowDefinitions>
+    <!-- Helpers -->
+    <UserControl.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+    </UserControl.Resources>
 
-                                <TextBlock Grid.ColumnSpan="2" Text="Schedule Surgery"
-                                           FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
+    <!-- One host for the nurse picker dialog -->
+    <materialDesign:DialogHost
+        IsOpen="{Binding IsNursePickerOpen}"
+        CloseOnClickAway="True"
+        Background="{DynamicResource MaterialDesign.Brush.DialogHost.Background}">
 
-                                <ComboBox Grid.Row="1" Grid.ColumnSpan="2"
-                                          IsEditable="True" StaysOpenOnEdit="True"
-                                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                          materialDesign:HintAssist.Hint="Patient"
-                                          ItemsSource="{Binding Patients}"
-                                          Text="{Binding NewSurgery.PatientName, Mode=TwoWay}"/>
+        <!-- Main content -->
+        <DockPanel>
+            <!-- Back -->
+            <Border DockPanel.Dock="Top"
+                    HorizontalAlignment="Left"
+                    Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                    BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                    BorderThickness="0,0,0,1" Padding="8,6">
+                <Button Style="{DynamicResource MaterialDesignFlatButton}"
+                        Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType=Window}}">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
+                        <TextBlock Text="Back to Dashboard"/>
+                    </StackPanel>
+                </Button>
+            </Border>
 
-                                <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <DatePicker Grid.Column="0"
-                                                Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                materialDesign:HintAssist.Hint="Date"
-                                                SelectedDate="{Binding NewSurgery.Date}"/>
-                                    <TextBox Grid.Column="1"
-                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Time (HH:mm)"
-                                             Text="{Binding NewSurgery.Time}"/>
+            <materialDesign:Card Margin="10"
+                                 Padding="20" UniformCornerRadius="12"
+                                 materialDesign:ElevationAssist.Elevation="Dp8">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="0,0,0,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>  <!-- title -->
+                            <RowDefinition Height="Auto"/>  <!-- patient -->
+                            <RowDefinition Height="Auto"/>  <!-- date/time -->
+                            <RowDefinition Height="Auto"/>  <!-- duration -->
+                            <RowDefinition Height="Auto"/>  <!-- room -->
+                            <RowDefinition Height="Auto"/>  <!-- nurses -->
+                            <RowDefinition Height="Auto"/>  <!-- procedure -->
+                            <RowDefinition Height="*"/>     <!-- notes -->
+                            <RowDefinition Height="Auto"/>  <!-- buttons -->
+                        </Grid.RowDefinitions>
+
+                        <!-- Title -->
+                        <TextBlock Grid.ColumnSpan="2"
+                                   Text="Schedule Surgery"
+                                   FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
+
+                        <!-- Patient -->
+                        <ComboBox Grid.Row="1" Grid.ColumnSpan="2"
+                                  Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                  materialDesign:HintAssist.Hint="Patient"
+                                  materialDesign:HintAssist.IsFloating="False"
+                                  ItemsSource="{Binding Patients}"
+                                  IsTextSearchEnabled="True"
+                                  SelectedItem="{Binding SelectedPatient, Mode=TwoWay}"
+                                  Margin="0,0,0,10">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                        <TextBlock Text=" (" Margin="4,0,0,0"></TextBlock>
+                                        <TextBlock Text="{Binding umcn}"></TextBlock>
+                                        <TextBlock Text=" )"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!-- Date & Time -->
+                        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <DatePicker Grid.Column="0"
+                                        Style="{DynamicResource MaterialDesignFilledDatePicker}"
+                                        materialDesign:HintAssist.Hint="Date"
+                                        materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                        materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                        materialDesign:HintAssist.IsFloating="False"
+                                        Margin="0, 0, 5, 10"
+                                        IsEnabled="{Binding IsControlsEnabled}"
+                                        SelectedDate="{Binding SelectedSurgeryDate}"/>
+
+                            <TextBox Grid.Column="1"
+                                     Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                     materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                     materialDesign:HintAssist.IsFloating="False"
+                                     Margin="5, 0, 0, 10"
+                                     IsEnabled="{Binding IsControlsEnabled}"
+                                     PreviewTextInput="TimeBox_PreviewTextInput"
+                                     TextChanged="TimeBox_TextChanged"
+                                     PreviewKeyDown="TimeBox_PreviewKeyDown"
+                                     Text="{Binding SelectedSurgeryTime}"/>
+                        </Grid>
+
+                        <!-- Duration -->
+                        <TextBox Grid.Row="3" Grid.ColumnSpan="2"
+                                 Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 materialDesign:HintAssist.Hint="Duration (min)"
+                                 Margin="0,0,0,10"
+                                 Text="{Binding SelectedSurgeryDuration}"/>
+
+                        <!-- Room -->
+                        <ComboBox Grid.Row="4" Grid.ColumnSpan="2"
+                                  Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                  materialDesign:HintAssist.Hint="OR / Room"
+                                  materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                  materialDesign:HintAssist.IsFloating="False"
+                                  ItemsSource="{Binding Rooms}"
+                                  Margin="0,0,0,10"
+                                  SelectedItem="{Binding SelectedRoom}">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding number}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                        </ComboBox>
+
+                        <!-- Nurses (chips + open dialog button) -->
+                        <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Margin="0,0,0,10">
+                            <TextBlock Text="Nurses"
+                                       FontSize="14" FontWeight="SemiBold" Margin="0,0,0,6"/>
+                            <Border Padding="8" CornerRadius="6"
+                                    Background="{DynamicResource MaterialDesign.Brush.Surface}"
+                                    BorderBrush="{DynamicResource MaterialDesign.Brush.Outline}"
+                                    BorderThickness="1">
+                                <Grid Margin="0,0,0,10">
+                                    <!-- Chips -->
+                                    <ItemsControl ItemsSource="{Binding SelectedNurses}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <WrapPanel ItemHeight="32" ItemWidth="Auto"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <materialDesign:Chip
+                                                    Content="{Binding FullName}"
+                                                    IsDeletable="True"
+                                                   Margin="4,0,4,0"
+                                                    DeleteCommand="{Binding DataContext.RemoveNurseCommand,
+                                                                            RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                    DeleteCommandParameter="{Binding}"/>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                    <!-- Hint -->
+                                    <TextBlock Text="Select nurses…"
+                                               Opacity=".6"
+                                               IsHitTestVisible="False"
+                                               HorizontalAlignment="Left"
+                                               VerticalAlignment="Center"
+                                               Margin="4,0,0,10">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Visibility" Value="Collapsed"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding SelectedNurses.Count}" Value="0">
+                                                        <Setter Property="Visibility" Value="Visible"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
                                 </Grid>
+                            </Border>
 
-                                <Grid Grid.Row="3" Grid.ColumnSpan="2">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="*"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBox Grid.Column="0"
-                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Duration (min)"
-                                             Text="{Binding NewSurgery.Duration}"/>
-                                    <ComboBox Grid.Column="1"
-                                              Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="OR / Room"
-                                              ItemsSource="{Binding Rooms}"
-                                              SelectedItem="{Binding NewSurgery.Room}"/>
-                                </Grid>
+                            <Button Margin="0,8,0,0"
+                                    Style="{DynamicResource MaterialDesignOutlinedButton}"
+                                    Command="{Binding OpenNursePickerCommand}">
+                                Pick nurses
+                            </Button>
+                        </StackPanel>
 
-                                <TextBox Grid.Row="4" Grid.ColumnSpan="2"
-                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                         materialDesign:HintAssist.Hint="Procedure"
-                                         Text="{Binding NewSurgery.Procedure}"/>
+                        <!-- Procedure -->
+                        <TextBox Grid.Row="6" Grid.ColumnSpan="2"
+                                 Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 Margin="0,0,0,10"
+                                 materialDesign:HintAssist.Hint="Procedure"
+                                 Text="{Binding SelectedSurgery.procedure}"/>
 
-                                <TextBox Grid.Row="5" Grid.ColumnSpan="2"
-                                         AcceptsReturn="True" TextWrapping="Wrap"
-                                         VerticalAlignment="Stretch" MinHeight="140"
-                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                         materialDesign:HintAssist.Hint="Notes"
-                                         Text="{Binding NewSurgery.Notes}"/>
+                        <!-- Notes -->
+                        <TextBox Grid.Row="7" Grid.ColumnSpan="2"
+                                 AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalAlignment="Stretch" MinHeight="140"
+                                 Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6"
+                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                 materialDesign:HintAssist.IsFloating="False"
+                                 Margin="0,0,0,10"
+                                 materialDesign:HintAssist.Hint="Notes"
+                                 Text="{Binding SelectedSurgery.notes}"/>
 
-                                <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                    <Button Content="Create" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"/>
-                                </StackPanel>
-                            </Grid>
+                        <!-- Actions -->
+                        <StackPanel Grid.Row="8" Grid.ColumnSpan="2"
+                                    Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
+                            <Button Content="Create"
+                                    Style="{DynamicResource MaterialDesignRaisedButton}"
+                                    Margin="8,0,0,0"
+                                    Command="{Binding SaveSurgeryCommand}"/>
+                        </StackPanel>
+                    </Grid>
+                </ScrollViewer>
+            </materialDesign:Card>
+        </DockPanel>
+
+        <!-- Centered dialog content (Material card) -->
+        <materialDesign:DialogHost.DialogContent>
+            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16">
+                <materialDesign:Card Padding="16" UniformCornerRadius="12" Width="440"
+                                     materialDesign:ElevationAssist.Elevation="Dp8">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>  <!-- title -->
+                            <RowDefinition Height="Auto"/>  <!-- search -->
+                            <RowDefinition Height="10"/>
+                            <RowDefinition Height="*"/>     <!-- list -->
+                            <RowDefinition Height="16"/>
+                            <RowDefinition Height="Auto"/>  <!-- actions -->
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Text="Select Nurses"
+                                   FontSize="18" FontWeight="SemiBold" Margin="0,0,0,12"/>
+
+                        <!-- Search -->
+                        <TextBox Grid.Row="1"
+                                 Style="{StaticResource MaterialDesignOutlinedTextBox}"
+                                 materialDesign:HintAssist.Hint="Search nurses"
+                                 Text="{Binding NurseFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+
+                        <!-- List -->
+                        <ScrollViewer Grid.Row="3" MaxHeight="360">
+                            <ItemsControl ItemsSource="{Binding NursesView}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <CheckBox Content="{Binding FullName}"
+                                                  IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                  Style="{StaticResource MaterialDesignCheckBox}"
+                                                  Margin="4,4"/>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
                         </ScrollViewer>
-                    </materialDesign:Card>
-                </DockPanel>
+
+                        <!-- Actions -->
+                        <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Margin="0,0,8,0"
+                                    Style="{DynamicResource MaterialDesignOutlinedButton}"
+                                    Command="{Binding CancelNursePickerCommand}">
+                                Cancel
+                            </Button>
+                            <Button Style="{DynamicResource MaterialDesignRaisedButton}"
+                                    Command="{Binding ApplyNursePickerCommand}">
+                                Done
+                            </Button>
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+        </materialDesign:DialogHost.DialogContent>
+    </materialDesign:DialogHost>
 </UserControl>

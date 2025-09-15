@@ -43,7 +43,9 @@
                                                TextWrapping="Wrap"/>
                                     <Button Grid.Row="2" Content="Open" Width="140"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                                            Click="Surgeries_Click"/>
+                                            
+                                            Command="{Binding DataContext.GoToSurgeriesCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            />
                                 </Grid>
                             </materialDesign:Card>
 
@@ -65,7 +67,8 @@
                                                TextWrapping="Wrap"/>
                                     <Button Grid.Row="2" Content="Open" Width="160"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                                            Click="ScheduleSurgery_Click"/>
+                                            Command="{Binding DataContext.GoToScheduleSurgeryCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            />
                                 </Grid>
                             </materialDesign:Card>
 
@@ -87,7 +90,8 @@
                                                TextWrapping="Wrap"/>
                                     <Button Grid.Row="2" Content="Open" Width="140"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                                            Click="SurgeriesHistory_Click"/>
+                                            Command="{Binding DataContext.GoToHistoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            />
                                 </Grid>
                             </materialDesign:Card>
                         </UniformGrid>

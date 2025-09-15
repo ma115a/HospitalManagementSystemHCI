@@ -1,12 +1,14 @@
 ﻿using System.Windows;
+using HospitalManagementSystem.Surgeon.ViewModels;
 
 namespace HospitalManagementSystem.Surgeon;
 
 public partial class SurgeonWindow : Window
 {
-    public SurgeonWindow()
+    public SurgeonWindow(SurgeonWindowViewModel vm)
     {
         InitializeComponent();
+       DataContext = vm; 
     }
 
     public void GoToDashboard()

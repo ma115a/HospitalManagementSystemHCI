@@ -1,0 +1,283 @@
+﻿<UserControl x:Class="HospitalManagementSystem.Doctor.Views.DoctorHomePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:HospitalManagementSystem"
+             mc:Ignorable="d">
+    <!-- <materialDesign:TransitionerSlide> -->
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid Margin="10 20">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" VerticalAlignment="Center" Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" MinWidth="125"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <materialDesign:PackIcon Grid.Column="0"
+                                                   Kind="AccountSearch"
+                                                   Width="24" Height="24"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Right"
+                                                   Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Margin="60,0,60,0"/>
+
+                            <ComboBox Grid.Column="1"
+                                    x:Name="PatientCombo"
+                                    IsEditable="True"
+                                    StaysOpenOnEdit="True"
+                                    IsTextSearchEnabled="False"
+                                    materialDesign:HintAssist.Hint="Search patient (name or UMCN)"
+                                    materialDesign:HintAssist.IsFloating="False"
+                                    Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                    MinWidth="240"
+                                    MaxWidth="800" Height="50" Margin="0,0,145,0"/>
+                        </Grid>
+
+            <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4" Grid.Row="1" Margin="10" VerticalContentAlignment="Center" UniformCornerRadius="12" Padding="5">
+                <local:PatientBasicInfo/>
+            </materialDesign:Card>
+
+
+
+
+            <UniformGrid Grid.Row="2" Columns="3" HorizontalAlignment="Stretch">
+                            <!-- make all cards stretch to fill their cell -->
+                            <UniformGrid.Resources>
+                                <Style TargetType="materialDesign:Card">
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                                </Style>
+                            </UniformGrid.Resources>
+
+                            <!-- View Medical Records -->
+                            <materialDesign:Card Margin="20" Padding="20"
+                       UniformCornerRadius="12"
+                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <!-- header -->
+                                        <RowDefinition Height="*"/>
+                                        <!-- description stretches -->
+                                        <RowDefinition Height="Auto"/>
+                                        <!-- button -->
+                                    </Grid.RowDefinitions>
+
+                                    <!-- Header -->
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="FileDocumentOutline" Width="32" Height="32" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Margin="10,0,0,0"
+                   Text="View Medical Records"
+                   FontWeight="SemiBold" FontSize="16"
+                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <!-- Description -->
+                                    <TextBlock Grid.Row="1" Margin="0,10,0,0"
+                 Text="Browse and view patient medical records."
+                 FontSize="14" TextWrapping="Wrap"/>
+
+                                    <!-- Action -->
+                                    <Button Grid.Row="2" Margin="0,12,0,0"
+              Content="Open" Width="100" Height="30"
+                                            Click="MedicalRecord_Click"
+              materialDesign:ElevationAssist.Elevation="Dp2"
+              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Make Prescription -->
+                            <materialDesign:Card Margin="20" Padding="20"
+                       UniformCornerRadius="12"
+                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="Pill" Width="32" Height="32" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Margin="10,0,0,0"
+                   Text="Make Prescription"
+                   FontWeight="SemiBold" FontSize="16"
+                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Margin="0,10,0,0"
+                 Text="Create a new prescription for a patient."
+                 FontSize="14" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="2" Margin="0,12,0,0"
+              Content="Open" Width="100" Height="30"
+              materialDesign:ElevationAssist.Elevation="Dp2"
+              Click="Prescription_Click"
+              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Laboratory Results -->
+                            <materialDesign:Card Margin="20" Padding="20"
+                       UniformCornerRadius="12"
+                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="ClipboardPulseOutline" Width="32" Height="32" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Margin="10,0,0,0"
+                   Text="Laboratory results"
+                   FontWeight="SemiBold" FontSize="16"
+                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Margin="0,10,0,0"
+                 Text="Review completed lab test results."
+                 FontSize="14" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="2" Margin="0,12,0,0"
+              Content="Open" Width="100" Height="30"
+              Click="LaboratoryResults_Click"
+              materialDesign:ElevationAssist.Elevation="Dp2"
+              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Request Laboratory -->
+                            <materialDesign:Card Margin="20" Padding="20"
+                       UniformCornerRadius="12"
+                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="FlaskOutline" Width="32" Height="32" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Margin="10,0,0,0"
+                   Text="Request Laboratory"
+                   FontWeight="SemiBold" FontSize="16"
+                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Margin="0,10,0,0"
+                 Text="Order lab tests and track their status."
+                 FontSize="14" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="2" Margin="0,12,0,0"
+              Content="Open" Width="100" Height="30"
+              materialDesign:ElevationAssist.Elevation="Dp2"
+              Click="LaboratoryRequests_Click"
+              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- Make Admission -->
+                            <materialDesign:Card Margin="20" Padding="20"
+                       UniformCornerRadius="12"
+                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="Bed" Width="32" Height="32" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Margin="10,0,0,0"
+                   Text="Make Admission"
+                   FontWeight="SemiBold" FontSize="16"
+                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Margin="0,10,0,0"
+                 Text="Admit a patient to a room."
+                 FontSize="14" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="2" Margin="0,12,0,0"
+              Content="Open" Width="100" Height="30"
+              materialDesign:ElevationAssist.Elevation="Dp2"
+              Click="Admissions_Click"
+              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                            <!-- View Surgeries -->
+                            <materialDesign:Card Margin="20" Padding="20"
+                       UniformCornerRadius="12"
+                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <materialDesign:PackIcon Grid.Column="0" Kind="StanleyKnife" Width="32" Height="32" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Column="1" Margin="10,0,0,0"
+                   Text="View surgeries"
+                   FontWeight="SemiBold" FontSize="16"
+                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                    </Grid>
+
+                                    <TextBlock Grid.Row="1" Margin="0,10,0,0"
+                 Text="See past and scheduled surgeries."
+                 FontSize="14" TextWrapping="Wrap"/>
+
+                                    <Button Grid.Row="2" Margin="0,12,0,0"
+              Content="Open" Width="100" Height="30"
+              Click="Surgeries_Click"
+              materialDesign:ElevationAssist.Elevation="Dp2"
+              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                </Grid>
+                            </materialDesign:Card>
+
+                        </UniformGrid>
+
+
+
+
+
+                    </Grid>
+                </ScrollViewer>
+            <!-- </materialDesign:TransitionerSlide> -->
+</UserControl>
