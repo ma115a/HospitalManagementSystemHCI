@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:HospitalManagementSystem"
+        xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
         mc:Ignorable="d"
         Title="Hospital Management System" Height="620" Width="820" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Background="#F3F4F6">
     <Grid Background="{StaticResource LoginGridBackground}">
@@ -34,9 +35,10 @@
                 <!-- Form -->
                 <StackPanel Grid.Row="1" MinWidth="380">
                     <TextBox x:Name="UsernameBox" 
-                             materialDesign:HintAssist.Hint="Username" 
+                             materialDesign:HintAssist.Hint="{loc:Loc usernameBox}" 
                              FontSize="14" 
                              VerticalContentAlignment="Center" 
+                             Text="{Binding Username}"
                              materialDesign:TextFieldAssist.TextBoxViewMargin="0,-4,0,0" 
                              materialDesign:HintAssist.IsFloating="False" 
                              Style="{DynamicResource MaterialDesignFilledTextBox}"
@@ -48,7 +50,7 @@
                              materialDesign:TextFieldAssist.HasLeadingIcon="True"
                              materialDesign:TextFieldAssist.UnderlineCornerRadius="6"/>
                     <PasswordBox x:Name="PasswordBox" 
-                                 materialDesign:HintAssist.Hint="Password" 
+                                 materialDesign:HintAssist.Hint="{loc:Loc passwordBox}" 
                                  FontSize="14" 
                                  VerticalContentAlignment="Center" 
                                  materialDesign:TextFieldAssist.TextBoxViewMargin="0,-4,0,0" 
@@ -67,14 +69,35 @@
                                  Margin="0,8,0,0"/>
 
 
-                    <Button Content="Sign in" Margin="0,16,0,0"
+                    <Button Content="{loc:Loc loginBtn}" Margin="0,16,0,0"
                             Style="{StaticResource MaterialDesignRaisedButton}"
                             materialDesign:ButtonAssist.CornerRadius="6"
-                            
-                             Click="OnSignInClick" Height="35"/>
+                            IsEnabled="{Binding IsButtonEnabled}"
+                            Command="{Binding LoginCommand}"
+                            Height="35"/>
 
 
                     <!-- <TextBlock Text="Forgot password?" Foreground="{DynamicResource PrimaryHueMidBrush}" Margin="0,10,0,0" Cursor="Hand"/> -->
+                    <materialDesign:Snackbar
+                        MessageQueue="{Binding MessageQueue}"
+                        IsActive="True"
+                        Background="{DynamicResource MaterialDesignSnackbar.Background}"
+                        Foreground="{DynamicResource MaterialDesignSnackbar.Foreground}"
+                        Margin="0,10,0,0">
+                        <materialDesign:Snackbar.Template>
+                            <ControlTemplate TargetType="materialDesign:Snackbar">
+                                <materialDesign:Card Background="{DynamicResource MaterialDesignSnackbar.Background}"
+                                                     Foreground="{DynamicResource MaterialDesignSnackbar.Foreground}"
+                                                     UniformCornerRadius="4">
+                                    <ContentPresenter HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center"
+                                                      Margin="16,12"
+                                                      TextBlock.TextAlignment="Center"/>
+                                </materialDesign:Card>
+                            </ControlTemplate>
+                        </materialDesign:Snackbar.Template>
+                    </materialDesign:Snackbar>
+                        
                 </StackPanel>
 
 

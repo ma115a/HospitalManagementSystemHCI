@@ -3,7 +3,6 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using HOspitalManagementSystem.Doctor.ViewModels;
 using HospitalManagementSystem.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -29,16 +28,16 @@ public partial class DoctorWindowViewModel : ObservableObject
             { 3, new Lazy<IActivable>(() => _sp.GetRequiredService<LaboratoryResultsViewViewModel>()) },
             { 4, new Lazy<IActivable>(() => _sp.GetRequiredService<LaboratoryRequestsViewViewModel>()) },
             { 5, new Lazy<IActivable>(() => _sp.GetRequiredService<MakeAdmissionViewViewModel>()) },
-            { 6, new Lazy<IActivable>(() => _sp.GetRequiredService<SurgeriesViewViewModel>()) }
+            { 6, new Lazy<IActivable>(() => _sp.GetRequiredService<DoctorSurgeriesViewViewModel>()) }
         };
-
+        _ = ActivateSelectedAsync(_currentSlideIndex);
     }
 
 
     public DoctorHomePageViewModel? HomeVm =>
         _slides.TryGetValue(0, out var l) ? (DoctorHomePageViewModel?)l.Value : null;
     public MedicalRecordViewViewModel? MedicalVm =>
-        _slides.TryGetValue(2, out var l) ? (MedicalRecordViewViewModel?)l.Value : null;
+        _slides.TryGetValue(1, out var l) ? (MedicalRecordViewViewModel?)l.Value : null;
     public PrescriptionViewViewModel? PrescriptionVm =>
         _slides.TryGetValue(2, out var l) ? (PrescriptionViewViewModel?)l.Value : null;
     public LaboratoryResultsViewViewModel? LabResultVm =>
@@ -47,8 +46,8 @@ public partial class DoctorWindowViewModel : ObservableObject
         _slides.TryGetValue(4, out var l) ? (LaboratoryRequestsViewViewModel?)l.Value : null;
     public MakeAdmissionViewViewModel? AdmissionVm =>
         _slides.TryGetValue(5, out var l) ? (MakeAdmissionViewViewModel?)l.Value : null;
-    public SurgeriesViewViewModel? SurgeriesVm =>
-        _slides.TryGetValue(6, out var l) ? (SurgeriesViewViewModel?)l.Value : null;
+    public DoctorSurgeriesViewViewModel? SurgeriesVm =>
+        _slides.TryGetValue(6, out var l) ? (DoctorSurgeriesViewViewModel?)l.Value : null;
     
 
 

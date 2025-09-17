@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
+
              mc:Ignorable="d">
     <!-- <materialDesign:TransitionerSlide> -->
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -29,15 +31,25 @@
                                                    Foreground="{DynamicResource MaterialDesign.Brush.Primary}" Margin="60,0,60,0"/>
 
                             <ComboBox Grid.Column="1"
-                                    x:Name="PatientCombo"
-                                    IsEditable="True"
-                                    StaysOpenOnEdit="True"
                                     IsTextSearchEnabled="False"
-                                    materialDesign:HintAssist.Hint="Search patient (name or UMCN)"
+                                    materialDesign:HintAssist.Hint="{loc:Loc searchPatient}"
                                     materialDesign:HintAssist.IsFloating="False"
                                     Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                    ItemsSource="{Binding Patients}"
+                                    SelectedItem="{Binding SelectedPatient}"
                                     MinWidth="240"
-                                    MaxWidth="800" Height="50" Margin="0,0,145,0"/>
+                                    MaxWidth="800" Height="50" Margin="0,0,145,0">
+                            <ComboBox.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding name}"></TextBlock>
+                                        <TextBlock Text=" (" Margin="4,0,0,0"></TextBlock>
+                                        <TextBlock Text="{Binding umcn}"></TextBlock>
+                                        <TextBlock Text=" )"></TextBlock>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ComboBox.ItemTemplate>
+                            </ComboBox>
                         </Grid>
 
             <materialDesign:Card materialDesign:ElevationAssist.Elevation="Dp4" Grid.Row="1" Margin="10" VerticalContentAlignment="Center" UniformCornerRadius="12" Padding="5">
@@ -77,20 +89,20 @@
                                         </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon Grid.Column="0" Kind="FileDocumentOutline" Width="32" Height="32" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Margin="10,0,0,0"
-                   Text="View Medical Records"
+                   Text="{loc:Loc doctorMedicalRecordsTitle}"
                    FontWeight="SemiBold" FontSize="16"
                    TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </Grid>
 
                                     <!-- Description -->
                                     <TextBlock Grid.Row="1" Margin="0,10,0,0"
-                 Text="Browse and view patient medical records."
+                 Text="{loc:Loc doctorMedicalRecordsContent}"
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <!-- Action -->
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="Open" Width="100" Height="30"
-                                            Click="MedicalRecord_Click"
+              Content="{loc:Loc adminCardButton}" Width="100" Height="30"
+              Command="{Binding DataContext.GoToMedicalRecordCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
@@ -114,19 +126,19 @@
                                         </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon Grid.Column="0" Kind="Pill" Width="32" Height="32" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Margin="10,0,0,0"
-                   Text="Make Prescription"
+                   Text="{loc:Loc doctorPrescriptionTitle}"
                    FontWeight="SemiBold" FontSize="16"
                    TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </Grid>
 
                                     <TextBlock Grid.Row="1" Margin="0,10,0,0"
-                 Text="Create a new prescription for a patient."
+                 Text="{loc:Loc doctorPrescriptionContent}"
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="Open" Width="100" Height="30"
+              Content="{loc:Loc adminCardButton}" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
-              Click="Prescription_Click"
+              Command="{Binding DataContext.GoToPrescriptionCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
@@ -149,18 +161,18 @@
                                         </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon Grid.Column="0" Kind="ClipboardPulseOutline" Width="32" Height="32" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Margin="10,0,0,0"
-                   Text="Laboratory results"
+                   Text="{loc:Loc doctorLaboratoryTitle}"
                    FontWeight="SemiBold" FontSize="16"
                    TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </Grid>
 
                                     <TextBlock Grid.Row="1" Margin="0,10,0,0"
-                 Text="Review completed lab test results."
+                 Text="{loc:Loc doctorLaboratoryContent}"
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="Open" Width="100" Height="30"
-              Click="LaboratoryResults_Click"
+              Content="{loc:Loc adminCardButton}" Width="100" Height="30"
+              Command="{Binding DataContext.GoToLaboratoryResultCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
@@ -196,7 +208,7 @@
                                     <Button Grid.Row="2" Margin="0,12,0,0"
               Content="Open" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
-              Click="LaboratoryRequests_Click"
+              Command="{Binding DataContext.GoToLaboratoryRequestsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
@@ -219,19 +231,19 @@
                                         </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon Grid.Column="0" Kind="Bed" Width="32" Height="32" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Margin="10,0,0,0"
-                   Text="Make Admission"
+                   Text="{loc:Loc doctorAdmissionTitle}"
                    FontWeight="SemiBold" FontSize="16"
                    TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </Grid>
 
                                     <TextBlock Grid.Row="1" Margin="0,10,0,0"
-                 Text="Admit a patient to a room."
+                 Text="{loc:Loc doctorAdmissionContent}"
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="Open" Width="100" Height="30"
+              Content="{loc:Loc adminCardButtonj}" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
-              Click="Admissions_Click"
+          Command="{Binding DataContext.GoToAdmissionCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
@@ -254,18 +266,18 @@
                                         </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon Grid.Column="0" Kind="StanleyKnife" Width="32" Height="32" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Margin="10,0,0,0"
-                   Text="View surgeries"
+                   Text="{loc:Loc doctorSurgeriesTitle}"
                    FontWeight="SemiBold" FontSize="16"
                    TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </Grid>
 
                                     <TextBlock Grid.Row="1" Margin="0,10,0,0"
-                 Text="See past and scheduled surgeries."
+                 Text="{loc:Loc doctorSurgeriesContent}"
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="Open" Width="100" Height="30"
-              Click="Surgeries_Click"
+              Content="{loc:Loc adminCardButtonj}" Width="100" Height="30"
+          Command="{Binding DataContext.GoToSurgeriesCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>

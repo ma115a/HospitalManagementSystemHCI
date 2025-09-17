@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
              >
@@ -20,7 +21,7 @@
                                 >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -32,9 +33,9 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewUserCommand}"/>
-                            <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditUserCommand}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteUserCommand}"/>
+                            <Button Content="{loc:Loc newBtn}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewUserCommand}"/>
+                            <Button Content="{loc:Loc editBtn}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditUserCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteUserCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -54,7 +55,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Users" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                                <TextBlock Text="" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
                                 <DataGrid Grid.Row="1"
                                           Style="{DynamicResource MaterialDesignDataGrid}"
                                           AutoGenerateColumns="False"
@@ -65,10 +66,10 @@
                                           ItemsSource="{Binding Employees}"
                                           SelectedItem="{Binding SelectedEmployee}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Username" Binding="{Binding username}" Width="*"/>
-                                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="2*"/>
-                                        <DataGridTextColumn Header="Role" Binding="{Binding Role}" Width="*"/>
-                                        <DataGridCheckBoxColumn Header="Active" Binding="{Binding active}" Width="Auto"/>
+                                        <DataGridTextColumn Header="{loc:Loc usernameGrid}" Binding="{Binding username}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc nameGrid}" Binding="{Binding name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc roleGrid}" Binding="{Binding Role}" Width="*"/>
+                                        <DataGridCheckBoxColumn Header="" Binding="{Binding active}" Width="Auto"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -96,12 +97,12 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="User Details"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc userDetails}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Full name"
+                                             materialDesign:HintAssist.Hint="{loc:Loc fullName}"
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
@@ -112,7 +113,7 @@
 
                                     <TextBox Grid.Row="2" Grid.Column="0"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Username"
+                                             materialDesign:HintAssist.Hint="{loc:Loc usernameBox}"
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              Name="UsernameTextBox"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
@@ -122,7 +123,7 @@
                                              Margin="0,0,5,10"
                                              Text="{Binding username, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <PasswordBox Grid.Row="2" Grid.Column="1"
-                                                 materialDesign:HintAssist.Hint="Password (set/reset)"
+                                                 materialDesign:HintAssist.Hint="{loc:Loc passwordBox}"
                                                  materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -136,7 +137,7 @@
 
                                     <ComboBox Grid.Row="3" Grid.Column="0"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Role"
+                                              materialDesign:HintAssist.Hint="{loc:Loc roleGrid}"
                                               Margin="0,0,5,10"
                                               SelectedValuePath="Content"
                                               Name="RoleBox"
@@ -150,7 +151,7 @@
                                     </ComboBox>
                                     <ComboBox Grid.Row="3" Grid.Column="1"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Department (optional)"
+                                              materialDesign:HintAssist.Hint="{loc:Loc departmentBox}"
                                               Margin="5,0,0,10"
                                               SelectedValuePath="Content"
                                               IsEnabled="{Binding DataContext.IsDepartmentEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
@@ -172,7 +173,7 @@
 
                                     <TextBox Grid.Row="4" Grid.Column="0"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Phone"
+                                             materialDesign:HintAssist.Hint="{loc:Loc phoneBox}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -183,7 +184,7 @@
                                              Text="{Binding phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <TextBox Grid.Row="4" Grid.Column="1"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Email"
+                                             materialDesign:HintAssist.Hint=""
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              Name="EmailTextBox"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
@@ -194,7 +195,7 @@
                                              Text="{Binding email, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <CheckBox Grid.Row="5" Grid.ColumnSpan="2"
-                                              Content="Active"
+                                              Content="{loc:Loc activeGrid}"
                                               IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                               Name="ActiveBox"
                                               IsChecked="{Binding active}"
@@ -212,13 +213,13 @@
                                              Name="NotesTextBox"
                                              Margin="0,0,0,10"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Notes"
+                                             materialDesign:HintAssist.Hint=""
                                              Text="{Binding notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal"
                                                 HorizontalAlignment="Right">
-                                        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                                        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc saveBtn}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
+
              mc:Ignorable="d">
     <materialDesign:Card DockPanel.Dock="Top"
                              Margin="0,8,0,8"
@@ -19,7 +21,7 @@
                 </Grid.ColumnDefinitions>
 
                 <!-- Avatar -->
-                <Grid Width="48" Height="48">
+                <!--<Grid Width="48" Height="48">
                     <Border CornerRadius="32"
                             Background="{DynamicResource MaterialDesign.Brush.SurfaceVariant}">
                         <Image Stretch="UniformToFill"
@@ -29,25 +31,21 @@
                             </Image.Clip>
                         </Image>
                     </Border>
-                </Grid>
+                </Grid>-->
 
                 <!-- Basic info -->
-                <WrapPanel Grid.Column="1" VerticalAlignment="Center" ItemHeight="28">
+                <WrapPanel Grid.Column="1" VerticalAlignment="Center" ItemHeight="28" Margin="10,0,0,0">
                     <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
-                        <TextBlock Text="UMCN:" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}" VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding SelectedPatient.UMCN}" d:Text="{DynamicResource dPatientUMCN}"  VerticalAlignment="Center"  FontWeight="SemiBold" Margin="6,0,0,0"/>
+                        <TextBlock Text="{loc:Loc patientUmcn}" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}" VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedPatient.umcn}" d:Text="{DynamicResource dPatientUMCN}"  VerticalAlignment="Center"  FontWeight="SemiBold" Margin="6,0,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
-                    <TextBlock Text="Name:" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"  VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding SelectedPatient.Name}" d:Text="{DynamicResource dPatientName}"  VerticalAlignment="Center" FontWeight="SemiBold" Margin="6,0,0,0"/>
+                    <TextBlock Text="{loc:Loc patientName}" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"  VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedPatient.name}" d:Text="{DynamicResource dPatientName}"  VerticalAlignment="Center" FontWeight="SemiBold" Margin="6,0,0,0"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
-                    <TextBlock Text="Last name:" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"  VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding SelectedPatient.Lastname}" d:Text="{DynamicResource dPatientLast}"  VerticalAlignment="Center" FontWeight="SemiBold" Margin="6,0,0,0"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,16,0">
-                    <TextBlock Text="Phone:" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"  VerticalAlignment="Center"/>
-                    <TextBlock Text="{Binding SelectedPatient.Phone}" d:Text="{DynamicResource dPatientPhone}"  VerticalAlignment="Center" FontWeight="SemiBold" Margin="6,0,0,0"/>
+                    <TextBlock Text="{loc:Loc patientPhone}" Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"  VerticalAlignment="Center"/>
+                    <TextBlock Text="{Binding SelectedPatient.phone}" d:Text="{DynamicResource dPatientPhone}"  VerticalAlignment="Center" FontWeight="SemiBold" Margin="6,0,0,0"/>
                     </StackPanel>
                 </WrapPanel>
             </Grid>

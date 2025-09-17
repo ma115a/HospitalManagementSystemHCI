@@ -5,17 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:adminViews="clr-namespace:HospitalManagementSystem.Admin.Views"
+        xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
         mc:Ignorable="d"
         Title="Administrator Dashboard"
         Height="800" Width="1000"
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesign.Brush.Background}">
 
-    <!-- ESC to go back to dashboard from inner slides -->
-    <Window.InputBindings>
-        <KeyBinding Key="Escape"
-                    Command="{Binding GoToDashboardCommand}"/>
-    </Window.InputBindings>
 
     <DockPanel>
         <!-- TOP APP BAR -->
@@ -39,7 +35,7 @@
                                d:Text="City General Hospital (Preview)"
                                FontSize="20" FontWeight="SemiBold"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
-                    <TextBlock Text="Administration Console"
+                    <TextBlock Text="{loc:Loc adminTitle}"
                                FontSize="12" Opacity=".9"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                 </StackPanel>

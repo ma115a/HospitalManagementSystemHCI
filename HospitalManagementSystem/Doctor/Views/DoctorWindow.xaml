@@ -6,12 +6,13 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:views="clr-namespace:HospitalManagementSystem.Doctor.Views"
         xmlns:vm="clr-namespace:HospitalManagementSystem.Doctor.ViewModels"
+        xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
         mc:Ignorable="d"
         Title="Doctor Dashboard" Height="800" Width="1000"
         WindowStartupLocation="CenterScreen">
     
     <Window.Resources>
-        <DataTemplate DataType="{x:Type vm:DoctorWindowViewModel}">
+        <DataTemplate DataType="{x:Type vm:DoctorHomePageViewModel}">
             <views:DoctorHomePage></views:DoctorHomePage>
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MedicalRecordViewViewModel}">
@@ -29,7 +30,7 @@
         <DataTemplate DataType="{x:Type vm:MakeAdmissionViewViewModel}">
             <views:MakeAdmissionView></views:MakeAdmissionView>
         </DataTemplate>
-        <DataTemplate DataType="{x:Type vm:SurgeriesViewViewModel}">
+        <DataTemplate DataType="{x:Type vm:DoctorSurgeriesViewViewModel}">
             <views:SurgeriesView></views:SurgeriesView>
         </DataTemplate>
     </Window.Resources>

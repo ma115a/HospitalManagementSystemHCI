@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
              >
     <Border Background="{DynamicResource MaterialDesign.Brush.Primary}">
@@ -36,7 +37,7 @@
                                FontWeight="SemiBold"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                     
-                    <TextBlock Text="Hospital Management System" 
+                    <TextBlock Text="{loc:Loc doctorTitle}" 
                                FontSize="12" 
                                Opacity=".9"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>

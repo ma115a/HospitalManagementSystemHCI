@@ -48,17 +48,21 @@
                     <ColumnDefinition Width="3*" MinWidth="180"/>  <!-- SEARCH grows most -->
                     <ColumnDefinition Width="2*" MinWidth="140"/>  <!-- FROM date grows -->
                     <ColumnDefinition Width="2*" MinWidth="140"/>  <!-- TO date grows -->
+                    <ColumnDefinition Width="Auto"/>          <!-- magnify icon -->
                 </Grid.ColumnDefinitions>
 
                 <!-- Buttons -->
-                <Button Grid.Column="0" Content="+" FontSize="24"
-                        Style="{DynamicResource MaterialDesignFloatingActionMiniButton}" />
+                <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewMedicalRecordCommand}"/>
                 <Button Grid.Column="1" Content="Edit"
+                        IsEnabled="{Binding IsControls2Enabled}"
                         Margin="8,0,0,0"
+                        Command="{Binding EditMedicalRecordCommand}"
                         Style="{DynamicResource MaterialDesignFlatButton}" />
                 <Button Grid.Column="2" Content="Delete"
                         Margin="8,0,0,0"
+                        IsEnabled="{Binding IsControls2Enabled}"
                         Foreground="Red"
+                        Command="{Binding DeleteMedicalRecordCommand}"
                         Style="{DynamicResource MaterialDesignFlatButton}" />
 
                 <!-- Search -->
@@ -69,6 +73,7 @@
                          materialDesign:HintAssist.Hint="Search records"
                          materialDesign:HintAssist.IsFloating="False"
                          materialDesign:TextFieldAssist.HasClearButton="True"
+                         Text="{Binding RecordSearch, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource MaterialDesignOutlinedTextBox}"/>
 
                 <!-- Date pickers -->
@@ -77,13 +82,20 @@
                             Margin="8,0,0,0"
                             materialDesign:HintAssist.Hint="From date"
                             materialDesign:HintAssist.IsFloating="False"
+                            SelectedDate="{Binding StartDateFilter, Mode=TwoWay}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
                 <DatePicker Grid.Column="6" 
                             HorizontalAlignment="Stretch"
                             Margin="8,0,0,0"
                             materialDesign:HintAssist.Hint="To date"
                             materialDesign:HintAssist.IsFloating="False"
+                            SelectedDate="{Binding EndDateFilter, Mode=TwoWay}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
+                <Border Grid.Column="7" VerticalAlignment="Bottom" Margin="5,0,0,10">
+                    <Button Content="Clear"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{Binding ClearFiltersCommand}"/>
+                </Border>
             </Grid>
         </Border>
 
@@ -121,17 +133,17 @@
                               Style="{DynamicResource MaterialDesignDataGrid}"
                               Margin="10,0"
                               AutoGenerateColumns="False"
-                              ItemsSource="{Binding Records}"
+                              ItemsSource="{Binding MedicalRecordsView}"
                               CanUserAddRows="False"
                               CanUserDeleteRows="False"
                               IsReadOnly="True"
                               SelectionMode="Single"
-                              SelectedItem="{Binding SelectedRecord, Mode=TwoWay}">
+                              SelectedItem="{Binding SelectedMedicalRecord, Mode=TwoWay}">
                         <DataGrid.Columns>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*"/>
+                                                Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Doctor" Binding="{Binding Doctor}" Width="*"/>
+                                                Header="Doctor" Binding="{Binding doctor.employee.name}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -160,7 +172,7 @@
                     <TextBlock Grid.ColumnSpan="2" Text="Record Details"
                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,17"/>
 
-                    <DatePicker Grid.Row="1" Grid.ColumnSpan="2"
+                    <DatePicker Grid.Row="1" Grid.Column="0"
                                 Style="{DynamicResource MaterialDesignFilledDatePicker}"
                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
@@ -168,7 +180,21 @@
                                 materialDesign:HintAssist.Hint="Date"
                                 materialDesign:HintAssist.IsFloating="False"
                                 Margin="0,0,5,10"
-                                SelectedDate="{Binding SelectedRecord.Date, Mode=TwoWay}"/>
+                                IsEnabled="{Binding IsControlsEnabled}"
+                                SelectedDate="{Binding SelectedDate, Mode=TwoWay}"/>
+                    <TextBox Grid.Row="1" Grid.Column="1"
+                             Style="{DynamicResource MaterialDesignFilledTextBox}"
+                             materialDesign:HintAssist.Hint="Time (HH:mm)"
+                             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                             materialDesign:HintAssist.IsFloating="False"
+                             Margin="5, 0, 0, 10"
+                             IsEnabled="{Binding IsControlsEnabled}"
+                             PreviewTextInput="TimeBox_PreviewTextInput"
+                             TextChanged="TimeBox_TextChanged"
+                             PreviewKeyDown="TimeBox_PreviewKeyDown"
+                             Text="{Binding SelectedTime}"/>
 
                     <TextBox Grid.Row="2" Grid.ColumnSpan="2"
                              Style="{DynamicResource MaterialDesignFilledTextBox}"
@@ -178,7 +204,8 @@
                              materialDesign:HintAssist.Hint="Diagnosis"
                              materialDesign:HintAssist.IsFloating="False"
                              Margin="0,0,0,10"
-                             Text="{Binding SelectedRecord.Diagnosis, Mode=TwoWay}"/>
+                             IsEnabled="{Binding IsControlsEnabled}"
+                             Text="{Binding SelectedMedicalRecord.diagnosis, Mode=TwoWay}"/>
 
                     <TextBox Grid.Row="3" Grid.ColumnSpan="2"
                              AcceptsReturn="True" TextWrapping="Wrap"
@@ -189,7 +216,8 @@
                              materialDesign:HintAssist.Hint="Symptoms / Notes"
                              materialDesign:HintAssist.IsFloating="False"
                              Margin="0,0,0,10"
-                             Text="{Binding SelectedRecord.Notes, Mode=TwoWay}"/>
+                             IsEnabled="{Binding IsControlsEnabled}"
+                             Text="{Binding SelectedMedicalRecord.notes, Mode=TwoWay}"/>
 
                     <TextBox Grid.Row="4" Grid.ColumnSpan="2"
                              AcceptsReturn="True" TextWrapping="Wrap"
@@ -200,11 +228,12 @@
                              materialDesign:HintAssist.Hint="Treatment"
                              materialDesign:HintAssist.IsFloating="False"
                              Margin="0,0,0,10"
-                             Text="{Binding SelectedRecord.Treatment, Mode=TwoWay}"/>
+                             IsEnabled="{Binding IsControlsEnabled}"
+                             Text="{Binding SelectedMedicalRecord.treatment, Mode=TwoWay}"/>
 
                     <StackPanel Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-                        <Button Content="Cancel" Margin="0, 0, 5, 0" Style="{DynamicResource MaterialDesignFlatButton}" />
-                        <Button Content="Save" Margin="5, 0, 9, 0" Style="{DynamicResource MaterialDesignRaisedButton}" />
+                        <Button Content="Cancel" IsEnabled="{Binding IsControlsEnabled}" Margin="0, 0, 5, 0" Style="{DynamicResource MaterialDesignFlatButton}" />
+                        <Button Content="Save" IsEnabled="{Binding IsControlsEnabled}" Margin="5, 0, 9, 0" Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SaveMedicalRecordCommand}" />
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>

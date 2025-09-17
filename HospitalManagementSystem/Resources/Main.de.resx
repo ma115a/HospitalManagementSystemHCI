@@ -1,0 +1,212 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="loginBtn" xml:space="preserve">
+        <value>Einloggen</value>
+    </data>
+    <data name="usernameBox" xml:space="preserve">
+        <value>Benutzername</value>
+    </data>
+    <data name="passwordBox" xml:space="preserve">
+        <value>Passwort</value>
+    </data>
+    <data name="adminTitle" xml:space="preserve">
+        <value>Administratorkonsole</value>
+    </data>
+    <data name="adminManageProfilesTitle" xml:space="preserve">
+        <value>Benutzerprofile verwalten</value>
+    </data>
+    <data name="adminManageProfilesContent" xml:space="preserve">
+        <value>Erstellen und verwalten Sie Krankenschwestern, Chirurgen, Ärzte, Labormitarbeiter und Administratoren.</value>
+    </data>
+    <data name="adminDepartmentsTitle" xml:space="preserve">
+        <value>Abteilungen und Räume</value>
+    </data>
+    <data name="adminDepartmentsContent" xml:space="preserve">
+        <value>Abteilungen anlegen, Räume zuordnen und Kapazitäten verwalten.</value>
+    </data>
+    <data name="adminVehiclesTitle" xml:space="preserve">
+        <value>Fahrzeuge</value>
+    </data>
+    <data name="adminVehiclesContent" xml:space="preserve">
+        <value>Krankenwagen und andere Fahrzeuge registrieren und warten.</value>
+    </data>
+    <data name="adminMedicationsTitle" xml:space="preserve">
+        <value>Medikamenteninventar</value>
+    </data>
+    <data name="adminCardButton" xml:space="preserve">
+        <value>Offen</value>
+    </data>
+    <data name="adminMedicationsContent" xml:space="preserve">
+        <value>Verwalten Sie den Medikamentenkatalog und den Lagerbestand abteilungsübergreifend.</value>
+    </data>
+    <data name="backToDashboard" xml:space="preserve">
+        <value>Zurück zum Dashboard</value>
+    </data>
+    <data name="newBtn" xml:space="preserve">
+        <value>Neu</value>
+    </data>
+    <data name="editBtn" xml:space="preserve">
+        <value>Bearbeiten</value>
+    </data>
+    <data name="deleteBtn" xml:space="preserve">
+        <value>Löschen</value>
+    </data>
+    <data name="users" xml:space="preserve">
+        <value>Benutzer</value>
+    </data>
+    <data name="usernameGrid" xml:space="preserve">
+        <value>Benutzername</value>
+    </data>
+    <data name="nameGrid" xml:space="preserve">
+        <value>Name</value>
+    </data>
+    <data name="roleGrid" xml:space="preserve">
+        <value>Rolle</value>
+    </data>
+    <data name="activeGrid" xml:space="preserve">
+        <value>Aktiv</value>
+    </data>
+    <data name="userDetails" xml:space="preserve">
+        <value>Benutzerdetails</value>
+    </data>
+    <data name="fullName" xml:space="preserve">
+        <value>Vollständiger Name</value>
+    </data>
+    <data name="departmentBox" xml:space="preserve">
+        <value>Abteilung (optional)</value>
+    </data>
+    <data name="phoneBox" xml:space="preserve">
+        <value>Telefon</value>
+    </data>
+    <data name="emailBox" xml:space="preserve">
+        <value>Email</value>
+    </data>
+    <data name="notesBox" xml:space="preserve">
+        <value>Notizen</value>
+    </data>
+    <data name="saveBtn" xml:space="preserve">
+        <value>Speichern</value>
+    </data>
+    <data name="cancelBtn" xml:space="preserve">
+        <value>Stornieren</value>
+    </data>
+    <data name="vehiclesTitle" xml:space="preserve">
+        <value>Fahrzeuge</value>
+    </data>
+    <data name="plateGrid" xml:space="preserve">
+        <value>Kennenzeichen</value>
+    </data>
+    <data name="brandGrid" xml:space="preserve">
+        <value>Marke</value>
+    </data>
+    <data name="lastServiceGrid" xml:space="preserve">
+        <value>Letzter Dienst</value>
+    </data>
+    <data name="vehicleDetails" xml:space="preserve">
+        <value>Fahrzeugdetails</value>
+    </data>
+    <data name="newDepartmentBtn" xml:space="preserve">
+        <value>Neue Abteilung</value>
+    </data>
+    <data name="newRoomBtn" xml:space="preserve">
+        <value>Neues Zimmer</value>
+    </data>
+    <data name="departmentsTitle" xml:space="preserve">
+        <value>Abteilungen</value>
+    </data>
+    <data name="codeGrid" xml:space="preserve">
+        <value>Code</value>
+    </data>
+    <data name="headGrid" xml:space="preserve">
+        <value>Haupt</value>
+    </data>
+    <data name="roomsGrid" xml:space="preserve">
+        <value>Zimmer</value>
+    </data>
+    <data name="numberGrid" xml:space="preserve">
+        <value>Nummer</value>
+    </data>
+    <data name="capacityGrid" xml:space="preserve">
+        <value>Kapazität</value>
+    </data>
+    <data name="typeGrid" xml:space="preserve">
+        <value>Typ</value>
+    </data>
+    <data name="createDepartment" xml:space="preserve">
+        <value>Abteilung erstellen</value>
+    </data>
+    <data name="departmentNameBox" xml:space="preserve">
+        <value>Abteilungsname</value>
+    </data>
+    <data name="headOfDepartment" xml:space="preserve">
+        <value>Abteilungsleiter</value>
+    </data>
+    <data name="createRoom" xml:space="preserve">
+        <value>Raum schaffen</value>
+    </data>
+    <data name="department" xml:space="preserve">
+        <value>Abteilung</value>
+    </data>
+    <data name="roomNumber" xml:space="preserve">
+        <value>Zimmernummer</value>
+    </data>
+    <data name="currentPatientsOptional" xml:space="preserve">
+        <value>Aktuelle Patienten (optional)</value>
+    </data>
+    <data name="doctorTitle" xml:space="preserve">
+        <value>Arztkonsole</value>
+    </data>
+    <data name="searchPatient" xml:space="preserve">
+        <value>Suche Patient (Name)</value>
+    </data>
+    <data name="patientUmcn" xml:space="preserve">
+        <value>Identifikationsnummer</value>
+    </data>
+    <data name="patientName" xml:space="preserve">
+        <value>Name:</value>
+    </data>
+    <data name="patientPhone" xml:space="preserve">
+        <value>Telefon nummer:</value>
+    </data>
+    <data name="doctorMedicalRecordsTitle" xml:space="preserve">
+        <value>Krankenakten anzeigen</value>
+    </data>
+    <data name="doctorMedicalRecordsContent" xml:space="preserve">
+        <value>Durchsuchen und zeigen Sie die Krankenakten von Patienten an.</value>
+    </data>
+    <data name="doctorPrescriptionTitle" xml:space="preserve">
+        <value>Machen Sie ein Rezept</value>
+    </data>
+    <data name="doctorPrescriptionContent" xml:space="preserve">
+        <value>Erstellen Sie ein neues Rezept für einen Patienten.</value>
+    </data>
+    <data name="doctorLaboratoryTitle" xml:space="preserve">
+        <value>Laborergebnisse</value>
+    </data>
+    <data name="doctorLaboratoryContent" xml:space="preserve">
+        <value>Überprüfen Sie die Ergebnisse der abgeschlossenen Labortests.</value>
+    </data>
+    <data name="doctorAdmissionTitle" xml:space="preserve">
+        <value>Machen Sie Einlass</value>
+    </data>
+    <data name="doctorAdmissionContent" xml:space="preserve">
+        <value>Nehmen Sie einen Patienten in ein Zimmer auf.</value>
+    </data>
+    <data name="doctorSurgeriesTitle" xml:space="preserve">
+        <value>Operationen ansehen</value>
+    </data>
+    <data name="doctorSurgeriesContent" xml:space="preserve">
+        <value>Sehen Sie sich vergangene und geplante Operationen an.</value>
+    </data>
+</root>

@@ -226,7 +226,7 @@
 
                                     <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
                                         <Button IsEnabled="{Binding IsControlsEnabled}" Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelAdmissionCommand}"/>
-                                        <Button Content="Save"     Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAdmissionCommand}"/>
+                                        <Button Content="Save"  IsEnabled="{Binding IsControlsEnabled}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAdmissionCommand}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

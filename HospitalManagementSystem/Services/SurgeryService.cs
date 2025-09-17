@@ -173,5 +173,12 @@ public class SurgeryService
         await context.SaveChangesAsync();
         return nurse;
     }
+
+
+    public async Task<IEnumerable<surgery>> GetSurgeriesForPatient(patient patient)
+    {
+        await using var context = await _factory.CreateDbContextAsync();
+        return await context.surgeries.Where(s => s.patient_umcn == patient.umcn).Include(s => s.room).Include(s => s.surgeon).ThenInclude(su => su.employee).AsNoTracking().ToListAsync();
+    }
 }
 

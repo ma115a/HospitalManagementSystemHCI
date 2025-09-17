@@ -42,14 +42,15 @@
                     <ColumnDefinition Width="3*" MinWidth="180"/>  <!-- SEARCH grows most -->
                     <ColumnDefinition Width="2*" MinWidth="140"/>  <!-- FROM date grows -->
                     <ColumnDefinition Width="2*" MinWidth="140"/>  <!-- TO date grows -->
+                    <ColumnDefinition Width="Auto"/>          <!-- magnify icon -->
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0"  FontSize="24"
-                        ToolTip="New Prescription"
-                        Content="+"
-                        Style="{DynamicResource MaterialDesignFloatingActionButton}" />
+                
+                <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewPrescriptionCommand}"/>
                 <Button Grid.Column="1" Content="Edit"
                         Margin="8,0,0,0"
+                        Command="{Binding EditPrescriptionCommand}"
+                        IsEnabled="{Binding IsControls2Enabled}"
                         Style="{DynamicResource MaterialDesignFlatButton}" />
 
                 <materialDesign:PackIcon Grid.Column="2" Kind="Magnify"
@@ -59,6 +60,7 @@
                          materialDesign:HintAssist.Hint="Search prescriptions"
                          materialDesign:HintAssist.IsFloating="False"
                          materialDesign:TextFieldAssist.HasClearButton="True"
+                         Text="{Binding SearchPrescription, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource MaterialDesignOutlinedTextBox}"/>
 
                 <DatePicker Grid.Column="4"
@@ -66,13 +68,21 @@
                             Margin="8,0,0,0"
                             materialDesign:HintAssist.Hint="From date"
                             materialDesign:HintAssist.IsFloating="False"
+                            SelectedDate="{Binding SearchPrescriptionStartDate, UpdateSourceTrigger=PropertyChanged}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
                 <DatePicker Grid.Column="5" 
                             HorizontalAlignment="Stretch"
                             Margin="8,0,0,0"
                             materialDesign:HintAssist.Hint="To date"
                             materialDesign:HintAssist.IsFloating="False"
+                            SelectedDate="{Binding SearchPrescriptionEndDate, UpdateSourceTrigger=PropertyChanged}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
+                
+                <Border Grid.Column="6" VerticalAlignment="Center" Margin="5,0,0,10">
+                    <Button Content="Clear"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{Binding ClearFiltersCommand}"/>
+                </Border>
             </Grid>
         </Border>
 
@@ -110,7 +120,7 @@
                               Style="{DynamicResource MaterialDesignDataGrid}"
                               Margin="10,0"
                               AutoGenerateColumns="False"
-                              ItemsSource="{Binding Prescriptions}"
+                              ItemsSource="{Binding PrescriptionsView}"
                               CanUserAddRows="False"
                               CanUserDeleteRows="False"
                               IsReadOnly="True"
@@ -118,11 +128,11 @@
                               SelectedItem="{Binding SelectedPrescription, Mode=TwoWay}">
                         <DataGrid.Columns>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*"/>
+                                                Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Medication" Binding="{Binding Medication}" Width="2*"/>
+                                                Header="Medication" Binding="{Binding medication}" Width="2*"/>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Dosage" Binding="{Binding Dosage}" Width="*"/>
+                                                Header="Dosage" Binding="{Binding dosage}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -165,48 +175,63 @@
                 materialDesign:HintAssist.Hint="Date"
                 materialDesign:HintAssist.IsFloating="False"
                 Margin="0,0,0,10"
-                SelectedDate="{Binding DraftPrescription.Date, Mode=TwoWay}"/>
+                IsEnabled="{Binding IsControlsEnabled}"
+                SelectedDate="{Binding SelectedPrescription.date, Mode=TwoWay}"/>
 
     <!-- Medication (editable ComboBox for type-ahead) -->
     <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
               IsEditable="True"
               StaysOpenOnEdit="True"
               IsTextSearchEnabled="False"
-              ItemsSource="{Binding Medications}"
-              Text="{Binding DraftPrescription.Medication, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+              ItemsSource="{Binding MedicationsView}"
+              Text="{Binding MedicationSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
               materialDesign:HintAssist.Hint="Medication"
+              SelectedValue="{Binding SelectedMedication, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               materialDesign:HintAssist.IsFloating="False"
+              IsEnabled="{Binding IsControlsEnabled}"
               Margin="0,0,0,10"/>
 
     <!-- Dosage -->
-    <TextBox Grid.Row="3" Grid.Column="0"
+    <TextBox Grid.Row="3" Grid.ColumnSpan="2"
              Style="{DynamicResource MaterialDesignFilledTextBox}"
              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
              materialDesign:HintAssist.Hint="Dosage (e.g., 500 mg)"
              materialDesign:HintAssist.IsFloating="False"
-             Margin="0,0,8,10"
-             Text="{Binding DraftPrescription.Dosage, Mode=TwoWay}"/>
+             Margin="0,0,0,10"
+             IsEnabled="{Binding IsControlsEnabled}"
+             Text="{Binding SelectedPrescription.dosage, Mode=TwoWay}"/>
+    
 
-    <!-- Route -->
-    <ComboBox Grid.Row="3" Grid.Column="1"
-              Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-              materialDesign:HintAssist.Hint="Route"
-              materialDesign:HintAssist.IsFloating="False"
-              Margin="8,0,0,10"
-              ItemsSource="{Binding Routes}"
-              SelectedItem="{Binding DraftPrescription.Route, Mode=TwoWay}"/>
+    
 
     <!-- Frequency -->
     <ComboBox Grid.Row="4" Grid.Column="0"
               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
               materialDesign:HintAssist.Hint="Frequency"
               materialDesign:HintAssist.IsFloating="False"
-              Margin="0,0,8,10"
+              Margin="0,0,5,10"
               ItemsSource="{Binding Frequencies}"
-              SelectedItem="{Binding DraftPrescription.Frequency, Mode=TwoWay}"/>
+              IsEnabled="{Binding IsControlsEnabled}"
+              SelectedValuePath="Content"
+              SelectedValue="{Binding SelectedPrescription.frequency, Mode=TwoWay}">
+    <ComboBoxItem>Once daily</ComboBoxItem>
+    <ComboBoxItem>Twice daily</ComboBoxItem>
+    <ComboBoxItem>Three times daily</ComboBoxItem>
+    <ComboBoxItem>Four times daily</ComboBoxItem>
+    <ComboBoxItem>Every 4 hours</ComboBoxItem>
+    <ComboBoxItem>Every 6 hours</ComboBoxItem>
+    <ComboBoxItem>Every 8 hours</ComboBoxItem>
+    <ComboBoxItem>Every 12 hours</ComboBoxItem>
+    <ComboBoxItem>As needed</ComboBoxItem>
+    <ComboBoxItem>Before meals</ComboBoxItem>
+    <ComboBoxItem>After meals</ComboBoxItem>
+    <ComboBoxItem>At bedtime</ComboBoxItem>
+    <ComboBoxItem>Every other day</ComboBoxItem>
+    <ComboBoxItem>Weekly</ComboBoxItem>
+    </ComboBox>
 
     <!-- Duration -->
     <TextBox Grid.Row="4" Grid.Column="1"
@@ -216,30 +241,23 @@
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
              materialDesign:HintAssist.Hint="Duration (e.g., 7 days)"
              materialDesign:HintAssist.IsFloating="False"
-             Margin="8,0,0,10"
-             Text="{Binding DraftPrescription.Duration, Mode=TwoWay}"/>
+             Margin="5,0,0,10"
+             IsEnabled="{Binding IsControlsEnabled}"
+             Text="{Binding SelectedPrescription.duration, Mode=TwoWay}"/>
 
-    <!-- Quantity -->
-    <TextBox Grid.Row="5" Grid.Column="0"
-             Style="{DynamicResource MaterialDesignFilledTextBox}"
-             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
-             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-             materialDesign:HintAssist.Hint="Quantity"
-             materialDesign:HintAssist.IsFloating="False"
-             Margin="0,0,8,10"
-             Text="{Binding DraftPrescription.Quantity, Mode=TwoWay}"/>
+   
 
     <!-- Refills -->
-    <TextBox Grid.Row="5" Grid.Column="1"
+    <TextBox Grid.Row="5" Grid.ColumnSpan="2"
              Style="{DynamicResource MaterialDesignFilledTextBox}"
              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
              materialDesign:HintAssist.Hint="Refills"
              materialDesign:HintAssist.IsFloating="False"
-             Margin="8,0,0,10"
-             Text="{Binding DraftPrescription.Refills, Mode=TwoWay}"/>
+             Margin="0,0,0,10"
+             IsEnabled="{Binding IsControlsEnabled}"
+             Text="{Binding SelectedPrescription.refills, Mode=TwoWay}"/>
 
     <!-- Instructions / Notes (grows with window) -->
     <TextBox Grid.Row="6" Grid.ColumnSpan="2"
@@ -252,13 +270,14 @@
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
              materialDesign:HintAssist.Hint="Instructions / Notes"
              materialDesign:HintAssist.IsFloating="False"
-             Text="{Binding DraftPrescription.Instructions, Mode=TwoWay}"/>
+             IsEnabled="{Binding IsControlsEnabled}"
+             Text="{Binding SelectedPrescription.notes, Mode=TwoWay}"/>
 
     <!-- Buttons -->
     <StackPanel Grid.Row="8" Grid.ColumnSpan="2"
                 Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" />
-        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" />
+        <Button Content="Cancel" Margin="0,0,5,0" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelPrescriptionCommand}" />
+        <Button Content="Save" Margin="5,0,0,0" IsEnabled="{Binding IsControlsEnabled}"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SavePrescriptionCommand}" />
     </StackPanel>
 </Grid>
 

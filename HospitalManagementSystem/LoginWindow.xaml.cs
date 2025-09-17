@@ -17,18 +17,19 @@ namespace HospitalManagementSystem
 
         private readonly IServiceProvider _sp;
 
-        public LoginWindow(IServiceProvider sp)
+        public LoginWindow(IServiceProvider sp, LoginWindowViewModel vm)
         {
             InitializeComponent();
             _sp = sp;
+            DataContext = vm;
         }
 
 
         private void OnSignInClick(object sender, RoutedEventArgs e)
         {
             // var shell = _sp.GetRequiredService<SurgeonWindow>();  // window + VM from DI
-            var shell = _sp.GetRequiredService<DoctorWindow>();  // window + VM from DI
-            // var shell = _sp.GetRequiredService<NurseWindow>();
+            // var shell = _sp.GetRequiredService<DoctorWindow>();  // window + VM from DI
+            var shell = _sp.GetRequiredService<NurseWindow>();
             // var shell = new AdminWindow();
             shell.Show();
             Close();

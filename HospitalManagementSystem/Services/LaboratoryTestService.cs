@@ -118,4 +118,20 @@ public class LaboratoryTestService
         await using var context = await  _factory.CreateDbContextAsync();
         return await context.laboratory_tests.Where(t => t.status != "Scheduled").Include(t => t.laboratory_test_result).Include(t => t.patient_umcnNavigation).Include(t => t.doctor).ThenInclude(doc => doc.employee).Include(t => t.nurse).ThenInclude(nu => nu.employee).AsNoTracking().ToListAsync();
     }
+
+
+    public async Task<IEnumerable<laboratory_test>> GetAllTestsForPatient(patient patient)
+    {
+        await using var context = await  _factory.CreateDbContextAsync();
+        return await context.laboratory_tests.Where(l => l.patient_umcn == patient.umcn).Include(t => t.doctor).ThenInclude(doc => doc.employee).Include(t => t.nurse).ThenInclude(nu => nu.employee).AsNoTracking().ToListAsync();
+    }
+
+    public async Task<IEnumerable<laboratory_test_result>> GetAllTestResultsForPatient(patient patient)
+    {
+        await using var context = await  _factory.CreateDbContextAsync();
+        var patientTests = await context.laboratory_tests.Where(t => t.patient_umcn == patient.umcn)
+            .Select(t => t.laboratory_test_id).ToListAsync();
+        
+        return await context.laboratory_test_results.Where(r =>  patientTests.Contains(r.laboratory_test_id)).Include(t => t.laboratory_test).AsNoTracking().ToListAsync();
+    }
 }

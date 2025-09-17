@@ -29,7 +29,7 @@
                         </Grid.ColumnDefinitions>
 
                         <!-- List -->
-                        <materialDesign:Card Grid.Column="0" Margin="10,0,5,0"
+                        <materialDesign:Card Grid.Column="0" Margin="10,0,5,10"
                                              Padding="16" UniformCornerRadius="12"
                                              materialDesign:ElevationAssist.Elevation="Dp8">
                             <Grid>
@@ -54,10 +54,10 @@
                         </materialDesign:Card>
 
                         <!-- Details + nurse assignment -->
-                        <materialDesign:Card Grid.Column="1" Margin="5,0,10,0"
+                        <materialDesign:Card Grid.Column="1" Margin="5,0,10,10"
                                              Padding="16" UniformCornerRadius="12"
                                              materialDesign:ElevationAssist.Elevation="Dp8"
-                                             ClipToBounds="True">
+                                             >
                             <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -83,51 +83,48 @@
                                         <DatePicker Grid.Column="0"
                                                     Style="{DynamicResource MaterialDesignFilledDatePicker}"
                                                     materialDesign:HintAssist.Hint="Date"
+                                                    materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                    materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                    materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                    materialDesign:HintAssist.IsFloating="False"
+                                                    Margin="0,0,5,10"
                                                     SelectedDate="{Binding SelectedSurgery.Date}"/>
                                         <TextBox Grid.Column="1"
                                                  Style="{DynamicResource MaterialDesignFilledTextBox}"
                                                  materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                 materialDesign:HintAssist.IsFloating="False"
+                                                 Margin="5,0,0,10"
                                                  Text="{Binding SelectedSurgery.Time}"/>
                                     </Grid>
 
                                     <TextBox Grid.Row="2" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
                                              materialDesign:HintAssist.Hint="Procedure"
+                                             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                             materialDesign:HintAssist.IsFloating="False"
                                              Text="{Binding SelectedSurgery.Procedure}"/>
 
                                     <!-- Assignment area -->
                                     <Grid Grid.Row="3" Grid.ColumnSpan="2">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
                                         </Grid.ColumnDefinitions>
 
-                                        <StackPanel Grid.Column="0">
-                                            <TextBlock Text="Available nurses" FontWeight="SemiBold"/>
-                                            <ListBox ItemsSource="{Binding Nurses}"
-                                                     SelectedItem="{Binding SelectedNurse}"
-                                                     MinHeight="160"/>
-                                            <Button Content="Assign to surgery"
-                                                    Style="{DynamicResource MaterialDesignRaisedButton}"
-                                                    Margin="0,8,0,0"
-                                                    Command="{Binding AssignNurseCommand}"/>
-                                        </StackPanel>
+                                        
 
                                         <StackPanel Grid.Column="1">
                                             <TextBlock Text="Assigned nurses" FontWeight="SemiBold"/>
                                             <ListBox ItemsSource="{Binding AssignedNurses}"
                                                      SelectedItem="{Binding SelectedAssignedNurse}"
                                                      MinHeight="160"/>
-                                            <Button Content="Remove selected"
-                                                    Style="{DynamicResource MaterialDesignFlatButton}"
-                                                    Margin="0,8,0,0"
-                                                    Command="{Binding RemoveAssignedNurseCommand}"/>
+                                           
                                         </StackPanel>
                                     </Grid>
-
-                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button Content="Close" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                    </StackPanel>
                                 </Grid>
                             </ScrollViewer>
                         </materialDesign:Card>

@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Admin.ViewModels;
 using HospitalManagementSystem.Doctor.ViewModels;
-using HOspitalManagementSystem.Doctor.ViewModels;
 using HospitalManagementSystem.Doctor.Views;
 using HospitalManagementSystem.LabWorker.ViewModels;
 using HospitalManagementSystem.Nurse.Services;
@@ -20,6 +19,7 @@ using HospitalManagementSystem.Nurse.Views;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Surgeon;
 using HospitalManagementSystem.Surgeon.ViewModels;
+using HospitalManagementSystem.Utils;
 using SurgeriesViewViewModel = HospitalManagementSystem.Surgeon.ViewModels.SurgeriesViewViewModel;
 
 namespace HospitalManagementSystem;
@@ -76,6 +76,7 @@ public partial class App : Application
                 //doctor
 
                 services.AddTransient<DoctorWindow>();
+                services.AddSingleton<SharedDataService>();
                 
                 
                 services.AddTransient<DoctorWindowViewModel>();
@@ -85,8 +86,7 @@ public partial class App : Application
                 services.AddTransient<MakeAdmissionViewViewModel>();
                 services.AddTransient<MedicalRecordViewViewModel>();
                 services.AddTransient<PrescriptionViewViewModel>();
-                services.AddTransient<SurgeriesViewViewModel>();
-                
+                services.AddTransient<DoctorSurgeriesViewViewModel>();
                 
                 
                 
@@ -110,6 +110,12 @@ public partial class App : Application
                 services.AddTransient<LabWorkerHistoryViewModel>();
                 
                 services.AddTransient<LoginWindow>();
+                services.AddSingleton<LoggedInUser>();
+                services.AddTransient<LoginWindowViewModel>();
+                
+                
+                
+                services.AddSingleton<LocalizationManager>();
             }).Build();
 
 

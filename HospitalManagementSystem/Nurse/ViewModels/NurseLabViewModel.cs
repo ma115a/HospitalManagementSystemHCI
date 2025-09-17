@@ -82,7 +82,6 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
 
     partial void OnSelectedTabIndexChanged(int idx)
     {
-        Console.WriteLine(idx);
         IsOptionsEnabled = idx == 0;
     }
 
@@ -172,7 +171,6 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
         foreach (var laboratoryTest in laboratoryTests)
         {
             LaboratoryTests.Add(laboratoryTest);
-            Console.WriteLine(laboratoryTest.patient_umcnNavigation.name);
         }
     }
 

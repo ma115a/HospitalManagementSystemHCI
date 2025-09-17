@@ -5,14 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d">
-
-    <!-- ESC to go back -->
-    <UserControl.InputBindings>
-        <KeyBinding Key="Escape"
-                    Command="{Binding DataContext.GoToDashboardCommand,
-                                      RelativeSource={RelativeSource AncestorType=Window}}"/>
-    </UserControl.InputBindings>
+    <UserControl.Resources>
+        <utils:DateConverter x:Key="DateConverter"></utils:DateConverter>
+    </UserControl.Resources>
 
     <DockPanel>
 
@@ -47,23 +44,21 @@
                     
                     <ColumnDefinition Width="3*" MinWidth="200"/> <!-- search -->
                     <ColumnDefinition Width="16"/>              <!-- spacer -->
-                    <ColumnDefinition Width="2*" MinWidth="140"/> <!-- To -->
+                    <ColumnDefinition Width="2*" MinWidth="100"/> <!-- To -->
                     <ColumnDefinition Width="16"/>              <!-- spacer -->
                     <ColumnDefinition Width="2*" MinWidth="140"/> <!-- From -->
                     <ColumnDefinition Width="Auto"/>            <!-- Status lbl -->
                     <ColumnDefinition Width="1.5*" MinWidth="140"/> <!-- Status -->
                     <ColumnDefinition Width="Auto"/>            <!-- Priority lbl -->
-                    <ColumnDefinition Width="1.5*" MinWidth="140"/> <!-- Priority -->
+                    <ColumnDefinition Width="Auto"/>            <!-- Priority lbl -->
                 </Grid.ColumnDefinitions>
 
-                <Button Grid.Column="0" Content="New Request"
-                        Style="{DynamicResource MaterialDesignFlatButton}"/>
-                <!-- <Button Grid.Column="1" Content="Submit" -->
-                <!--         Margin="8,0,0,0" -->
-                <!--         Style="{DynamicResource MaterialDesignFlatButton}"/> -->
-                <!-- <Button Grid.Column="2" Content="Print" -->
-                <!--         Margin="8,0,0,0" -->
-                <!--         Style="{DynamicResource MaterialDesignFlatButton}"/> -->
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="New" IsEnabled="{Binding IsOptionsEnabled}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewTestCommand}"/>
+                    <Button Content="Edit" IsEnabled="{Binding IsOptionsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditTestCommand}"/>
+                    <Button Content="Delete" IsEnabled="{Binding IsOptionsEnabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteLabTestCommand}"/>
+                </StackPanel>
+               
 
                 <materialDesign:PackIcon Grid.Column="1" Kind="Magnify"
                                          Height="20" VerticalAlignment="Center" Margin="0,0,6,0"/>
@@ -72,17 +67,20 @@
                          materialDesign:HintAssist.Hint="Search requests (test, status, sample)"
                          materialDesign:HintAssist.IsFloating="False"
                          materialDesign:TextFieldAssist.HasClearButton="True"
+                         Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
                          Style="{DynamicResource MaterialDesignOutlinedTextBox}"/>
 
                 <DatePicker Grid.Column="4"
                             HorizontalAlignment="Stretch"
                             materialDesign:HintAssist.Hint="From date"
                             materialDesign:HintAssist.IsFloating="False"
+                            SelectedDate="{Binding SearchStartDate}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
-                <DatePicker Grid.Column="6" Margin="8,0,0,0"
+                <DatePicker Grid.Column="6" 
                             HorizontalAlignment="Stretch"
                             materialDesign:HintAssist.Hint="To date"
                             materialDesign:HintAssist.IsFloating="False"
+                            SelectedDate="{Binding SearchEndDate}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
 
                 <TextBlock Grid.Column="7" Text="Status:"
@@ -93,17 +91,21 @@
                           SelectedItem="{Binding SelectedStatusFilter}"
                           Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                           materialDesign:HintAssist.Hint="All statuses"
-                          materialDesign:HintAssist.IsFloating="False"/>
+                          SelectedValuePath="Content"
+                          IsEnabled="{Binding IsStatusEnabled}"
+                          SelectedValue="{Binding SearchStatus}"
+                          materialDesign:HintAssist.IsFloating="False">
+                    
+                    <ComboBoxItem>Scheduled</ComboBoxItem>
+                        <ComboBoxItem>Completed</ComboBoxItem>
+                        <ComboBoxItem>Cancelled</ComboBoxItem>
+                    </ComboBox>
 
-                <TextBlock Grid.Column="9" Text="Priority:"
-                           VerticalAlignment="Center" Margin="12,0,6,0"
-                           Foreground="{DynamicResource MaterialDesign.Brush.OnSurfaceVariant}"/>
-                <ComboBox Grid.Column="10"
-                          ItemsSource="{Binding Priorities}"
-                          SelectedItem="{Binding SelectedPriorityFilter}"
-                          Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                          materialDesign:HintAssist.Hint="Any priority"
-                          materialDesign:HintAssist.IsFloating="False"/>
+                <Border Grid.Column="9" VerticalAlignment="Bottom" Margin="5,0,0,10">
+                    <Button Content="Clear"
+                            Style="{DynamicResource MaterialDesignFlatButton}"
+                            Command="{Binding ClearFiltersCommand}"/>
+                </Border>
             </Grid>
         </Border>
 
@@ -112,183 +114,207 @@
         <local:PatientBasicInfo DockPanel.Dock="Top"/>
         </materialDesign:Card>
 
-        <!-- MAIN: LIST (left) / FORM (right) -->
-        <Grid Margin="0,0,0,8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*"/>
-                <ColumnDefinition Width="2.5*"/>
-            </Grid.ColumnDefinitions>
+         <materialDesign:Card Margin="10"
+                                         Padding="5" UniformCornerRadius="12"
+                                         materialDesign:ElevationAssist.Elevation="Dp8"
+                                         >
+                        <!-- <TabControl> -->
+                            <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
+                            <!-- Requests -->
+                            <TabItem Header="Requests">
+                                <Grid Margin="8,4,8,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
 
-            <!-- LEFT: Requests list -->
-            <materialDesign:Card Grid.Column="0"
-                                 Padding="20"
-                                 UniformCornerRadius="12"
-                                 Margin="10,0,5,0"
-                                 materialDesign:ElevationAssist.Elevation="Dp8">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                                    <!-- List -->
+                                    <materialDesign:Card Grid.Column="0" Margin="0,0,5,0" Padding="10"
+                                                         materialDesign:ElevationAssist.Elevation="Dp2">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="Lab Requests" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                            
+                                            
+                                            <DataGrid Grid.Row="2" Style="{DynamicResource MaterialDesignDataGrid}"
+                                                      AutoGenerateColumns="False"
+                                                      ItemsSource="{Binding TestsView}"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      IsReadOnly="True"
+                                                      SelectedItem="{Binding SelectedLaboratoryTest}">
+                                                <DataGrid.Columns>
+                                                    <DataGridTextColumn Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                                    <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="Doctor" Binding="{Binding doctor.employee.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="Nurse" Binding="{Binding nurse.employee.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
+                                                </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Grid>
+                                    </materialDesign:Card>
 
-                    <TextBlock Grid.Row="0"
-                               Text="Laboratory Requests" 
-                               FontSize="16" FontWeight="SemiBold"
-                               Margin="0,0,0,17"
-                               Foreground="{DynamicResource MaterialDesign.Brush.OnSurface}" />
+                                    <!-- Details -->
+                                    <materialDesign:Card Grid.Column="1" Margin="5,0,0,0" Padding="10"
+                                                         materialDesign:ElevationAssist.Elevation="Dp2"
+                                                         >
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
 
-                    <DataGrid Grid.Row="1"
-                              Style="{DynamicResource MaterialDesignDataGrid}"
-                              Margin="10,0"
-                              AutoGenerateColumns="False"
-                              ItemsSource="{Binding LabRequests}"
-                              CanUserAddRows="False"
-                              CanUserDeleteRows="False"
-                              IsReadOnly="True"
-                              SelectionMode="Single"
-                              SelectedItem="{Binding SelectedLabRequest, Mode=TwoWay}">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Requested" Binding="{Binding RequestedDate, StringFormat=d}" Width="*"/>
-                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Test" Binding="{Binding TestName}" Width="2*"/>
-                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Priority" Binding="{Binding Priority}" Width="*"/>
-                            <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Status" Binding="{Binding Status}" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
-                </Grid>
-            </materialDesign:Card>
+                                                <TextBlock Grid.ColumnSpan="2" Text="Request Details"
+                                                           FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
 
-            <!-- RIGHT: New / Edit request form -->
-            <materialDesign:Card Grid.Column="1"
-                                 Padding="20"
-                                 Margin="5,0,10,0"
-                                 UniformCornerRadius="12"
-                                 materialDesign:ElevationAssist.Elevation="Dp8">
-               <ScrollViewer VerticalScrollBarVisibility="Auto"
-                  HorizontalScrollBarVisibility="Disabled"
-                  CanContentScroll="True"
-                  Focusable="False">
+                                                
+                                                
+                                               
+                                    <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
+                                              Style="{DynamicResource MaterialDesignOutlinedComboBox}"
+                                              materialDesign:HintAssist.Hint="Lab Tehnician"
+                                              materialDesign:HintAssist.IsFloating="False"
+                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                              ItemsSource="{Binding Technicians}"
+                                              IsEnabled="{Binding IsControlsEnabled}"
+                                              SelectedValuePath="employee_id"
+                                              SelectedValue="{Binding SelectedLaboratoryTest.laboratory_tehnician_id, Mode=TwoWay}"
+                                              SelectedItem="{Binding SelectedLaboratoryTechnician}"
+                                              Margin="0,0,0,10"
+                                    >
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding employee.name}"></TextBlock>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
 
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
 
-            <!-- Rows 5 & 6 are star so the multi-line boxes grow/shrink; buttons stay Auto -->
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>  <!-- 0: title -->
-                <RowDefinition Height="Auto"/>  <!-- 1: date -->
-                <RowDefinition Height="Auto"/>  <!-- 2: test -->
-                <RowDefinition Height="Auto"/>  <!-- 3: priority / sample -->
-                <RowDefinition Height="Auto"/>  <!-- 4: fasting / location -->
-                <RowDefinition Height="2*"/>    <!-- 5: clinical info (grows/shrinks) -->
-                <RowDefinition Height="*"/>     <!-- 6: additional notes (grows/shrinks) -->
-                <RowDefinition Height="Auto"/>  <!-- 7: buttons -->
-            </Grid.RowDefinitions>
+                                                
+                                                <TextBox Grid.Row="3" Grid.ColumnSpan="2"
+                                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                                         materialDesign:HintAssist.Hint="Test name"
+                                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                         materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                         materialDesign:HintAssist.IsFloating="False"
+                                                         Margin="0,0,0,10"
+                                                         IsEnabled="{Binding IsControlsEnabled}"
+                                                         Text="{Binding SelectedLaboratoryTest.name, Mode=TwoWay}"/>
 
-            <TextBlock Grid.ColumnSpan="2" Text="New Laboratory Request"
-                       FontSize="16" FontWeight="SemiBold" Margin="0,0,0,17"/>
+                                                <TextBox Grid.Row="4" Grid.ColumnSpan="2"
+                                                         AcceptsReturn="True" TextWrapping="Wrap"
+                                                         VerticalAlignment="Stretch" MinHeight="120"
+                                                         Margin="0,0,0,10"
+                                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                         materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                         materialDesign:HintAssist.IsFloating="False"
+                                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                                         materialDesign:HintAssist.Hint="Clinical information / Reason"
+                                                         IsEnabled="{Binding IsControlsEnabled}"
+                                                         Text="{Binding SelectedLaboratoryTest.description}"/>
 
-            <!-- Requested date -->
-            <DatePicker Grid.Row="1" Grid.ColumnSpan="2"
-                        Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                        materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
-                        materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                        materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-                        materialDesign:HintAssist.Hint="Requested date"
-                        materialDesign:HintAssist.IsFloating="False"
-                        Margin="0,0,0,10"
-                        SelectedDate="{Binding DraftRequest.RequestedDate, Mode=TwoWay}"/>
+                                                <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                                                    <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelTestCommand}"/>
+                                                    <Button Content="Save" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveTestCommand}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </TabItem>
 
-            <!-- Test (editable for type-ahead) -->
-            <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
-                      IsEditable="True"
-                      StaysOpenOnEdit="True"
-                      IsTextSearchEnabled="False"
-                      ItemsSource="{Binding AvailableTests}"
-                      Text="{Binding DraftRequest.TestName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                      materialDesign:HintAssist.Hint="Test name"
-                      materialDesign:HintAssist.IsFloating="False"
-                      Margin="0,0,0,10"/>
+                            <!-- Results -->
+                            <TabItem Header="Results">
+                                <Grid Margin="8,4,8,8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
+                                    </Grid.ColumnDefinitions>
 
-            <!-- Priority / Sample type -->
-            <ComboBox Grid.Row="3" Grid.Column="0"
-                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                      materialDesign:HintAssist.Hint="Priority"
-                      materialDesign:HintAssist.IsFloating="False"
-                      Margin="0,0,8,10"
-                      ItemsSource="{Binding Priorities}"
-                      SelectedItem="{Binding DraftRequest.Priority, Mode=TwoWay}"/>
+                                    <!-- List -->
+                                    <materialDesign:Card Grid.Column="0" Margin="0,0,8,0" Padding="10"
+                                                         materialDesign:ElevationAssist.Elevation="Dp2">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Text="Lab Results" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                             
+                                            <DataGrid Grid.Row="2" Style="{DynamicResource MaterialDesignDataGrid}"
+                                                      AutoGenerateColumns="False"
+                                                      IsReadOnly="True"
+                                                      CanUserAddRows="False"
+                                                      CanUserDeleteRows="False"
+                                                      ItemsSource="{Binding LaboratoryTestResults}"
+                                                      SelectedItem="{Binding SelectedLaboratoryTestResult}">
+                                                    <DataGrid.Columns>
+                                                        <DataGridTextColumn Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                                        <DataGridTextColumn Header="Name" Binding="{Binding laboratory_test.name, StringFormat=d}" Width="*"/>
+                                                    </DataGrid.Columns>
+                                            </DataGrid>
+                                        </Grid>
+                                    </materialDesign:Card>
 
-            <ComboBox Grid.Row="3" Grid.Column="1"
-                      Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                      materialDesign:HintAssist.Hint="Sample type"
-                      materialDesign:HintAssist.IsFloating="False"
-                      Margin="8,0,0,10"
-                      ItemsSource="{Binding SampleTypes}"
-                      SelectedItem="{Binding DraftRequest.SampleType, Mode=TwoWay}"/>
-
-            <!-- Fasting / Collection location -->
-            <CheckBox Grid.Row="4" Grid.Column="0"
-                      Content="Fasting required"
-                      Style="{DynamicResource MaterialDesignCheckBox}"
-                      Margin="0,4,8,10"
-                      IsChecked="{Binding DraftRequest.IsFastingRequired, Mode=TwoWay}"/>
-
-            <TextBox Grid.Row="4" Grid.Column="1"
-                     Style="{DynamicResource MaterialDesignFilledTextBox}"
-                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
-                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-                     materialDesign:HintAssist.Hint="Collection location (e.g., Room 204)"
-                     materialDesign:HintAssist.IsFloating="False"
-                     Margin="8,0,0,10"
-                     Text="{Binding DraftRequest.CollectionLocation, Mode=TwoWay}"/>
-
-            <!-- Clinical information (grows/shrinks) -->
-            <TextBox Grid.Row="5" Grid.ColumnSpan="2"
-                     AcceptsReturn="True" TextWrapping="Wrap"
-                     VerticalAlignment="Stretch" MinHeight="100"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Style="{DynamicResource MaterialDesignFilledTextBox}"
-                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
-                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-                     materialDesign:HintAssist.Hint="Clinical information / Reason"
-                     materialDesign:HintAssist.IsFloating="False"
-                     Margin="0,0,0,10"
-                     Text="{Binding DraftRequest.ClinicalInformation, Mode=TwoWay}"/>
-
-            <!-- Additional notes (grows/shrinks) -->
-            <TextBox Grid.Row="6" Grid.ColumnSpan="2"
-                     AcceptsReturn="True" TextWrapping="Wrap"
-                     VerticalAlignment="Stretch" MinHeight="80"
-                     ScrollViewer.VerticalScrollBarVisibility="Auto"
-                     Style="{DynamicResource MaterialDesignFilledTextBox}"
-                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
-                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
-                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-                     materialDesign:HintAssist.Hint="Additional notes"
-                     materialDesign:HintAssist.IsFloating="False"
-                     Margin="0,0,0,10"
-                     Text="{Binding DraftRequest.Notes, Mode=TwoWay}"/>
-
-            <!-- Buttons -->
-            <StackPanel Grid.Row="7" Grid.ColumnSpan="2"
-                        Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-                <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" />
-                <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" />
-                <Button Content="Submit" Margin="8,0,0,0" Style="{DynamicResource MaterialDesignRaisedButton}" />
-            </StackPanel>
-        </Grid>
-    </ScrollViewer>
-
-            </materialDesign:Card>
-        </Grid>
+                                    <!-- Viewer -->
+                                    <materialDesign:Card Grid.Column="1" Margin="8,0,0,0" Padding="10"
+                                                         materialDesign:ElevationAssist.Elevation="Dp2"
+                                                         ClipToBounds="True">
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="*"/>
+                                                </Grid.RowDefinitions>
+                                                <TextBlock Text="Result Details" FontSize="16" FontWeight="SemiBold"/>
+                                                
+                                                <DatePicker Grid.Row="1"
+                                                            Style="{DynamicResource MaterialDesignFilledDatePicker}"
+                                                            materialDesign:HintAssist.Hint="Date"
+                                                            materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                            materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                            materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                            materialDesign:HintAssist.IsFloating="False"
+                                                            Margin="0,0,0,10"
+                                                            IsEnabled="False"
+                                                            SelectedDate="{Binding SelectedLaboratoryTestResult.laboratory_test.date, Converter={StaticResource DateConverter}}"/>
+                                                <TextBox Grid.Row="2"
+                                                         AcceptsReturn="True" TextWrapping="Wrap"
+                                                         VerticalAlignment="Stretch" MinHeight="200"
+                                                         Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                                         materialDesign:HintAssist.Hint="Result data"
+                                                         materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                                         materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                                         materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                                         materialDesign:HintAssist.IsFloating="False"
+                                                         IsEnabled="False"
+                                                         Text="{Binding SelectedLaboratoryTestResult.result_data}"/>
+                                            </Grid>
+                                        </ScrollViewer>
+                                    </materialDesign:Card>
+                                </Grid>
+                            </TabItem>
+                        </TabControl>
+                    </materialDesign:Card>
+        
     </DockPanel>
 </UserControl>

@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:viewModels="clr-namespace:HospitalManagementSystem.Admin.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewModels:AdminWindowViewModel}"
              mc:Ignorable="d"
@@ -40,15 +41,15 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="AccountGroup" Width="32" Height="32"/>
-                                        <TextBlock Text="Manage User Profiles" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc adminManageProfilesTitle}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
 
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0"
-                                               Text="Create and manage Nurses, Surgeons, Doctors and Lab Workers."
+                                               Text="{loc:Loc adminManageProfilesContent}"
                                                TextWrapping="Wrap" Opacity=".9"/>
 
-                                    <Button Grid.Row="2" Content="Open"
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
                                             Command="{Binding DataContext.GoToManageUsersCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -66,15 +67,15 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="OfficeBuildingMarkerOutline" Width="32" Height="32"/>
-                                        <TextBlock Text="Departments Rooms" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc adminDepartmentsTitle}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
 
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0"
-                                               Text="Create departments, assign rooms and manage capacities."
+                                               Text="{loc:Loc adminDepartmentsContent}"
                                                TextWrapping="Wrap" Opacity=".9"/>
 
-                                    <Button Grid.Row="2" Content="Open"
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
                                             Command="{Binding DataContext.GoToDepartmentsRoomsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -93,15 +94,15 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="Ambulance" Width="32" Height="32"/>
-                                        <TextBlock Text="Vehicles" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc adminVehiclesTitle}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
 
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0"
-                                               Text="Register and maintain ambulances and other vehicles."
+                                               Text="{loc:Loc adminVehiclesContent}"
                                                TextWrapping="Wrap" Opacity=".9"/>
 
-                                    <Button Grid.Row="2" Content="Open"
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
                                             Command="{Binding DataContext.GoToVehiclesCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
@@ -119,15 +120,15 @@
 
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="PillMultiple" Width="32" Height="32"/>
-                                        <TextBlock Text="Medications Inventory" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc adminMedicationsTitle}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
 
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0"
-                                               Text="Manage drug catalog and stock levels across departments."
+                                               Text="{loc:Loc adminMedicationsContent}"
                                                TextWrapping="Wrap" Opacity=".9"/>
 
-                                    <Button Grid.Row="2" Content="Open"
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Width="120" Margin="0,14,0,0"
                                             Command="{Binding DataContext.GoToMedicationInventoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>

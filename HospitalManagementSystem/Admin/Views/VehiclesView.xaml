@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:local="clr-namespace:HospitalManagementSystem"
              mc:Ignorable="d"
              >
@@ -18,7 +19,7 @@
                                 >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -29,9 +30,9 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New Vehicle" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewVehicleCommand}"/>
-                            <Button Content="Edit" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditVehicleCommand}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteVehicleCommand}"/>
+                            <Button Content="{loc:Loc newBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewVehicleCommand}"/>
+                            <Button Content="{loc:Loc editBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditVehicleCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteVehicleCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -50,7 +51,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Vehicles" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+                                <TextBlock Text="" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
                                 <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
                                           AutoGenerateColumns="False"
                                           IsReadOnly="True"
@@ -60,10 +61,10 @@
                                           ItemsSource="{Binding Vehicles}"
                                           SelectedItem="{Binding SelectedVehicle}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Plate" Binding="{Binding registration}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc plateGrid}" Binding="{Binding registration}" Width="*"/>
                                         <DataGridTextColumn Header="Model" Binding="{Binding model}" Width="*"/>
-                                        <DataGridTextColumn Header="Brand" Binding="{Binding brand}" Width="*"/>
-                                        <DataGridTextColumn Header="Last Service" Binding="{Binding last_service, StringFormat=d}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc brandGrid}" Binding="{Binding brand}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc lastServiceGrid}" Binding="{Binding last_service, StringFormat=d}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -90,12 +91,12 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Vehicle Details"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc vehicleDetails}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Plate"
+                                             materialDesign:HintAssist.Hint="{loc:Loc plateGrid}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -120,7 +121,7 @@
                                     </ComboBox>
                                     <DatePicker Grid.Row="2" Grid.Column="1"
                                                 Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                materialDesign:HintAssist.Hint="Last service date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc lastServiceGrid}"
                                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -141,7 +142,7 @@
                                              Text="{Binding model}"/>
                                     <TextBox Grid.Row="3" Grid.Column="1"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Brand"
+                                             materialDesign:HintAssist.Hint="{loc:Loc brandGrid}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -154,7 +155,7 @@
                                              AcceptsReturn="True" TextWrapping="Wrap"
                                              VerticalAlignment="Stretch" MinHeight="100"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Notes"
+                                             materialDesign:HintAssist.Hint="{loc:Loc notesBox}"
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
@@ -164,8 +165,8 @@
                                              Text="{Binding notes}"/>
 
                                     <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                                        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc saveBtn}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

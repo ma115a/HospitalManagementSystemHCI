@@ -89,7 +89,6 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
    public bool IsLoaded { get; private set; }
     public async Task ActivateAsync()
     {
-        Console.WriteLine("NurseAdmissionsViewModel");
         await LoadData();
     }
 

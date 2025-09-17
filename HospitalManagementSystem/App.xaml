@@ -13,10 +13,11 @@
                                            SecondaryColor="Blue" />
             </ResourceDictionary.MergedDictionaries>
 
-         
-
+            <SolidColorBrush x:Key="MaterialDesignSnackbar.Background" Color="White"/>
+            <SolidColorBrush x:Key="MaterialDesignSnackbar.Foreground" Color="Green"/>
             <!-- Additional custom brushes -->
             <SolidColorBrush x:Key="LoginGridBackground" Color="#F8F8F8"/>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>
