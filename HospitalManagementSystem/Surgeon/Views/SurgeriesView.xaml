@@ -37,7 +37,7 @@
                         </StackPanel>
                     </Border>
 
-                    <Grid Margin="0,8,0,0">
+                    <Grid Margin="0,8,0,10">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*"/>
                             <ColumnDefinition Width="2.5*"/>
