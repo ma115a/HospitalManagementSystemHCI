@@ -20,7 +20,7 @@ The motivation behind this project is to:
 
 ## 🗄️ Database Schema
 
-The system is backed by a **MySQL database schema** (`create_hms.sql`) that defines core entities such as:
+The system is backed by a **MySQL database schema** (`finalDatabaseScript.sql`) and (`finalDatabaseDump.sql`) that defines core entities such as:
 
 - **Institution**: Hospital or clinic details.  
 - **Employee**: Doctors, nurses, surgeons, laboratory technicians.  
