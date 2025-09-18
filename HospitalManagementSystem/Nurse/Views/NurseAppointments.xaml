@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -20,7 +21,7 @@
                                 >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -30,9 +31,9 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.GoToScheduleAppointmentCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
-                            <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditAppointmentCommand}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteAppointmentCommand}"/>
+                            <Button Content="{loc:Loc newBtn}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.GoToScheduleAppointmentCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsControls2Enabled}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditAppointmentCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsControls2Enabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteAppointmentCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -53,7 +54,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Appointments" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                <TextBlock Text="{loc:Loc appointments}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
 
                                 <!-- Filters -->
                                 <Grid Grid.Row="1">
@@ -65,7 +66,7 @@
                                     </Grid.ColumnDefinitions>
                                     <DatePicker Grid.Column="0"
                                                 Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                materialDesign:HintAssist.Hint="Date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc date}"
                                                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -75,7 +76,7 @@
                                     
                                     <ComboBox Grid.Column="1" 
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Doctor"
+                                              materialDesign:HintAssist.Hint="{loc:Loc doctor}"
                                               materialDesign:HintAssist.IsFloating="False"
                                               ItemsSource="{Binding Doctors}"
                                               Margin="0,0,0,10"
@@ -109,7 +110,7 @@
                                     </ComboBox>
                                     
                                     <Border Grid.Column="3" VerticalAlignment="Center" Margin="5,0,0,10">
-                                        <Button Content="Clear"
+                                        <Button Content="{loc:Loc cancelBtn}"
                                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                                 Command="{Binding ClearFiltersCommand}"/>
                                     </Border>
@@ -124,9 +125,9 @@
                                           ItemsSource="{Binding AppointmentsView}"
                                           SelectedItem="{Binding SelectedAppointment, Mode=TwoWay}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding date }" Width="Auto"/>
-                                        <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
-                                        <DataGridTextColumn Header="Doctor" Binding="{Binding doctor.employee.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc date}" Binding="{Binding date }" Width="Auto"/>
+                                        <DataGridTextColumn Header="{loc:Loc patient}" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc doctor}" Binding="{Binding doctor.employee.name}" Width="2*"/>
                                         <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -149,12 +150,12 @@
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
                                         <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
                                         <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="*"/>
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Appointment Details"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc appointmentDetails}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                     <!-- Date/Time -->
@@ -165,7 +166,7 @@
                                         </Grid.ColumnDefinitions>
                                         <DatePicker Grid.Column="0"
                                                     Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                    materialDesign:HintAssist.Hint="Date"
+                                                    materialDesign:HintAssist.Hint="{loc:Loc date}"
                                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -175,7 +176,7 @@
                                                     SelectedDate="{Binding NewAppointmentDate}"/>
                                         <TextBox Grid.Column="1"
                                                  Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                                 materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                                 materialDesign:HintAssist.Hint="{loc:Loc time}"
                                                  materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -190,7 +191,7 @@
 
                                     <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Patient"
+                                              materialDesign:HintAssist.Hint="{loc:Loc patient}"
                                               materialDesign:HintAssist.IsFloating="False"
                                               ItemsSource="{Binding Patients}"
                                               IsTextSearchEnabled="True"
@@ -233,7 +234,7 @@
                                     
                                     <ComboBox Grid.Row="3" Grid.ColumnSpan="2" 
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Doctor"
+                                              materialDesign:HintAssist.Hint="{loc:Loc doctor}"
                                               materialDesign:HintAssist.IsFloating="False"
                                               ItemsSource="{Binding Doctors}"
                                               Margin="0,0,0,10"
@@ -261,14 +262,32 @@
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Notes / Reason"
+                                             materialDesign:HintAssist.Hint="{loc:Loc notes}"
                                              Margin="0, 0, 0, 10"
                                              IsEnabled="{Binding IsControlsEnabled}"
                                              Text="{Binding SelectedAppointment.notes}"/>
-
+                                    <materialDesign:Snackbar Grid.Row="6" Grid.Column="0" 
+                                                             MessageQueue="{Binding MessageQueue}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Bottom"
+                                                             HorizontalContentAlignment="Center"
+                                                             Padding="0"
+                                         
+                                                             Background="{DynamicResource MaterialDesignPaper}"
+                                                             Foreground="{DynamicResource MaterialDesignBody}"
+                                    >
+                                        <materialDesign:Snackbar.Resources>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            </Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </materialDesign:Snackbar.Resources>
+                                    </materialDesign:Snackbar>
                                     <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
-                                        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelAppointmentCommand}"/>
-                                        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAppointmentCommand}"/>
+                                        <Button Content="{loc:Loc cancelBtn}" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelAppointmentCommand}"/>
+                                        <Button Content="{loc:Loc saveBtn}"  IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAppointmentCommand}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

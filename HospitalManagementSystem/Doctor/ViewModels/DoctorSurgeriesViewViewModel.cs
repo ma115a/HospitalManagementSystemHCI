@@ -12,6 +12,8 @@ using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
 using HospitalManagementSystem.Surgeon.ViewModels;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Doctor.ViewModels;
 
@@ -26,6 +28,11 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
     private readonly SurgeryService  _surgeryService;
     private readonly UserService _userService;
     private SharedDataService _sharedDataService;
+
+    private readonly LoggedInUser _user;
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
     [ObservableProperty] private ObservableCollection<patient> _patients = new();
     
@@ -90,7 +97,11 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
         _surgeryService = surgeryService;
         _userService = userService;
         
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        
         _sharedDataService.PatientChanged += OnPatientChanged;
+            _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
         
         SurgeriesView = CollectionViewSource.GetDefaultView(Surgeries);
         SurgeriesView.Filter = SurgeriesFilter;
@@ -247,8 +258,18 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
     partial void OnSelectedSurgeryDurationChanged(int? duration)
     {
         Console.WriteLine("Duration changed");
-        if(SelectedSurgeryDate is null) return;
-        if (SelectedSurgeryTime is null) return;
+        if (SelectedSurgeryDate is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("dateError"));
+            return;
+        }
+
+        if (SelectedSurgeryTime is null)
+        {
+            
+            MessageQueue.Enqueue(_localizationManager.GetString("timeError"));
+            return;
+        }
         Console.WriteLine("Duration changed not null");
         _ = LoadAvailableNurses();
 
@@ -279,7 +300,11 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
 
     private async Task LoadSurgeries()
     {
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         Surgeries.Clear();
         var surgeries = await _surgeryService.GetSurgeriesForPatient(SelectedPatient);
         foreach (var surgery in surgeries)
@@ -292,8 +317,17 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
 
     private async Task LoadAvailableNurses()
     {
-        if(SelectedSurgery is null) return;
-        if (SelectedSurgeryDate is null) return;
+        if (SelectedSurgery is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("surgeryError"));
+            return;
+        }
+
+        if (SelectedSurgeryDate is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("dateError"));
+            return;
+        }
         Nurses.Clear();
         var time = TimeSpan.Zero; 
         if (!string.IsNullOrWhiteSpace(SelectedSurgeryTime))
@@ -312,9 +346,23 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task SaveSurgery()
     {
-        if (SelectedSurgery is null) return;
-        if (SelectedPatient is null) return;
-        if (SelectedRoom is null) return;
+        if (SelectedSurgery is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("surgeryError"));
+            return;
+        }
+
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
+
+        if (SelectedRoom is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("roomError"));
+            return;
+        }
         var time = TimeSpan.Zero;
         if (!string.IsNullOrWhiteSpace(SelectedSurgeryTime))
         {
@@ -328,7 +376,7 @@ public partial class DoctorSurgeriesViewViewModel : ObservableObject, IActivable
         SelectedSurgery.date = SelectedSurgeryDate.Value.Date + time;
         var end_time = TimeSpan.FromMinutes((double)SelectedSurgery.duration);
         SelectedSurgery.end_date = SelectedSurgery.date.Value + end_time;
-        await _surgeryService.SaveSurgery(SelectedSurgery, SelectedPatient, SelectedRoom, SelectedNurses);
+        await _surgeryService.SaveSurgery(SelectedSurgery, SelectedPatient, SelectedRoom, SelectedNurses, _user.LoggedInEmployee.employee_id);
         await LoadSurgeries();
 
 

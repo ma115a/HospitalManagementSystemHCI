@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:views="clr-namespace:HospitalManagementSystem.Nurse.Views"
+        xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
         xmlns:vm="clr-namespace:HospitalManagementSystem.Nurse.ViewModels"
         mc:Ignorable="d"
         Title="Nurse Dashboard"
         Height="800" Width="1050"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource MaterialDesign.Brush.Background}">
+        Background="{DynamicResource MaterialDesignPaper}"
+        >
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:NurseRegisterPatientViewModel}">
             <views:NurseRegisterPatientView></views:NurseRegisterPatientView>
@@ -38,6 +40,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <materialDesign:PackIcon Kind="HospitalBuilding"
@@ -49,7 +52,7 @@
                     <TextBlock Text="City General Hospital"
                                FontSize="20" FontWeight="SemiBold"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
-                    <TextBlock Text="Nurse Console"
+                    <TextBlock Text="{loc:Loc nurseTitle}"
                                FontSize="12" Opacity=".9"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                 </StackPanel>
@@ -63,14 +66,46 @@
                                                  Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                         <Separator Width="10" Background="Transparent"/>
                         <StackPanel>
-                            <TextBlock Text="Nurse: Jane Doe"
+                            <TextBlock Text="{Binding Employee.name}"
                                        FontWeight="SemiBold" FontSize="14"
                                        Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
-                            <TextBlock Text="@jdoe" FontSize="12" Opacity=".9"
+                            <TextBlock Text="{Binding Employee.username}" FontSize="12" Opacity=".9"
                                        Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
+                <Button Grid.Column="3"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                    Click="SettingsButton_Click">
+                    <materialDesign:PackIcon Kind="Cog" 
+                                             Width="20" 
+                                             Height="20"
+                                             Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                    <Button.ContextMenu>
+                        
+                        <ContextMenu Opened="SettingsMenu_Opened">
+                            <!-- Languages -->
+                            <MenuItem Header="🌐 Language">
+                                <MenuItem Header="English" Tag="en" Click="LanguageMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Srpski" Tag="sr" Click="LanguageMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Deutsch" Tag="de" Click="LanguageMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+
+                            <!-- Theme -->
+                            <MenuItem Header="🎨 Theme">
+                                <MenuItem Header="Light" Tag="Light" Click="ThemeMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Dark" Tag="Dark" Click="ThemeMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+
+                            <!-- Primary Colors -->
+                            <MenuItem Header="🎨 Primary Color">
+                                <MenuItem Header="Indigo" Tag="#3F51B5" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Blue" Tag="#2196F3" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Green" Tag="#4CAF50" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
             </Grid>
         </Border>
 

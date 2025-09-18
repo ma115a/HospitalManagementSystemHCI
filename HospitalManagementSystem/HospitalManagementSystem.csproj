@@ -33,6 +33,7 @@
       <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.8" />
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="9.0.0" />
       <PackageReference Include="RelayCommand" Version="1.0.2" />
+      <PackageReference Include="System.Configuration.ConfigurationManager" Version="10.0.0-rc.1.25451.107" />
     </ItemGroup>
 
     <ItemGroup>
@@ -223,6 +224,17 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>Main.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Properties\Settings.settings">
+            <Generator>SettingsSingleFileGenerator</Generator>
+            <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+        </None>
+        <Compile Update="Properties\Settings.Designer.cs">
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Settings.settings</DependentUpon>
+            <DesignTimeSharedInput>True</DesignTimeSharedInput>
+        </Compile>
     </ItemGroup>
 
 </Project>

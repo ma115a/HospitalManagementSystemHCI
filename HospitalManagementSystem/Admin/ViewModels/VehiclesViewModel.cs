@@ -25,6 +25,10 @@ public partial class VehiclesViewModel : ObservableObject
 
 
     [ObservableProperty] private bool _isControlsEnabled = false;
+    
+    
+    [ObservableProperty]
+    private bool _isControls2Enabled = false;
 
 
     public VehiclesViewModel(VehiclesService service)
@@ -49,6 +53,8 @@ public partial class VehiclesViewModel : ObservableObject
 
     partial void OnSelectedVehicleChanged(vehicle? value)
     {
+        if (value is not null) IsControls2Enabled = true;
+        else IsControls2Enabled = false;
         OnPropertyChanged(nameof(LastServiceDateTime));
     }
 

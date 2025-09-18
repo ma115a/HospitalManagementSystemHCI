@@ -10,6 +10,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Doctor.ViewModels;
 
@@ -23,6 +25,8 @@ public partial class PrescriptionViewViewModel : ObservableObject, IActivable
 
 
 
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
     public ObservableCollection<string> Medications { get; } = new ObservableCollection<string>
     {
@@ -131,6 +135,9 @@ public partial class PrescriptionViewViewModel : ObservableObject, IActivable
         
         _sharedDataService.PatientChanged += OnPatientChanged;
         
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
+        
         MedicationsView = CollectionViewSource.GetDefaultView(Medications);
         MedicationsView.Filter = o =>
         {
@@ -226,7 +233,11 @@ public partial class PrescriptionViewViewModel : ObservableObject, IActivable
 
     private async Task LoadData()
     {
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         Prescriptions.Clear();
         var prescriptions = await _patientService.GetPrescriptions(SelectedPatient);
         foreach (var prescription in prescriptions)
@@ -254,12 +265,29 @@ public partial class PrescriptionViewViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task SavePrescription()
     {
-        if (SelectedPrescription is null) return;
+        if (SelectedPrescription is null)
+        {
+            
+            MessageQueue.Enqueue(_localizationManager.GetString("prescriptionError"));
+            return;
+        }
+
+        if (SelectedPrescription.date is null)
+        {
+            
+            MessageQueue.Enqueue(_localizationManager.GetString("dateError"));
+            return;
+        }
         if (SelectedMedication is null)
         {
+            MessageQueue.Enqueue(_localizationManager.GetString("medicationError"));
             return;
         };
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
 
         SelectedPrescription.patient_umcn = SelectedPatient.umcn;
         SelectedPrescription.medication = SelectedMedication;

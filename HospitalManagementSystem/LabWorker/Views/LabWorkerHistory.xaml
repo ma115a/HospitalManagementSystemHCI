@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="500" d:DesignWidth="800">
     <DockPanel>
                     <Border DockPanel.Dock="Top"
@@ -18,7 +20,7 @@
                                 >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -40,7 +42,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Results" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                <TextBlock Text="{loc:Loc results}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
 
                                 <!-- Filters -->
                                 <Grid Grid.Row="1">
@@ -57,20 +59,20 @@
                                     <DatePicker Grid.Column="0"
                                                 Grid.Row="0"
                                                 Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                materialDesign:HintAssist.Hint="From date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc fromDate}"
                                                 Margin="0,0,5,10"
                                                 SelectedDate="{Binding StartDateFilter}"/>
                                     <DatePicker Grid.Column="1"
                                                 Grid.Row="0"
                                                 Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                materialDesign:HintAssist.Hint="To date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc toDate}"
                                                 Margin="5,0,5,10"
                                                 SelectedDate="{Binding EndDateFilter}"/>
                                     <ComboBox Grid.Column="0"
                                               Grid.Row="1"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Doctor"
-                                              Margin="5,0,5,10"
+                                              materialDesign:HintAssist.Hint="{loc:Loc doctor}"
+                                              Margin="0,0,5,10"
                                               ItemsSource="{Binding Doctors}"
                                               SelectedItem="{Binding SelectedDoctorFilter}">
                                         
@@ -86,7 +88,7 @@
                                     <ComboBox Grid.Column="1"
                                               Grid.Row="1"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Nurse"
+                                              materialDesign:HintAssist.Hint="{loc:Loc nurse}"
                                               Margin="5,0,5,10"
                                               ItemsSource="{Binding Nurses}"
                                               SelectedItem="{Binding SelectedNurseFilter}">
@@ -102,8 +104,8 @@
                                     <ComboBox Grid.ColumnSpan="2"
                                               Grid.Row="2"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Patient"
-                                              Margin="5,0,5,10"
+                                              materialDesign:HintAssist.Hint="{loc:Loc patient}"
+                                              Margin="0,0,5,10"
                                               IsTextSearchEnabled="True"
                                               ItemsSource="{Binding Patients}"
                                               SelectedItem="{Binding SelectedPatientFilter}">
@@ -121,7 +123,7 @@
                                     </ComboBox>
                                     <Border Grid.RowSpan="3" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,10">
                                         
-                                        <Button Content="Clear"
+                                        <Button Content="{loc:Loc cancelBtn}"
                                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                                 Command="{Binding ClearFiltersCommand}"/>
                                     </Border>
@@ -135,9 +137,9 @@
                                           ItemsSource="{Binding LaboratoryTestsView}"
                                           SelectedItem="{Binding SelectedLaboratoryTest, Mode=TwoWay}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Requested" Binding="{Binding date, StringFormat=d}" Width="*"/>
-                                        <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
-                                        <DataGridTextColumn Header="Doctor" Binding="{Binding doctor.employee.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc requested}" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc patient}" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc doctor}" Binding="{Binding doctor.employee.name}" Width="2*"/>
                                         <DataGridTextColumn Header="Test" Binding="{Binding name}" Width="2*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -156,7 +158,7 @@
                                         <RowDefinition Height="*"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Text="Result Details"
+                                    <TextBlock Text="{loc:Loc resultDetails}"
                                                Margin="0,0,0,10"
                                                FontSize="16" FontWeight="SemiBold"/>
 
@@ -168,7 +170,7 @@
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
-                                             materialDesign:HintAssist.Hint="Result data"
+                                             materialDesign:HintAssist.Hint="{loc:Loc resultData}"
                                              IsReadOnly="True"
                                              Text="{Binding SelectedLaboratoryTest.laboratory_test_result.result_data}"/>
                                 </Grid>

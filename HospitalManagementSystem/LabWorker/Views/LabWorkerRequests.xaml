@@ -4,7 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -19,7 +20,7 @@
                                 >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -41,7 +42,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Pending Requests"
+                                <TextBlock Text="{loc:Loc pendingRequests}"
                                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
 
                                 <!-- Filters -->
@@ -59,20 +60,20 @@
                                     <DatePicker Grid.Column="0"
                                                 Grid.Row="0"
                                                 Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                materialDesign:HintAssist.Hint="From date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc fromDate}"
                                                 Margin="0,0,5,10"
                                                 SelectedDate="{Binding StartDateFilter}"/>
                                     <DatePicker Grid.Column="1"
                                                 Grid.Row="0"
                                                 Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                materialDesign:HintAssist.Hint="To date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc toDate}"
                                                 Margin="5,0,5,10"
                                                 SelectedDate="{Binding EndDateFilter}"/>
                                     <ComboBox Grid.Column="0"
                                               Grid.Row="1"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Doctor"
-                                              Margin="5,0,5,10"
+                                              materialDesign:HintAssist.Hint="{loc:Loc doctor}"
+                                              Margin="0,0,5,10"
                                               ItemsSource="{Binding Doctors}"
                                               SelectedItem="{Binding SelectedDoctorFilter}">
                                         
@@ -88,7 +89,7 @@
                                     <ComboBox Grid.Column="1"
                                               Grid.Row="1"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Nurse"
+                                              materialDesign:HintAssist.Hint="{loc:Loc nurse}"
                                               Margin="5,0,5,10"
                                               ItemsSource="{Binding Nurses}"
                                               SelectedItem="{Binding SelectedNurseFilter}">
@@ -104,8 +105,8 @@
                                     <ComboBox Grid.ColumnSpan="2"
                                               Grid.Row="2"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Patient"
-                                              Margin="5,0,5,10"
+                                              materialDesign:HintAssist.Hint="{loc:Loc patient}"
+                                              Margin="0,0,5,10"
                                               IsTextSearchEnabled="True"
                                               ItemsSource="{Binding Patients}"
                                               SelectedItem="{Binding SelectedPatientFilter}">
@@ -123,7 +124,7 @@
                                     </ComboBox>
                                     <Border Grid.RowSpan="3" Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,10">
                                         
-                                        <Button Content="Clear"
+                                        <Button Content="{loc:Loc cancelBtn}"
                                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                                 Command="{Binding ClearFiltersCommand}"/>
                                     </Border>
@@ -138,9 +139,9 @@
                                           ItemsSource="{Binding LaboratoryTestsView}"
                                           SelectedItem="{Binding SelectedLaboratoryTest}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Requested" Binding="{Binding date, StringFormat=d}" Width="*"/>
-                                        <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
-                                        <DataGridTextColumn Header="Doctor" Binding="{Binding doctor.employee.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc requested}" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc patient}" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc doctor}" Binding="{Binding doctor.employee.name}" Width="2*"/>
                                         <DataGridTextColumn Header="Test" Binding="{Binding name}" Width="2*"/>
                                         <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
                                     </DataGrid.Columns>
@@ -163,11 +164,12 @@
                                         <RowDefinition Height="Auto"/>  <!-- patient/doctor -->
                                         <RowDefinition Height="Auto"/>  <!-- patient/doctor -->
                                         <RowDefinition Height="Auto"/>     <!-- description -->
+                                        <RowDefinition Height="Auto"/>     <!-- description -->
                                         <RowDefinition Height="*"/>  <!-- result -->
                                         <RowDefinition Height="Auto"/>  <!-- buttons -->
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Request Details"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc requestDetails}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                         <TextBox Grid.Row="1"
@@ -176,7 +178,7 @@
                                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  materialDesign:HintAssist.IsFloating="False"
-                                                 materialDesign:HintAssist.Hint="Patient"
+                                                 materialDesign:HintAssist.Hint="{loc:Loc patient}"
                                                  Margin="0,0,0,10"
                                                  Text="{Binding SelectedLaboratoryTest.patient_umcnNavigation.name}" IsReadOnly="True"/>
                                         <TextBox Grid.Row="2"
@@ -185,7 +187,7 @@
                                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                                  materialDesign:HintAssist.IsFloating="False"
-                                                 materialDesign:HintAssist.Hint="Doctor"
+                                                 materialDesign:HintAssist.Hint="{loc:Loc doctor}"
                                                  Margin="0,0,0,10"
                                                  Text="{Binding SelectedLaboratoryTest.doctor.employee.name}" IsReadOnly="True"/>
                                     <TextBox Grid.Row="3"
@@ -194,10 +196,18 @@
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
-                                             materialDesign:HintAssist.Hint="Nurse"
-                                             Margin="0,0,0,10"
-                                             Text="{Binding SelectedLaboratoryTest.nurse.employee.name}" IsReadOnly="True"/>
+                                             materialDesign:HintAssist.Hint="{loc:Loc nurse}"
+                                             Margin="0,0,0,10"/>
                                     <TextBox Grid.Row="4"
+                                             Style="{DynamicResource MaterialDesignFilledTextBox}"
+                                             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                             materialDesign:HintAssist.IsFloating="False"
+                                             materialDesign:HintAssist.Hint="Status"
+                                             Margin="0,0,0,10"
+                                             Text="{Binding SelectedLaboratoryTest.status}" IsReadOnly="True"/>       
+                                    <TextBox Grid.Row="5"
                                              AcceptsReturn="True" TextWrapping="Wrap"
                                              VerticalAlignment="Stretch" MinHeight="140"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
@@ -206,7 +216,7 @@
                                              materialDesign:HintAssist.IsFloating="False"
                                              Margin="0,0,0,10"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Description / Notes"
+                                             materialDesign:HintAssist.Hint="{loc:Loc notes}"
                                              IsReadOnly="True"
                                              Text="{Binding SelectedLaboratoryTest.description}"/>
 
@@ -223,14 +233,33 @@
                                              materialDesign:HintAssist.Hint="Result data"
                                              Text="{Binding SelectedLabRequest.ResultDraft}"/>-->
 
-                                    <StackPanel Grid.Row="5"
+                                    <materialDesign:Snackbar Grid.Row="6" Grid.Column="0" 
+                                                             MessageQueue="{Binding MessageQueue}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Bottom"
+                                                             HorizontalContentAlignment="Center"
+                                                             Padding="0"
+                                         
+                                                             Background="{DynamicResource MaterialDesignPaper}"
+                                                             Foreground="{DynamicResource MaterialDesignBody}"
+                                    >
+                                        <materialDesign:Snackbar.Resources>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            </Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </materialDesign:Snackbar.Resources>
+                                    </materialDesign:Snackbar>
+                                    <StackPanel Grid.Row="6"
                                                 Margin="0,0,0,10"
                                                 Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button Content="Start test"   Style="{DynamicResource MaterialDesignFlatButton}"
+                                        <Button Content="{loc:Loc startTest}"  IsEnabled="{Binding IsControlsEnabled}"  Style="{DynamicResource MaterialDesignFlatButton}"
                                                 Command="{Binding StartTestCommand}"/>
                                         
-                                        <Button Content="Complete" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"
-                                                Command="{Binding CompleteRequestCommand}"/>
+                                        <!-- <Button Content="{loc:Loc complete}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" -->
+                                        <!--         Command="{Binding CompleteRequestCommand}"/> -->
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

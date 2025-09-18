@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              >
     <DockPanel>
                     <Border DockPanel.Dock="Top"
@@ -17,7 +19,7 @@
                                 Click="GoToDashboard_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -37,16 +39,16 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Surgeries" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                <TextBlock Text="{loc:Loc surgeries}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
                                 <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
                                           AutoGenerateColumns="False"
                                           ItemsSource="{Binding Surgeries}"
                                           SelectedItem="{Binding SelectedSurgery}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=d}" Width="*"/>
-                                        <DataGridTextColumn Header="Time" Binding="{Binding Time}" Width="Auto"/>
-                                        <DataGridTextColumn Header="Patient" Binding="{Binding PatientName}" Width="2*"/>
-                                        <DataGridTextColumn Header="Procedure" Binding="{Binding Procedure}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc date}" Binding="{Binding Date, StringFormat=d}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc time}" Binding="{Binding Time}" Width="Auto"/>
+                                        <DataGridTextColumn Header="{loc:Loc patient}" Binding="{Binding PatientName}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc procedure}" Binding="{Binding Procedure}" Width="2*"/>
                                         <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -72,7 +74,7 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Surgery Details"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc surgeryDetails}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                     <Grid Grid.Row="1" Grid.ColumnSpan="2">
@@ -82,7 +84,7 @@
                                         </Grid.ColumnDefinitions>
                                         <DatePicker Grid.Column="0"
                                                     Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                    materialDesign:HintAssist.Hint="Date"
+                                                    materialDesign:HintAssist.Hint="{loc:Loc date}"
                                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -91,7 +93,7 @@
                                                     SelectedDate="{Binding SelectedSurgery.Date}"/>
                                         <TextBox Grid.Column="1"
                                                  Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                                 materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                                 materialDesign:HintAssist.Hint="{loc:Loc time}"
                                                  materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                  materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                  materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -102,7 +104,7 @@
 
                                     <TextBox Grid.Row="2" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Procedure"
+                                             materialDesign:HintAssist.Hint="{loc:Loc procedure}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -118,7 +120,7 @@
                                         
 
                                         <StackPanel Grid.Column="1">
-                                            <TextBlock Text="Assigned nurses" FontWeight="SemiBold"/>
+                                            <TextBlock Text="{loc:Loc assignedNurses}" FontWeight="SemiBold"/>
                                             <ListBox ItemsSource="{Binding AssignedNurses}"
                                                      SelectedItem="{Binding SelectedAssignedNurse}"
                                                      MinHeight="160"/>

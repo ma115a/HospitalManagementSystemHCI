@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d">
 
   
@@ -22,7 +24,7 @@
                         Click="GoToDashboard_Click">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                        <TextBlock Text="Back to Dashboard"/>
+                        <TextBlock Text="{loc:Loc backToDashboard}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -46,8 +48,8 @@
                 </Grid.ColumnDefinitions>
 
                 
-                <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewPrescriptionCommand}"/>
-                <Button Grid.Column="1" Content="Edit"
+                <Button Content="{loc:Loc newBtn}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewPrescriptionCommand}"/>
+                <Button Grid.Column="1" Content="{loc:Loc editBtn}"
                         Margin="8,0,0,0"
                         Command="{Binding EditPrescriptionCommand}"
                         IsEnabled="{Binding IsControls2Enabled}"
@@ -57,7 +59,7 @@
                                          Height="20" VerticalAlignment="Center" Margin="8,0,6,0"/>
                 <TextBox Grid.Column="3"
                          HorizontalAlignment="Stretch"
-                         materialDesign:HintAssist.Hint="Search prescriptions"
+                         materialDesign:HintAssist.Hint="{loc:Loc searchPrescriptions}"
                          materialDesign:HintAssist.IsFloating="False"
                          materialDesign:TextFieldAssist.HasClearButton="True"
                          Text="{Binding SearchPrescription, UpdateSourceTrigger=PropertyChanged}"
@@ -66,20 +68,20 @@
                 <DatePicker Grid.Column="4"
                             HorizontalAlignment="Stretch"
                             Margin="8,0,0,0"
-                            materialDesign:HintAssist.Hint="From date"
+                            materialDesign:HintAssist.Hint="{loc:Loc fromDate}"
                             materialDesign:HintAssist.IsFloating="False"
                             SelectedDate="{Binding SearchPrescriptionStartDate, UpdateSourceTrigger=PropertyChanged}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
                 <DatePicker Grid.Column="5" 
                             HorizontalAlignment="Stretch"
                             Margin="8,0,0,0"
-                            materialDesign:HintAssist.Hint="To date"
+                            materialDesign:HintAssist.Hint="{loc:Loc toDate}"
                             materialDesign:HintAssist.IsFloating="False"
                             SelectedDate="{Binding SearchPrescriptionEndDate, UpdateSourceTrigger=PropertyChanged}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
                 
                 <Border Grid.Column="6" VerticalAlignment="Center" Margin="5,0,0,10">
-                    <Button Content="Clear"
+                    <Button Content="{loc:Loc cancelBtn}"
                             Style="{DynamicResource MaterialDesignFlatButton}"
                             Command="{Binding ClearFiltersCommand}"/>
                 </Border>
@@ -111,7 +113,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0"
-                               Text="Prescriptions" 
+                               Text="{loc:Loc prescriptions}" 
                                FontSize="16" FontWeight="SemiBold"
                                Margin="0,0,0,17"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnSurface}" />
@@ -128,11 +130,11 @@
                               SelectedItem="{Binding SelectedPrescription, Mode=TwoWay}">
                         <DataGrid.Columns>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                                Header="{loc:Loc date}" Binding="{Binding date, StringFormat=d}" Width="*"/>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Medication" Binding="{Binding medication}" Width="2*"/>
+                                                Header="{loc:Loc medication}" Binding="{Binding medication}" Width="2*"/>
                             <DataGridTextColumn CellStyle="{DynamicResource MaterialDesignDataGridCell}"
-                                                Header="Dosage" Binding="{Binding dosage}" Width="*"/>
+                                                Header="{loc:Loc dosage}" Binding="{Binding dosage}" Width="*"/>
                         </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
@@ -163,7 +165,7 @@
         <RowDefinition Height="Auto"/> <!-- 8: buttons -->
     </Grid.RowDefinitions>
 
-    <TextBlock Grid.ColumnSpan="2" Text="New Prescription"
+    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc newPrescription}"
                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,17"/>
 
     <!-- Date -->
@@ -172,7 +174,7 @@
                 materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                 materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                 materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-                materialDesign:HintAssist.Hint="Date"
+                materialDesign:HintAssist.Hint="{loc:Loc date}"
                 materialDesign:HintAssist.IsFloating="False"
                 Margin="0,0,0,10"
                 IsEnabled="{Binding IsControlsEnabled}"
@@ -186,7 +188,7 @@
               ItemsSource="{Binding MedicationsView}"
               Text="{Binding MedicationSearchText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-              materialDesign:HintAssist.Hint="Medication"
+              materialDesign:HintAssist.Hint="{loc:Loc medication}"
               SelectedValue="{Binding SelectedMedication, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
               materialDesign:HintAssist.IsFloating="False"
               IsEnabled="{Binding IsControlsEnabled}"
@@ -198,7 +200,7 @@
              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-             materialDesign:HintAssist.Hint="Dosage (e.g., 500 mg)"
+             materialDesign:HintAssist.Hint="{loc:Loc dosage}"
              materialDesign:HintAssist.IsFloating="False"
              Margin="0,0,0,10"
              IsEnabled="{Binding IsControlsEnabled}"
@@ -210,7 +212,7 @@
     <!-- Frequency -->
     <ComboBox Grid.Row="4" Grid.Column="0"
               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-              materialDesign:HintAssist.Hint="Frequency"
+              materialDesign:HintAssist.Hint="{loc:Loc frequency}"
               materialDesign:HintAssist.IsFloating="False"
               Margin="0,0,5,10"
               ItemsSource="{Binding Frequencies}"
@@ -239,7 +241,7 @@
              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-             materialDesign:HintAssist.Hint="Duration (e.g., 7 days)"
+             materialDesign:HintAssist.Hint="{loc:Loc duration}"
              materialDesign:HintAssist.IsFloating="False"
              Margin="5,0,0,10"
              IsEnabled="{Binding IsControlsEnabled}"
@@ -253,7 +255,7 @@
              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-             materialDesign:HintAssist.Hint="Refills"
+             materialDesign:HintAssist.Hint="{loc:Loc refills}"
              materialDesign:HintAssist.IsFloating="False"
              Margin="0,0,0,10"
              IsEnabled="{Binding IsControlsEnabled}"
@@ -268,16 +270,35 @@
              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
-             materialDesign:HintAssist.Hint="Instructions / Notes"
+             materialDesign:HintAssist.Hint="{loc:Loc notes}"
              materialDesign:HintAssist.IsFloating="False"
              IsEnabled="{Binding IsControlsEnabled}"
              Text="{Binding SelectedPrescription.notes, Mode=TwoWay}"/>
-
+    
+    <materialDesign:Snackbar Grid.Row="8" Grid.Column="0" 
+                             MessageQueue="{Binding MessageQueue}"
+                             HorizontalAlignment="Center"
+                             VerticalAlignment="Bottom"
+                             HorizontalContentAlignment="Center"
+                             Padding="0"
+                                         
+                             Background="{DynamicResource MaterialDesignPaper}"
+                             Foreground="{DynamicResource MaterialDesignBody}"
+    >
+        <materialDesign:Snackbar.Resources>
+            <Style TargetType="ContentPresenter">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+            </Style>
+            <Style TargetType="Grid">
+                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            </Style>
+        </materialDesign:Snackbar.Resources>
+    </materialDesign:Snackbar>
     <!-- Buttons -->
     <StackPanel Grid.Row="8" Grid.ColumnSpan="2"
                 Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,8,0,0">
-        <Button Content="Cancel" Margin="0,0,5,0" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelPrescriptionCommand}" />
-        <Button Content="Save" Margin="5,0,0,0" IsEnabled="{Binding IsControlsEnabled}"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SavePrescriptionCommand}" />
+        <Button Content="{loc:Loc cancelBtn}" Margin="0,0,5,0" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelPrescriptionCommand}" />
+        <Button Content="{loc:Loc saveBtn}" Margin="5,0,0,0" IsEnabled="{Binding IsControlsEnabled}"  Style="{DynamicResource MaterialDesignRaisedButton}" Command="{Binding SavePrescriptionCommand}" />
     </StackPanel>
 </Grid>
 

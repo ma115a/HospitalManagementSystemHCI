@@ -2,6 +2,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -13,12 +14,19 @@ public partial class LabWindowViewModel : ObservableObject
 {
    private readonly IServiceProvider _sp;
    private readonly Dictionary<int, Lazy<IActivable>> _slides;
+   
+   private readonly LoggedInUser _user;
+   [ObservableProperty] private employee _employee;
 
 
    public LabWindowViewModel(IServiceProvider sp)
    {
       _sp = sp;
 
+      _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+      Employee = _user.LoggedInEmployee;
+      _user.EmployeeChanged += OnUserChanged;
+      
       _slides = new Dictionary<int, Lazy<IActivable>>()
       {
          { 1, new Lazy<IActivable>(() => _sp.GetRequiredService<LabWorkerRequestsViewModel>()) },
@@ -27,6 +35,11 @@ public partial class LabWindowViewModel : ObservableObject
       };
    }
    
+   private void OnUserChanged(employee value)
+   {
+      Console.WriteLine("OnUserChanged");
+      Employee = _user.LoggedInEmployee;
+   }
    
    
    public LabWorkerRequestsViewModel? RequestsVm => _slides.TryGetValue(1, out var l) ? (LabWorkerRequestsViewModel?)l.Value : null;

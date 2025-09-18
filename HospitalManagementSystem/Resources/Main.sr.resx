@@ -209,4 +209,358 @@
     <data name="doctorSurgeriesContent" xml:space="preserve">
         <value>Pogledajte prošle i zakazane operacije.</value>
     </data>
+    <data name="doctorLaboratorySearch" xml:space="preserve">
+        <value>Zahtjevi za pretraživanje</value>
+    </data>
+    <data name="fromDate" xml:space="preserve">
+        <value>Od datuma</value>
+    </data>
+    <data name="toDate" xml:space="preserve">
+        <value>Do datuma</value>
+    </data>
+    <data name="requests" xml:space="preserve">
+        <value>Zahtjevi</value>
+    </data>
+    <data name="labRequests" xml:space="preserve">
+        <value>Zahtjevi</value>
+    </data>
+    <data name="date" xml:space="preserve">
+        <value>Datum</value>
+    </data>
+    <data name="patient" xml:space="preserve">
+        <value>Pacijent</value>
+    </data>
+    <data name="doctor" xml:space="preserve">
+        <value>Doktor</value>
+    </data>
+    <data name="nurse" xml:space="preserve">
+        <value>Medicinska sestra</value>
+    </data>
+    <data name="labTehnician" xml:space="preserve">
+        <value>Laborant</value>
+    </data>
+    <data name="testName" xml:space="preserve">
+        <value>Naziv testa</value>
+    </data>
+    <data name="clinicalReason" xml:space="preserve">
+        <value>Kliničke informacije / Razlog</value>
+    </data>
+    <data name="results" xml:space="preserve">
+        <value>Rezultati</value>
+    </data>
+    <data name="requestDetails" xml:space="preserve">
+        <value>Detalji zahtjeva</value>
+    </data>
+    <data name="labResults" xml:space="preserve">
+        <value>Rezultati</value>
+    </data>
+    <data name="resultDetails" xml:space="preserve">
+        <value>Detalji rezultata</value>
+    </data>
+    <data name="resultData" xml:space="preserve">
+        <value>Podaci o rezultatu</value>
+    </data>
+    <data name="allStatuses" xml:space="preserve">
+        <value>Svi statusi</value>
+    </data>
+    <data name="rooms" xml:space="preserve">
+        <value>Sobe</value>
+    </data>
+    <data name="room" xml:space="preserve">
+        <value>Soba</value>
+    </data>
+    <data name="admissionsForRoom" xml:space="preserve">
+        <value>Prijemi za odabranu sobu</value>
+    </data>
+    <data name="admitted" xml:space="preserve">
+        <value>Primljen</value>
+    </data>
+    <data name="admission" xml:space="preserve">
+        <value>Prijem</value>
+    </data>
+    <data name="admitDate" xml:space="preserve">
+        <value>Datum primanja</value>
+    </data>
+    <data name="expectedDischarge" xml:space="preserve">
+        <value>Očekivano otpuštanje</value>
+    </data>
+    <data name="searchRecords" xml:space="preserve">
+        <value>Pretražite zapise</value>
+    </data>
+    <data name="medicalRecords" xml:space="preserve">
+        <value>Medicinski zapisi</value>
+    </data>
+    <data name="recordDetails" xml:space="preserve">
+        <value>Detalji</value>
+    </data>
+    <data name="diagnosis" xml:space="preserve">
+        <value>Dijagnoza</value>
+    </data>
+    <data name="treatment" xml:space="preserve">
+        <value>Tretman</value>
+    </data>
+    <data name="searchPrescriptions" xml:space="preserve">
+        <value>Pretražite recepte</value>
+    </data>
+    <data name="prescriptions" xml:space="preserve">
+        <value>Recepti</value>
+    </data>
+    <data name="medication" xml:space="preserve">
+        <value>Lijekovi</value>
+    </data>
+    <data name="dosage" xml:space="preserve">
+        <value>Doziranje</value>
+    </data>
+    <data name="newPrescription" xml:space="preserve">
+        <value>Novi Recept</value>
+    </data>
+    <data name="frequency" xml:space="preserve">
+        <value>Frekvencija</value>
+    </data>
+    <data name="duration" xml:space="preserve">
+        <value>Trajanje</value>
+    </data>
+    <data name="refills" xml:space="preserve">
+        <value>Dopunjavanje</value>
+    </data>
+    <data name="searchSurgeries" xml:space="preserve">
+        <value>Pretraživanje operacija (po postupku)</value>
+    </data>
+    <data name="status" xml:space="preserve">
+        <value>Operacije</value>
+    </data>
+    <data name="surgeon" xml:space="preserve">
+        <value>Hirurg</value>
+    </data>
+    <data name="procedure" xml:space="preserve">
+        <value>Procedura</value>
+    </data>
+    <data name="scheduleSurgery" xml:space="preserve">
+        <value>Planirajte operaciju</value>
+    </data>
+    <data name="durationMin" xml:space="preserve">
+        <value>Trajanje (min)</value>
+    </data>
+    <data name="nurses" xml:space="preserve">
+        <value>Medicinske sestre</value>
+    </data>
+    <data name="selectNurses" xml:space="preserve">
+        <value>Odaberite medicinske sestre…</value>
+    </data>
+    <data name="pickNurses" xml:space="preserve">
+        <value>Izaberite medicinske sestre</value>
+    </data>
+    <data name="searchNurses" xml:space="preserve">
+        <value>Tražite medicinske sestre</value>
+    </data>
+    <data name="laboratoryTitle" xml:space="preserve">
+        <value>Laboratorijski panel</value>
+    </data>
+    <data name="requested" xml:space="preserve">
+        <value>Zatraženo</value>
+    </data>
+    <data name="surgeries" xml:space="preserve">
+        <value>Operacije</value>
+    </data>
+    <data name="requestsQueue" xml:space="preserve">
+        <value>Zahtjevi</value>
+    </data>
+    <data name="requestQueueContent" xml:space="preserve">
+        <value>Pogledajte narudžbe za testiranje koje čekaju i započnite obradu.</value>
+    </data>
+    <data name="enterResults" xml:space="preserve">
+        <value>Unesite rezultate</value>
+    </data>
+    <data name="enterResultsContent" xml:space="preserve">
+        <value>Odaberite zahtjev i zabilježite rezultate.</value>
+    </data>
+    <data name="resultsHistory" xml:space="preserve">
+        <value>Istorija rezultata</value>
+    </data>
+    <data name="resultHistoryContent" xml:space="preserve">
+        <value>Pretražite i pogledajte prethodne rezultate.</value>
+    </data>
+    <data name="pendingRequests" xml:space="preserve">
+        <value>Zahtjevi na čekanju</value>
+    </data>
+    <data name="startTest" xml:space="preserve">
+        <value>Pokreni test</value>
+    </data>
+    <data name="complete" xml:space="preserve">
+        <value>Završeno</value>
+    </data>
+    <data name="selectRequest" xml:space="preserve">
+        <value>Odaberite zahtjev</value>
+    </data>
+    <data name="time" xml:space="preserve">
+        <value>Vrijeme (HH:mm)</value>
+    </data>
+    <data name="discharged" xml:space="preserve">
+        <value>Otpušten</value>
+    </data>
+    <data name="appointments" xml:space="preserve">
+        <value>Termini</value>
+    </data>
+    <data name="appointmentDetails" xml:space="preserve">
+        <value>Detalji zakazivanja</value>
+    </data>
+    <data name="appointmentsContent" xml:space="preserve">
+        <value>Pregledajte/upravljajte dnevnim rasporedima i ažurirajte status.</value>
+    </data>
+    <data name="scheduleAppointment" xml:space="preserve">
+        <value>Zakažite termin</value>
+    </data>
+    <data name="scheduleAppointmentContent" xml:space="preserve">
+        <value>Kreirajte novi termin za pacijenta.</value>
+    </data>
+    <data name="admissionsAndBeds" xml:space="preserve">
+        <value>Prijemi i kreveti</value>
+    </data>
+    <data name="admissionsAndBedsContent" xml:space="preserve">
+        <value>Prijem/otpust pacijenata i praćenje popunjenosti soba.</value>
+    </data>
+    <data name="labReqRes" xml:space="preserve">
+        <value>Laboratorija (Zahtjevi i rezultati)</value>
+    </data>
+    <data name="labReqResContent" xml:space="preserve">
+        <value>Kreirajte laboratorijske zahtjeve i pratite rezultate.</value>
+    </data>
+    <data name="surgeriesContent" xml:space="preserve">
+        <value>Pogledajte raspored i odredite dežurne/zamjenske medicinske sestre.</value>
+    </data>
+    <data name="patients" xml:space="preserve">
+        <value>Pacijenti</value>
+    </data>
+    <data name="patientsContent" xml:space="preserve">
+        <value>Kreirajte/uredite demografske podatke pacijenata.</value>
+    </data>
+    <data name="umcn" xml:space="preserve">
+        <value>JMBG</value>
+    </data>
+    <data name="phone" xml:space="preserve">
+        <value>Broj telefona</value>
+    </data>
+    <data name="patientDetails" xml:space="preserve">
+        <value>Detalji o pacijentu</value>
+    </data>
+    <data name="surgeryDetails" xml:space="preserve">
+        <value>Detalji o operaciji</value>
+    </data>
+    <data name="nurseTitle" xml:space="preserve">
+        <value>Medicinska sestra panel</value>
+    </data>
+    <data name="mySurgeries" xml:space="preserve">
+        <value>Moje operacije</value>
+    </data>
+    <data name="mySurgeriesContent" xml:space="preserve">
+        <value>Pregledajte i uredite predstojeće slučajeve; upravljajte kontrolnim listama tima.</value>
+    </data>
+    <data name="scheduleSurgeryContent" xml:space="preserve">
+        <value>Kreirajte novi slučaj s pacijentom, operacionom salom i vremenom.</value>
+    </data>
+    <data name="surgeryHistory" xml:space="preserve">
+        <value>Hirurška istorija</value>
+    </data>
+    <data name="surgeryHistoryContent" xml:space="preserve">
+        <value>Pregledajte prošle slučajeve i postoperativne ishode.</value>
+    </data>
+    <data name="team" xml:space="preserve">
+        <value>Tim</value>
+    </data>
+    <data name="assignNurses" xml:space="preserve">
+        <value>Dodijelite medicinske sestre</value>
+    </data>
+    <data name="availableNurses" xml:space="preserve">
+        <value>Dostupne medicinske sestre</value>
+    </data>
+    <data name="assign" xml:space="preserve">
+        <value>Dodijeli</value>
+    </data>
+    <data name="remove" xml:space="preserve">
+        <value>Ukloni</value>
+    </data>
+    <data name="surgeonTitle" xml:space="preserve">
+        <value>Hirurg panel</value>
+    </data>
+    <data name="details" xml:space="preserve">
+        <value>Detalji</value>
+    </data>
+    <data name="assignedNurses" xml:space="preserve">
+        <value>Dodijeljene medicinske sestre</value>
+    </data>
+    <data name="notes" xml:space="preserve">
+        <value>Bilješke</value>
+    </data>
+    <data name="requestLaboratory" xml:space="preserve">
+        <value>Zatraži laboratoriju</value>
+    </data>
+    <data name="requestLaboratoryContent" xml:space="preserve">
+        <value>Naručite laboratorijske testove i pratite njihov status.</value>
+    </data>
+    <data name="userDoesNotExist" xml:space="preserve">
+        <value>Korisničko ime ne postoji!</value>
+    </data>
+    <data name="invalidPassword" xml:space="preserve">
+        <value>Nevažeća lozinka!</value>
+    </data>
+    <data name="patientError" xml:space="preserve">
+        <value>Molimo odaberite pacijenta.</value>
+    </data>
+    <data name="medicalRecordError" xml:space="preserve">
+        <value>Molimo odaberite medicinski karton.</value>
+    </data>
+    <data name="dateError" xml:space="preserve">
+        <value>Molimo odaberite datum.</value>
+    </data>
+    <data name="timeError" xml:space="preserve">
+        <value>Molimo odaberite vrijeme.</value>
+    </data>
+    <data name="laboratoryTestError" xml:space="preserve">
+        <value>Molimo odaberite test.</value>
+    </data>
+    <data name="laboratoryTechnicianError" xml:space="preserve">
+        <value>Molimo odaberite laboratorijskog radnika.</value>
+    </data>
+    <data name="roomError" xml:space="preserve">
+        <value>Molimo odaberite sobu.</value>
+    </data>
+    <data name="admissionError" xml:space="preserve">
+        <value>Molimo odaberite upis.</value>
+    </data>
+    <data name="prescriptionError" xml:space="preserve">
+        <value>Molimo odaberite recept.</value>
+    </data>
+    <data name="medicationError" xml:space="preserve">
+        <value>Molimo odaberite lijek.</value>
+    </data>
+    <data name="surgeryError" xml:space="preserve">
+        <value>Molimo odaberite operaciju.</value>
+    </data>
+    <data name="appointmentError" xml:space="preserve">
+        <value>Molimo odaberite termin.</value>
+    </data>
+    <data name="patientUmcnError" xml:space="preserve">
+        <value>JMBG mora biti 13 karaktera,</value>
+    </data>
+    <data name="patientUmcnLetterError" xml:space="preserve">
+        <value>JMBG mora sadržati samo brojeve.</value>
+    </data>
+    <data name="doctorError" xml:space="preserve">
+        <value>Umcn treba da sadrži samo slova.</value>
+    </data>
+    <data name="nurseError" xml:space="preserve">
+        <value>Molimo odaberite medicinsku sestru.</value>
+    </data>
+    <data name="nameError" xml:space="preserve">
+        <value>Molimo unesite ime.</value>
+    </data>
+    <data name="userExists" xml:space="preserve">
+        <value>Korisničko ime već postoji.</value>
+    </data>
+    <data name="testStarted" xml:space="preserve">
+        <value>Test pokrenut</value>
+    </data>
+    <data name="surgeryDepartment" xml:space="preserve">
+        <value>Operaciono odjeljenje</value>
+    </data>
 </root>

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HospitalManagementSystem.Data.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Admin.ViewModels;
 
@@ -8,6 +10,24 @@ public partial class AdminWindowViewModel : ObservableObject
 
     [ObservableProperty]
     private int _currentSlideIndex;
+
+    private readonly LoggedInUser _user;
+    [ObservableProperty] private employee _employee;
+
+
+    public AdminWindowViewModel()
+    {
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        Employee = _user.LoggedInEmployee;
+        _user.EmployeeChanged += OnUserChanged;
+    }
+
+
+    private void OnUserChanged(employee value)
+    {
+        Console.WriteLine("OnUserChanged");
+        Employee = _user.LoggedInEmployee;
+    }
 
     [RelayCommand]
     private void GoToDashboard()

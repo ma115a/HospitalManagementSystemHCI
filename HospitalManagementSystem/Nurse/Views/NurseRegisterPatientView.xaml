@@ -4,6 +4,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -17,7 +19,7 @@
                                >
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -27,9 +29,9 @@
                     BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                     BorderThickness="0,0,0,1" Padding="8,6">
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewPatientCommand}"/>
-                    <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditPatientCommand}"/>
-                    <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeletePatientCommand}"/>
+                    <Button Content="{loc:Loc newBtn}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewPatientCommand}"/>
+                    <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsControls2Enabled}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditPatientCommand}"/>
+                    <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsControls2Enabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeletePatientCommand}"/>
                 </StackPanel>
             </Border>
 
@@ -48,7 +50,7 @@
                                     <RowDefinition Height="Auto"/>
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="Patients" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                <TextBlock Text="{loc:Loc patients}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
                                 <DataGrid Grid.Row="1" Style="{DynamicResource MaterialDesignDataGrid}"
                                           AutoGenerateColumns="False"
                                           CanUserAddRows="False"
@@ -57,9 +59,9 @@
                                           ItemsSource="{Binding Patients}"
                                           SelectedItem="{Binding SelectedPatient}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="UMCN" Binding="{Binding umcn}" Width="*"/>
-                                        <DataGridTextColumn Header="Name" Binding="{Binding name}" Width="*"/>
-                                        <DataGridTextColumn Header="Phone" Binding="{Binding phone}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc umcn}" Binding="{Binding umcn}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc nameGrid}" Binding="{Binding name}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc phone}" Binding="{Binding phone}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
                             </Grid>
@@ -85,12 +87,12 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Patient Details"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc patientDetails}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                     <TextBox Grid.Row="1" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="UMCN"
+                                             materialDesign:HintAssist.Hint="{loc:Loc umcn}"
                                              IsEnabled="{Binding DataContext.UmcnEditable, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
@@ -101,7 +103,7 @@
 
                                     <TextBox Grid.Row="2" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Name"
+                                             materialDesign:HintAssist.Hint="{loc:Loc nameGrid}"
                                              
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
@@ -114,7 +116,7 @@
 
                                     <TextBox Grid.Row="3" Grid.ColumnSpan="2"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Phone"
+                                             materialDesign:HintAssist.Hint="{loc:Loc phone}"
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
@@ -127,7 +129,7 @@
                                              AcceptsReturn="True" TextWrapping="Wrap"
                                              VerticalAlignment="Stretch" MinHeight="120"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint="Notes"
+                                             materialDesign:HintAssist.Hint="{loc:Loc notes}"
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
@@ -135,10 +137,30 @@
                                              materialDesign:HintAssist.IsFloating="False"
                                              Margin="0, 0, 0, 10"
                                              Text="{Binding notes}"/>
+                                    
+                                    <materialDesign:Snackbar Grid.Row="5" Grid.Column="0" 
+                                                             MessageQueue="{Binding DataContext.MessageQueue, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Bottom"
+                                                             HorizontalContentAlignment="Center"
+                                                             Padding="0"
+                                         
+                                                             Background="{DynamicResource MaterialDesignPaper}"
+                                                             Foreground="{DynamicResource MaterialDesignBody}"
+                                    >
+                                        <materialDesign:Snackbar.Resources>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            </Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </materialDesign:Snackbar.Resources>
+                                    </materialDesign:Snackbar>
 
-                                    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                                        <Button Content="Save"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SavePatientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+                                        <Button Content="{loc:Loc cancelBtn}" IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc saveBtn}"  IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SavePatientCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

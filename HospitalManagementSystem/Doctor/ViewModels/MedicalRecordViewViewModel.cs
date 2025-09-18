@@ -9,6 +9,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Doctor.ViewModels;
 
@@ -17,6 +19,9 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
 {
     private SharedDataService _sharedDataService;
     private readonly PatientService _patientService;
+    private readonly LocalizationManager _localizationManager;
+    private readonly LoggedInUser _user;
+    [ObservableProperty] private employee _employee;
 
 
     [ObservableProperty] private patient? _selectedPatient;
@@ -28,7 +33,7 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
 
 
     [ObservableProperty] private bool _isControlsEnabled;
-    [ObservableProperty] private bool _isControls2Enabled;
+    [ObservableProperty] private bool _isControls2Enabled = false;
     private bool _isEditing;
 
 
@@ -39,28 +44,43 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
     [ObservableProperty] private DateTime? _startDateFilter;
     [ObservableProperty] private DateTime? _endDateFilter;
     
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
 
 
 
 
 
 
-    public MedicalRecordViewViewModel(SharedDataService sharedDataService, PatientService patientService)
+    public MedicalRecordViewViewModel(SharedDataService sharedDataService, PatientService patientService, LocalizationManager localizationManager)
     {
         _sharedDataService = sharedDataService;
         _patientService = patientService;
+        _localizationManager = localizationManager;
 
         _sharedDataService.PatientChanged += OnPatientChanged;
 
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        Employee = _user.LoggedInEmployee;
+        _user.EmployeeChanged += OnUserChanged;
 
         MedicalRecordsView = CollectionViewSource.GetDefaultView(MedicalRecords);
         MedicalRecordsView.Filter = MedicalRecordsFilter;
+        MessageQueue = new SnackbarMessageQueue();
+    }
+    
+    private void OnUserChanged(employee value)
+    {
+        Console.WriteLine("OnUserChanged");
+        Employee = _user.LoggedInEmployee;
     }
 
 
 
     partial void OnSelectedMedicalRecordChanged(medical_record? record)
     {
+        if (record is null) IsControls2Enabled = false;
+        else IsControls2Enabled = true;
         if (record?.date is DateTime dt)
         {
             SelectedDate = dt.Date;
@@ -132,7 +152,11 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
 
     private async Task LoadData()
     {
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         MedicalRecords.Clear();
         var records = await _patientService.GetMedicalRecords(SelectedPatient);
         foreach (var record in records)
@@ -142,6 +166,8 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
         
 
     }
+
+ 
 
     
 
@@ -154,7 +180,11 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
     [RelayCommand]
     private void NewMedicalRecord()
     {
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         IsControlsEnabled = true;
         SelectedMedicalRecord = new();
     }
@@ -174,19 +204,52 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
     private async Task DeleteMedicalRecord()
     {
 
-        if (SelectedMedicalRecord is null) return;
+        if (SelectedMedicalRecord is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("medicalRecordError"));
+            return;
+        } 
         await _patientService.DeleteMedicalRecord(SelectedMedicalRecord);
         await LoadData();
     }
 
 
     [RelayCommand]
+    private void Cancel()
+    {
+        IsControlsEnabled = false;
+        SelectedMedicalRecord = null;
+        SelectedDate = null;
+        SelectedTime = null;
+    }
+
+
+    [RelayCommand]
     private async Task SaveMedicalRecord()
     {
-        if (SelectedMedicalRecord is null) return;
-        if (SelectedDate is null) return;
-        if (SelectedTime is null) return;
-        if (SelectedPatient is null) return;
+        if (SelectedMedicalRecord is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("medicalRecordError"));
+            return;
+        }
+
+        if (SelectedDate is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("dateError"));
+            return;
+        }
+
+        if (SelectedTime is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("timeError"));
+            return;
+        }
+
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         var time = TimeSpan.Zero;
         if (!string.IsNullOrWhiteSpace(SelectedTime))
         {
@@ -206,11 +269,15 @@ public partial class MedicalRecordViewViewModel : ObservableObject, IActivable
         }
         else
         {
-            await _patientService.SaveMedicalRecord(SelectedMedicalRecord);
+            await _patientService.SaveMedicalRecord(SelectedMedicalRecord, _user.LoggedInEmployee.employee_id);
         }
         await LoadData();
         _isEditing = false;
         IsControlsEnabled = false;
+        SelectedMedicalRecord = null;
+        SelectedPatient = null;
+        SelectedTime = null;
+        SelectedDate = null;
     }
 
 

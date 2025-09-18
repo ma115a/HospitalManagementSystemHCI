@@ -6,6 +6,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
              xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d">
     <UserControl.Resources>
         <utils:DateConverter x:Key="DateConverter"></utils:DateConverter>
@@ -15,8 +17,7 @@
 
         <!-- BACK BAR -->
         <Border DockPanel.Dock="Top"
-                Background="{DynamicResource MaterialDesign.Brush.Surface}"
-                BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                Background="{DynamicResource MaterialDesignPaper}"
                 BorderThickness="0,0,0,1"
                 Padding="8,6">
             <StackPanel Orientation="Horizontal">
@@ -24,7 +25,7 @@
                         Click="GoToDashboard">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                        <TextBlock Text="Back to Dashboard"/>
+                        <TextBlock Text="{loc:Loc backToDashboard}"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
@@ -32,8 +33,7 @@
 
         <!-- TOP TOOLBAR (responsive grid) -->
         <Border DockPanel.Dock="Top" 
-                Background="{DynamicResource MaterialDesign.Brush.Surface}"
-                BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
+                Background="{DynamicResource MaterialDesignPaper}"
                 BorderThickness="0,0,0,1"
                 Padding="8,6">
             <Grid VerticalAlignment="Center">
@@ -50,13 +50,12 @@
                     <ColumnDefinition Width="Auto"/>            <!-- Status lbl -->
                     <ColumnDefinition Width="1.5*" MinWidth="140"/> <!-- Status -->
                     <ColumnDefinition Width="Auto"/>            <!-- Priority lbl -->
-                    <ColumnDefinition Width="Auto"/>            <!-- Priority lbl -->
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="New" IsEnabled="{Binding IsOptionsEnabled}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewTestCommand}"/>
-                    <Button Content="Edit" IsEnabled="{Binding IsOptionsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditTestCommand}"/>
-                    <Button Content="Delete" IsEnabled="{Binding IsOptionsEnabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteLabTestCommand}"/>
+                    <Button Content="{loc:Loc newBtn}" IsEnabled="{Binding IsOptionsEnabled}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewTestCommand}"/>
+                    <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsOptionsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditTestCommand}"/>
+                    <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsOptionsEnabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteLabTestCommand}"/>
                 </StackPanel>
                
 
@@ -64,7 +63,7 @@
                                          Height="20" VerticalAlignment="Center" Margin="0,0,6,0"/>
                 <TextBox Grid.Column="2"
                          HorizontalAlignment="Stretch"
-                         materialDesign:HintAssist.Hint="Search requests (test, status, sample)"
+                         materialDesign:HintAssist.Hint="{loc:Loc doctorLaboratorySearch}"
                          materialDesign:HintAssist.IsFloating="False"
                          materialDesign:TextFieldAssist.HasClearButton="True"
                          Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
@@ -72,13 +71,13 @@
 
                 <DatePicker Grid.Column="4"
                             HorizontalAlignment="Stretch"
-                            materialDesign:HintAssist.Hint="From date"
+                            materialDesign:HintAssist.Hint="{loc:Loc fromDate}"
                             materialDesign:HintAssist.IsFloating="False"
                             SelectedDate="{Binding SearchStartDate}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
                 <DatePicker Grid.Column="6" 
                             HorizontalAlignment="Stretch"
-                            materialDesign:HintAssist.Hint="To date"
+                            materialDesign:HintAssist.Hint="{loc:Loc toDate}"
                             materialDesign:HintAssist.IsFloating="False"
                             SelectedDate="{Binding SearchEndDate}"
                             Style="{DynamicResource MaterialDesignOutlinedDatePicker}"/>
@@ -90,7 +89,7 @@
                           ItemsSource="{Binding RequestStatuses}"
                           SelectedItem="{Binding SelectedStatusFilter}"
                           Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                          materialDesign:HintAssist.Hint="All statuses"
+                          materialDesign:HintAssist.Hint="{loc:Loc allStatuses}"
                           SelectedValuePath="Content"
                           IsEnabled="{Binding IsStatusEnabled}"
                           SelectedValue="{Binding SearchStatus}"
@@ -102,7 +101,7 @@
                     </ComboBox>
 
                 <Border Grid.Column="9" VerticalAlignment="Bottom" Margin="5,0,0,10">
-                    <Button Content="Clear"
+                    <Button Content="{loc:Loc cancelBtn}"
                             Style="{DynamicResource MaterialDesignFlatButton}"
                             Command="{Binding ClearFiltersCommand}"/>
                 </Border>
@@ -121,10 +120,10 @@
                         <!-- <TabControl> -->
                             <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
                             <!-- Requests -->
-                            <TabItem Header="Requests">
+                            <TabItem Header="{loc:Loc requests}">
                                 <Grid Margin="8,4,8,8">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="1*"/>
                                         <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
 
@@ -137,7 +136,7 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Text="Lab Requests" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                            <TextBlock Text="{loc:Loc labRequests}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
                                             
                                             
                                             <DataGrid Grid.Row="2" Style="{DynamicResource MaterialDesignDataGrid}"
@@ -148,10 +147,9 @@
                                                       IsReadOnly="True"
                                                       SelectedItem="{Binding SelectedLaboratoryTest}">
                                                 <DataGrid.Columns>
-                                                    <DataGridTextColumn Header="Date" Binding="{Binding date, StringFormat=d}" Width="*"/>
-                                                    <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
-                                                    <DataGridTextColumn Header="Doctor" Binding="{Binding doctor.employee.name}" Width="2*"/>
-                                                    <DataGridTextColumn Header="Nurse" Binding="{Binding nurse.employee.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="{loc:Loc date}" Binding="{Binding date, StringFormat=d}" Width="*"/>
+                                                    <DataGridTextColumn Header="{loc:Loc doctor}" Binding="{Binding doctor.employee.name}" Width="2*"/>
+                                                    <DataGridTextColumn Header="{loc:Loc nurse}" Binding="{Binding nurse.employee.name}" Width="2*"/>
                                                     <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
                                                 </DataGrid.Columns>
                                             </DataGrid>
@@ -177,7 +175,7 @@
                                                     <RowDefinition Height="Auto"/>
                                                 </Grid.RowDefinitions>
 
-                                                <TextBlock Grid.ColumnSpan="2" Text="Request Details"
+                                                <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc requestDetails}"
                                                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,10"/>
 
                                                 
@@ -185,7 +183,7 @@
                                                
                                     <ComboBox Grid.Row="2" Grid.ColumnSpan="2"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Lab Tehnician"
+                                              materialDesign:HintAssist.Hint="{loc:Loc labTehnician}"
                                               materialDesign:HintAssist.IsFloating="False"
                                               materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                               ItemsSource="{Binding Technicians}"
@@ -208,7 +206,7 @@
                                                 
                                                 <TextBox Grid.Row="3" Grid.ColumnSpan="2"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                                         materialDesign:HintAssist.Hint="Test name"
+                                                         materialDesign:HintAssist.Hint="{loc:Loc testName}"
                                                          materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                          materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                          materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -226,13 +224,31 @@
                                                          materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                                          materialDesign:HintAssist.IsFloating="False"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                                         materialDesign:HintAssist.Hint="Clinical information / Reason"
+                                                         materialDesign:HintAssist.Hint="{loc:Loc clinicalReason}"
                                                          IsEnabled="{Binding IsControlsEnabled}"
                                                          Text="{Binding SelectedLaboratoryTest.description}"/>
 
+                                                <materialDesign:Snackbar Grid.Row="5"  Grid.Column="0"
+                                                                         MessageQueue="{Binding MessageQueue}"
+                                                                         HorizontalAlignment="Center"
+                                                                         VerticalAlignment="Bottom"
+                                                                         HorizontalContentAlignment="Center"
+                                                                         Padding="0"
+                                                                         Background="{DynamicResource MaterialDesignPaper}"
+                                                                         Foreground="{DynamicResource MaterialDesignBody}"
+                                                                         >
+                                                    <materialDesign:Snackbar.Resources>
+                                                        <Style TargetType="ContentPresenter">
+                                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                        </Style>
+                                                        <Style TargetType="Grid">
+                                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                                        </Style>
+                                                    </materialDesign:Snackbar.Resources>
+                                                </materialDesign:Snackbar>
                                                 <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                                    <Button Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelTestCommand}"/>
-                                                    <Button Content="Save" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveTestCommand}"/>
+                                                    <Button Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelTestCommand}"/>
+                                                    <Button Content="{loc:Loc saveBtn}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveTestCommand}"/>
                                                 </StackPanel>
                                             </Grid>
                                         </ScrollViewer>
@@ -241,7 +257,7 @@
                             </TabItem>
 
                             <!-- Results -->
-                            <TabItem Header="Results">
+                            <TabItem Header="{loc:Loc results}">
                                 <Grid Margin="8,4,8,8">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="2*"/>
@@ -257,7 +273,7 @@
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
-                                            <TextBlock Text="Lab Results" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
+                                            <TextBlock Text="{loc:Loc labResults}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
                                              
                                             <DataGrid Grid.Row="2" Style="{DynamicResource MaterialDesignDataGrid}"
                                                       AutoGenerateColumns="False"
@@ -285,11 +301,11 @@
                                                     <RowDefinition Height="Auto"/>
                                                     <RowDefinition Height="*"/>
                                                 </Grid.RowDefinitions>
-                                                <TextBlock Text="Result Details" FontSize="16" FontWeight="SemiBold"/>
+                                                <TextBlock Text="{loc:Loc resultDetails}" FontSize="16" FontWeight="SemiBold"/>
                                                 
                                                 <DatePicker Grid.Row="1"
                                                             Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                            materialDesign:HintAssist.Hint="Date"
+                                                            materialDesign:HintAssist.Hint="{loc:Loc date}"
                                                             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -301,7 +317,7 @@
                                                          AcceptsReturn="True" TextWrapping="Wrap"
                                                          VerticalAlignment="Stretch" MinHeight="200"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                                         materialDesign:HintAssist.Hint="Result data"
+                                                         materialDesign:HintAssist.Hint="{loc:Loc resultData}"
                                                          materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                          materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                          materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"

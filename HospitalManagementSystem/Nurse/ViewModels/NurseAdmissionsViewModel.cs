@@ -7,6 +7,8 @@ using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
 
@@ -16,6 +18,9 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
     private readonly DepartmentService _departmentService;
     private readonly PatientService _patientService;
     private readonly AdmissionService _admissionService;
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
     [ObservableProperty] private ObservableCollection<department> _departments = new();
     [ObservableProperty]
@@ -51,6 +56,8 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
         _patientService = patientService;
         _admissionService = admissionService;
         
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
         
         RoomsView = CollectionViewSource.GetDefaultView(Rooms);
         RoomsView.Filter = RoomsFilter;
@@ -79,8 +86,14 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
         if (!_isEditing) LoadAdmissionsCommand.Execute(null);
         
     }
-    
-    
+
+    [ObservableProperty] private bool _isControls2Enabled = false;
+
+    partial void OnSelectedAdmissionChanged(admission? value)
+    {
+        if (value is not null) IsControls2Enabled = true;
+        else IsControls2Enabled = false;
+    }
     
     
     
@@ -95,7 +108,11 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task LoadAdmissions()
     {
-        if (SelectedRoom is null) return;
+        if (SelectedRoom is null)
+        {
+            // MessageQueue.Enqueue(_localizationManager.GetString("roomError"));
+            return;
+        }
         Admissions.Clear();
         var admissions = await _admissionService.GetAllAdmissionsForRoom(SelectedRoom);
         foreach (var admission in admissions)
@@ -108,7 +125,6 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
 
     private async Task LoadData()
     {
-        Console.WriteLine("begin");
         Departments.Clear(); 
         var departments = await _departmentService.GetAllDepartments();
         foreach (var department in departments)
@@ -138,11 +154,17 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
     {
         IsControlsEnabled = true;
         SelectedAdmission = new admission();
+        
     }
     
    [RelayCommand] 
    private void EditAdmission()
    {
+       if (SelectedAdmission is null)
+       {
+           MessageQueue.Enqueue(_localizationManager.GetString("admissionError"));
+           return;
+       }
        IsControlsEnabled = true;
 
        _isEditing = true;
@@ -152,7 +174,11 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
    [RelayCommand]
    private async Task DeleteAdmission()
    {
-       if (SelectedAdmission is null) return;
+       if (SelectedAdmission is null)
+       {
+           MessageQueue.Enqueue(_localizationManager.GetString("roomError"));
+           return;
+       }
        await _admissionService.DeleteAdmission(SelectedAdmission);
        await LoadAdmissions();
    }
@@ -170,9 +196,24 @@ public partial class NurseAdmissionsViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task SaveAdmission()
     {
-        if (SelectedRoom is null) return;
-        if (SelectedPatient is null) return;
-        if (SelectedAdmission is null) return;
+        if (SelectedRoom is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("roomError"));
+            return;
+        }
+
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
+
+        if (SelectedAdmission is null)
+        {
+            
+            MessageQueue.Enqueue(_localizationManager.GetString("admissionError"));
+            return;
+        }
         if (_isEditing)
         {
             await _admissionService.UpdateAdmission(SelectedAdmission, SelectedRoom, SelectedPatient);

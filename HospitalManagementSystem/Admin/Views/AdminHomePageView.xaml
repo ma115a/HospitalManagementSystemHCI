@@ -8,6 +8,7 @@
              xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:viewModels="clr-namespace:HospitalManagementSystem.Admin.ViewModels"
              d:DataContext="{d:DesignInstance Type=viewModels:AdminWindowViewModel}"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
@@ -110,7 +111,7 @@
                             </materialDesign:Card>
 
                             <!-- Medications & Inventory -->
-                            <materialDesign:Card Padding="20" Margin="20">
+                            <!--<materialDesign:Card Padding="20" Margin="20">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
@@ -133,7 +134,7 @@
                                             Width="120" Margin="0,14,0,0"
                                             Command="{Binding DataContext.GoToMedicationInventoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"/>
                                 </Grid>
-                            </materialDesign:Card>
+                            </materialDesign:Card>-->
                         </UniformGrid>
                     </Grid>
                 </ScrollViewer>

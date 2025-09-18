@@ -5,6 +5,8 @@ using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Nurse.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
 
@@ -16,6 +18,9 @@ public partial class NurseScheduleAppointmentViewModel : ObservableObject, IActi
     private readonly AppointmentService _appointmentService;
     private readonly PatientService _patientService;
     private readonly DoctorService _doctorService;
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
 
     [ObservableProperty] private ObservableCollection<patient> _patients = new();
@@ -38,6 +43,9 @@ public partial class NurseScheduleAppointmentViewModel : ObservableObject, IActi
         _appointmentService = appointmentService;
         _patientService = patientService;
         _doctorService = doctorService;
+        
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
     }
 
 
@@ -68,9 +76,22 @@ public partial class NurseScheduleAppointmentViewModel : ObservableObject, IActi
     [RelayCommand]
     private async Task SaveAppointment()
     {
-        if (SelectedPatient == null || SelectedDoctor == null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
+        if (SelectedDoctor is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("doctorError"));
+            return;
+        }
 
-        if (NewAppointmentDate is null) return;
+        if (NewAppointmentDate is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("dateError"));
+            return;
+        }
         
 
         var time = TimeSpan.Zero;
@@ -88,10 +109,16 @@ public partial class NurseScheduleAppointmentViewModel : ObservableObject, IActi
         {
 
             date = dateTime,
-            notes = NewAppointmentNotes
+            notes = NewAppointmentNotes,
+            status = "Scheduled"
         };
 
         await _appointmentService.SaveAppointment(SelectedAppointment, SelectedDoctor, SelectedPatient);
+        SelectedAppointment = null;
+        SelectedDoctor = null;
+        NewAppointmentDate = null;
+        NewAppointmentTime = null;
+        SelectedPatient = null;
 
     }
     

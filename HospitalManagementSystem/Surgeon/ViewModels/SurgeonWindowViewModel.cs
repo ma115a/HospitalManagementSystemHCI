@@ -3,6 +3,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Utils;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,8 @@ public partial class SurgeonWindowViewModel : ObservableObject
     private readonly IServiceProvider _sp;
     
     private readonly Dictionary<int, Lazy<IActivable>> _slides;
+    private readonly LoggedInUser _user;
+    [ObservableProperty] private employee _employee;
     
     [ObservableProperty]
     private int _currentSlideIndex;
@@ -23,12 +26,22 @@ public partial class SurgeonWindowViewModel : ObservableObject
     public SurgeonWindowViewModel(IServiceProvider sp)
     {
         _sp = sp;
+        
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        Employee = _user.LoggedInEmployee;
+        _user.EmployeeChanged += OnUserChanged;
         _slides = new()
         {
             { 1, new Lazy<IActivable>(() => _sp.GetRequiredService<SurgeriesViewViewModel>()) },
             { 2, new Lazy<IActivable>(() => _sp.GetRequiredService<ScheduleSurgeryViewModel>()) },
             { 3, new Lazy<IActivable>(() => _sp.GetRequiredService<SurgeriesHistoryViewViewModel>()) }
         };
+    }
+    
+    private void OnUserChanged(employee value)
+    {
+        Console.WriteLine("OnUserChanged");
+        Employee = _user.LoggedInEmployee;
     }
     
     

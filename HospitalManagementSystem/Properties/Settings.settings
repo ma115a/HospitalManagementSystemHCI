@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="HospitalManagementSystem.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="Language" Type="System.String" Scope="User">
+      <Value Profile="(Default)">sr</Value>
+    </Setting>
+    <Setting Name="Theme" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Light</Value>
+    </Setting>
+    <Setting Name="PrimaryColor" Type="System.String" Scope="User">
+      <Value Profile="(Default)">#4CAF50</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
+

@@ -4,7 +4,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             Background="{DynamicResource MaterialDesignPaper}"
+             d:DesignHeight="1200
+             "
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -17,7 +21,7 @@
                                 Click="GoToDashboard_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Requests"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -36,12 +40,12 @@
                                     <RowDefinition Height="Auto"/>  <!-- title -->
                                     <RowDefinition Height="Auto"/>  <!-- pick request -->
                                     <RowDefinition Height="Auto"/>  <!-- date -->
-                                    <RowDefinition Height="*"/>     <!-- result data -->
+                                    <RowDefinition Height="Auto"/>     <!-- result data -->
                                     <RowDefinition Height="*"/>     <!-- result data -->
                                     <RowDefinition Height="Auto"/>  <!-- buttons -->
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Grid.ColumnSpan="2" Text="Enter Result"
+                                <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc enterResults}"
                                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                 <!-- Choose request to attach the result to -->
@@ -52,7 +56,7 @@
                                           Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                                           SelectedItem="{Binding SelectedLaboratoryTest}"
                                           materialDesign:HintAssist.IsFloating="False"
-                                          materialDesign:HintAssist.Hint="Select request (patient / test)">
+                                          materialDesign:HintAssist.Hint="{loc:Loc selectRequest}">
                                     <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
@@ -67,7 +71,7 @@
                                 <!-- Result date -->
                                 <DatePicker Grid.Row="2" Grid.ColumnSpan="1"
                                             Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                            materialDesign:HintAssist.Hint="Result date"
+                                            materialDesign:HintAssist.Hint="{loc:Loc date}"
                                             materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                             materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                             materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -78,7 +82,7 @@
                                 
                                 <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="1"
                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                         materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                         materialDesign:HintAssist.Hint="{loc:Loc time}"
                                          materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                          materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                          materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -116,16 +120,35 @@
                                          materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                          materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                          materialDesign:HintAssist.IsFloating="False"
-                                         materialDesign:HintAssist.Hint="Result data"
+                                         materialDesign:HintAssist.Hint="{loc:Loc resultData}"
                                          Margin="0,0,0,10"
                                          IsEnabled="{Binding IsControlsEnabled}"
                                          Text="{Binding LaboratoryTestResult.result_data}"/>
 
+                                <materialDesign:Snackbar Grid.Row="5" Grid.Column="0" 
+                                                         MessageQueue="{Binding MessageQueue}"
+                                                         HorizontalAlignment="Center"
+                                                         VerticalAlignment="Bottom"
+                                                         HorizontalContentAlignment="Center"
+                                                         Padding="0"
+                                         
+                                                         Background="{DynamicResource MaterialDesignPaper}"
+                                                         Foreground="{DynamicResource MaterialDesignBody}"
+                                >
+                                    <materialDesign:Snackbar.Resources>
+                                        <Style TargetType="ContentPresenter">
+                                            <Setter Property="HorizontalAlignment" Value="Center"/>
+                                        </Style>
+                                        <Style TargetType="Grid">
+                                            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                        </Style>
+                                    </materialDesign:Snackbar.Resources>
+                                </materialDesign:Snackbar>
                                 <StackPanel Grid.Row="5" Grid.ColumnSpan="2"
                                             Margin="0,0,0,10"
                                             Orientation="Horizontal" HorizontalAlignment="Right">
-                                    <Button Content="Cancel" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelResultCommand}"/>
-                                    <Button Content="Save Result" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"
+                                    <Button Content="{loc:Loc cancelBtn}" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelResultCommand}"/>
+                                    <Button Content="{loc:Loc saveBtn}" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0"
                                             Command="{Binding SaveResultCommand}"/>
                                 </StackPanel>
                             </Grid>

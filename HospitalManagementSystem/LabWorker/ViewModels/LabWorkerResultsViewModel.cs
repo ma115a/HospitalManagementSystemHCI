@@ -7,6 +7,8 @@ using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.LabWorker.ViewModels;
 
@@ -14,6 +16,10 @@ namespace HospitalManagementSystem.LabWorker.ViewModels;
 public partial class LabWorkerResultsViewModel : ObservableObject, IActivable
 {
     
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
+    private LoggedInUser _user;
+    [ObservableProperty] private employee _employee;
     
     private readonly LaboratoryTestService _laboratoryTestService;
     [ObservableProperty]
@@ -33,6 +39,17 @@ public partial class LabWorkerResultsViewModel : ObservableObject, IActivable
     public LabWorkerResultsViewModel(LaboratoryTestService laboratoryTestService)
     {
         _laboratoryTestService = laboratoryTestService;
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        Employee = _user.LoggedInEmployee;
+        _user.EmployeeChanged += OnUserChanged;
+    }
+    
+    private void OnUserChanged(employee value)
+    {
+        Console.WriteLine("OnUserChanged");
+        Employee = _user.LoggedInEmployee;
     }
 
 
@@ -46,7 +63,7 @@ public partial class LabWorkerResultsViewModel : ObservableObject, IActivable
     private async Task LoadData()
     {
         LaboratoryTests.Clear();
-        var tests = await _laboratoryTestService.GetScheduledTests();
+        var tests = await _laboratoryTestService.GetScheduledTestsForLabWorker(_user.LoggedInEmployee.employee_id);
         foreach (var test in tests)
         {
             LaboratoryTests.Add(test);
@@ -79,7 +96,11 @@ public partial class LabWorkerResultsViewModel : ObservableObject, IActivable
     private async Task SaveResult()
     {
 
-        if (SelectedLaboratoryTest is null) return;
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
         var time = TimeSpan.Zero;
         if (!string.IsNullOrWhiteSpace(SelectedLaboratoryTestTime))
         {

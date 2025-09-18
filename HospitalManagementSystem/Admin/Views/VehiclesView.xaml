@@ -6,6 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -31,8 +32,8 @@
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="{loc:Loc newBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewVehicleCommand}"/>
-                            <Button Content="{loc:Loc editBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditVehicleCommand}"/>
-                            <Button Content="{loc:Loc deleteBtn}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteVehicleCommand}"/>
+                            <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsControls2Enabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditVehicleCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsControls2Enabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteVehicleCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -165,8 +166,8 @@
                                              Text="{Binding notes}"/>
 
                                     <StackPanel Grid.Row="6" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                                        <Button Content="{loc:Loc saveBtn}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc cancelBtn}" IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc saveBtn}"  IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveVehicleCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

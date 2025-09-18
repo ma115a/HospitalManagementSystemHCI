@@ -19,13 +19,13 @@ public class LaboratoryTestService
     public LaboratoryTestService(IDbContextFactory<HmsDbContext> factory) =>  _factory = factory;
 
 
-    public async Task<laboratory_test> SaveTest(laboratory_test test, patient patient, laboratory_tehnician tehnician)
+    public async Task<laboratory_test> SaveTest(laboratory_test test, patient patient, laboratory_tehnician tehnician, int id)
     {
         
         await using var context = await  _factory.CreateDbContextAsync();
         test.patient_umcn = patient.umcn;
         test.laboratory_tehnician_id = tehnician.employee_id;
-        test.nurse_id = 2; 
+        test.nurse_id = id; 
         
         test.date = DateOnly.FromDateTime(DateTime.Now);
         
@@ -71,6 +71,11 @@ public class LaboratoryTestService
         return await context.laboratory_tests.Include(l => l.patient_umcnNavigation).Include(l => l.doctor).ThenInclude(doc => doc.employee).Include(l => l.nurse).ThenInclude(nurse => nurse.employee).AsNoTracking().ToListAsync();
     }
 
+    public async Task<IEnumerable<laboratory_test>> GetAllTestsForLabWorker(int id)
+    {
+       await using var context = await  _factory.CreateDbContextAsync(); 
+       return await context.laboratory_tests.Where(t => t.laboratory_tehnician_id == id).Include(l => l.patient_umcnNavigation).Include(l => l.doctor).ThenInclude(doc => doc.employee).Include(l => l.nurse).ThenInclude(nurse => nurse.employee).AsNoTracking().ToListAsync();
+    }
 
     public async Task<IEnumerable<laboratory_test_result>> GetAllTestResults()
     {
@@ -94,7 +99,14 @@ public class LaboratoryTestService
     public async Task<IEnumerable<laboratory_test>> GetScheduledTests()
     {
         await using var context = await _factory.CreateDbContextAsync();
-        return await context.laboratory_tests.Where(t => t.status == "Scheduled").Include(t => t.patient_umcnNavigation).AsNoTracking().ToListAsync();
+        return await context.laboratory_tests.Where(t => t.status == "In Progress").Include(t => t.patient_umcnNavigation).AsNoTracking().ToListAsync();
+    }
+
+
+    public async Task<IEnumerable<laboratory_test>> GetScheduledTestsForLabWorker(int id)
+    {
+        await using var context = await _factory.CreateDbContextAsync();
+        return await context.laboratory_tests.Where(t => t.status == "In Progress" && t.laboratory_tehnician_id == id).Include(t => t.patient_umcnNavigation).AsNoTracking().ToListAsync();
     }
 
 

@@ -7,11 +7,13 @@
         xmlns:surgeon="clr-namespace:HospitalManagementSystem.Surgeon.Views"
         xmlns:vm="clr-namespace:HospitalManagementSystem.Surgeon.ViewModels"
         xmlns:views="clr-namespace:HospitalManagementSystem.Surgeon.Views"
+        xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
         mc:Ignorable="d"
         Title="Surgeon Console"
         Height="800" Width="1100"
         WindowStartupLocation="CenterScreen"
-        Background="{DynamicResource MaterialDesign.Brush.Background}">
+        Background="{DynamicResource MaterialDesignPaper}"
+        >
 
     <Window.Resources>
         <DataTemplate DataType="{x:Type vm:SurgeriesViewViewModel}">
@@ -34,6 +36,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Hospital Icon -->
@@ -46,7 +49,7 @@
                     <TextBlock Text="City General Hospital"
                                FontSize="20" FontWeight="SemiBold"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
-                    <TextBlock Text="Surgeon Console"
+                    <TextBlock Text="{loc:Loc surgeonTitle}"
                                FontSize="12" Opacity=".9"
                                Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                 </StackPanel>
@@ -61,14 +64,46 @@
                                                  Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                         <Separator Width="10" Background="Transparent"/>
                         <StackPanel>
-                            <TextBlock Text="Surgeon: John Smith"
+                            <TextBlock Text="{Binding Employee.name}"
                                        FontWeight="SemiBold" FontSize="14"
                                        Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
-                            <TextBlock Text="@jsmith" FontSize="12" Opacity=".9"
+                            <TextBlock Text="{Binding Employee.username}" FontSize="12" Opacity=".9"
                                        Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
+                <Button Grid.Column="3"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                    Click="SettingsButton_Click">
+                    <materialDesign:PackIcon Kind="Cog" 
+                                             Width="20" 
+                                             Height="20"
+                                             Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                    <Button.ContextMenu>
+                        
+                        <ContextMenu Opened="SettingsMenu_Opened">
+                            <!-- Languages -->
+                            <MenuItem Header="🌐 Language">
+                                <MenuItem Header="English" Tag="en" Click="LanguageMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Srpski" Tag="sr" Click="LanguageMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Deutsch" Tag="de" Click="LanguageMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+
+                            <!-- Theme -->
+                            <MenuItem Header="🎨 Theme">
+                                <MenuItem Header="Light" Tag="Light" Click="ThemeMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Dark" Tag="Dark" Click="ThemeMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+
+                            <!-- Primary Colors -->
+                            <MenuItem Header="🎨 Primary Color">
+                                <MenuItem Header="Indigo" Tag="#3F51B5" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Blue" Tag="#2196F3" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Green" Tag="#4CAF50" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
             </Grid>
         </Border>
 

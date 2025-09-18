@@ -8,6 +8,8 @@ using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
 
@@ -17,6 +19,9 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
     private readonly LaboratoryTestService _laboratoryTestService;
     private readonly PatientService _patientService;
     private readonly UserService  _userService;
+    private readonly LoggedInUser _user;
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
     
     
     [ObservableProperty]
@@ -95,8 +100,11 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
         _laboratoryTestService = laboratoryTestService;
         _patientService = patientService;
         _userService = userService;
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
         
         
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
         TestsView = CollectionViewSource.GetDefaultView(LaboratoryTests);
         TestsView.Filter = TestsFilter;
 
@@ -200,7 +208,11 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task DeleteLabTest()
     {
-        if (SelectedLaboratoryTest is null) return;
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
         await _laboratoryTestService.DeleteTest(SelectedLaboratoryTest);
         await LoadTests();
     }
@@ -208,7 +220,12 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
 
     [RelayCommand]
     private void  EditTest()
-    {
+    {   
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
         _isEditing = true;
         IsControlsEnabled = true;
     }
@@ -236,9 +253,23 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task SaveTest()
     {
-        if (SelectedPatient is null) return;
-        if (SelectedLaboratoryTest is null) return;
-        if(SelectedLaboratoryTechnician is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
+
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
+
+        if (SelectedLaboratoryTechnician is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTechnicianError"));
+            return;
+        }
 
         if (_isEditing)
         {
@@ -247,13 +278,14 @@ public partial class NurseLabViewModel : ObservableObject, IActivable
         }
         else
         {
-            await _laboratoryTestService.SaveTest(SelectedLaboratoryTest, SelectedPatient, SelectedLaboratoryTechnician);
+            await _laboratoryTestService.SaveTest(SelectedLaboratoryTest, SelectedPatient, SelectedLaboratoryTechnician, _user.LoggedInEmployee.employee_id);
         }
 
 
         await LoadTests();
         SelectedLaboratoryTest = null;
         SelectedPatient = null;
+        IsControlsEnabled = false;
     }
     
     

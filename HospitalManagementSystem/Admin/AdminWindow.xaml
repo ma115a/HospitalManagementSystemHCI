@@ -21,6 +21,7 @@
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <!-- Hospital Icon -->
@@ -51,17 +52,49 @@
                                                  Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                         <Separator Width="10" Background="Transparent"/>
                         <StackPanel>
-                            <TextBlock Text="Admin: Jane Smith"
+                            <TextBlock Text="{Binding Employee.name}"
                                        d:Text="Admin: Jane Smith"
                                        FontWeight="SemiBold" FontSize="14"
                                        Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
-                            <TextBlock Text="@admin"
+                            <TextBlock Text="{Binding Employee.username}"
                                        d:Text="@admin"
                                        FontSize="12" Opacity=".9"
                                        Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
                         </StackPanel>
                     </StackPanel>
                 </Border>
+                 <Button Grid.Column="3"
+                        Style="{StaticResource MaterialDesignIconButton}"
+                    Click="SettingsButton_Click">
+                    <materialDesign:PackIcon Kind="Cog" 
+                                             Width="20" 
+                                             Height="20"
+                                             Foreground="{DynamicResource MaterialDesign.Brush.OnPrimary}"/>
+                    <Button.ContextMenu>
+                        
+                        <ContextMenu Opened="SettingsMenu_Opened">
+                            <!-- Languages -->
+                            <MenuItem Header="🌐 Language">
+                                <MenuItem Header="English" Tag="en" Click="LanguageMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Srpski" Tag="sr" Click="LanguageMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Deutsch" Tag="de" Click="LanguageMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+
+                            <!-- Theme -->
+                            <MenuItem Header="🎨 Theme">
+                                <MenuItem Header="Light" Tag="Light" Click="ThemeMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Dark" Tag="Dark" Click="ThemeMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+
+                            <!-- Primary Colors -->
+                            <MenuItem Header="🎨 Primary Color">
+                                <MenuItem Header="Indigo" Tag="#3F51B5" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Blue" Tag="#2196F3" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                                <MenuItem Header="Green" Tag="#4CAF50" Click="PrimaryColorMenu_Click" IsCheckable="True"/>
+                            </MenuItem>
+                        </ContextMenu>
+                    </Button.ContextMenu>
+                </Button>
             </Grid>
         </Border>
 

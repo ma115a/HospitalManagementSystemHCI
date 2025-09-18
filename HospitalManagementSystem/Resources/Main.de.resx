@@ -209,4 +209,358 @@
     <data name="doctorSurgeriesContent" xml:space="preserve">
         <value>Sehen Sie sich vergangene und geplante Operationen an.</value>
     </data>
+    <data name="doctorLaboratorySearch" xml:space="preserve">
+        <value>Suchanfragen</value>
+    </data>
+    <data name="fromDate" xml:space="preserve">
+        <value>Ab Datum</value>
+    </data>
+    <data name="toDate" xml:space="preserve">
+        <value>Bis datum</value>
+    </data>
+    <data name="requests" xml:space="preserve">
+        <value>Anfragen</value>
+    </data>
+    <data name="labRequests" xml:space="preserve">
+        <value>Laboranfragen</value>
+    </data>
+    <data name="date" xml:space="preserve">
+        <value>Datum</value>
+    </data>
+    <data name="patient" xml:space="preserve">
+        <value>Patient</value>
+    </data>
+    <data name="doctor" xml:space="preserve">
+        <value>Arzt</value>
+    </data>
+    <data name="nurse" xml:space="preserve">
+        <value>Krankenschwester</value>
+    </data>
+    <data name="labTehnician" xml:space="preserve">
+        <value>Labortechniker</value>
+    </data>
+    <data name="testName" xml:space="preserve">
+        <value>Testname</value>
+    </data>
+    <data name="clinicalReason" xml:space="preserve">
+        <value>Klinische Informationen / Grund</value>
+    </data>
+    <data name="results" xml:space="preserve">
+        <value>Ergebnisse</value>
+    </data>
+    <data name="requestDetails" xml:space="preserve">
+        <value>Details anfordern</value>
+    </data>
+    <data name="labResults" xml:space="preserve">
+        <value>Laborergebnisse</value>
+    </data>
+    <data name="resultDetails" xml:space="preserve">
+        <value>Ergebnisdetails</value>
+    </data>
+    <data name="resultData" xml:space="preserve">
+        <value>Ergebnisdaten</value>
+    </data>
+    <data name="allStatuses" xml:space="preserve">
+        <value>Alle Status</value>
+    </data>
+    <data name="rooms" xml:space="preserve">
+        <value>Zimmer</value>
+    </data>
+    <data name="room" xml:space="preserve">
+        <value>Zimmer</value>
+    </data>
+    <data name="admissionsForRoom" xml:space="preserve">
+        <value>AdEintritte für ausgewählte Zimmermissions for selected room</value>
+    </data>
+    <data name="admitted" xml:space="preserve">
+        <value>Zugegeben</value>
+    </data>
+    <data name="discharged" xml:space="preserve">
+        <value>Entladen</value>
+    </data>
+    <data name="admission" xml:space="preserve">
+        <value>Zulassung</value>
+    </data>
+    <data name="admitDate" xml:space="preserve">
+        <value>Aufnahmedatum</value>
+    </data>
+    <data name="expectedDischarge" xml:space="preserve">
+        <value>Erwartete Entlassung</value>
+    </data>
+    <data name="searchRecords" xml:space="preserve">
+        <value>Datensätze durchsuchen</value>
+    </data>
+    <data name="medicalRecords" xml:space="preserve">
+        <value>Krankenakten</value>
+    </data>
+    <data name="recordDetails" xml:space="preserve">
+        <value>Details aufzeichnen</value>
+    </data>
+    <data name="time" xml:space="preserve">
+        <value>Zeit (HH:mm)</value>
+    </data>
+    <data name="diagnosis" xml:space="preserve">
+        <value>Diagnose</value>
+    </data>
+    <data name="treatment" xml:space="preserve">
+        <value>Behandlung</value>
+    </data>
+    <data name="searchPrescriptions" xml:space="preserve">
+        <value>Suchen Sie nach Rezepten</value>
+    </data>
+    <data name="prescriptions" xml:space="preserve">
+        <value>Rezepte</value>
+    </data>
+    <data name="medication" xml:space="preserve">
+        <value>Medikamente</value>
+    </data>
+    <data name="dosage" xml:space="preserve">
+        <value>Dosierung</value>
+    </data>
+    <data name="newPrescription" xml:space="preserve">
+        <value>Neues Rezept</value>
+    </data>
+    <data name="frequency" xml:space="preserve">
+        <value>Frequenz</value>
+    </data>
+    <data name="duration" xml:space="preserve">
+        <value>Dauer</value>
+    </data>
+    <data name="refills" xml:space="preserve">
+        <value>Nachfüllungen</value>
+    </data>
+    <data name="searchSurgeries" xml:space="preserve">
+        <value>Suche nach Operationen (nach Verfahren)</value>
+    </data>
+    <data name="status" xml:space="preserve">
+        <value>Operationen</value>
+    </data>
+    <data name="surgeon" xml:space="preserve">
+        <value>Chirurg</value>
+    </data>
+    <data name="procedure" xml:space="preserve">
+        <value>Prozedur</value>
+    </data>
+    <data name="scheduleSurgery" xml:space="preserve">
+        <value>Planen Sie eine Operation</value>
+    </data>
+    <data name="durationMin" xml:space="preserve">
+        <value>Dauer (min)</value>
+    </data>
+    <data name="nurses" xml:space="preserve">
+        <value>Krankenschwestern</value>
+    </data>
+    <data name="selectNurses" xml:space="preserve">
+        <value>Wählen Sie Krankenschwestern aus…</value>
+    </data>
+    <data name="pickNurses" xml:space="preserve">
+        <value>Wählen Sie Krankenschwestern</value>
+    </data>
+    <data name="searchNurses" xml:space="preserve">
+        <value>Suche Krankenschwestern</value>
+    </data>
+    <data name="laboratoryTitle" xml:space="preserve">
+        <value>Laborkonsole</value>
+    </data>
+    <data name="requested" xml:space="preserve">
+        <value>Angefordert</value>
+    </data>
+    <data name="surgeries" xml:space="preserve">
+        <value>Operationen</value>
+    </data>
+    <data name="requestsQueue" xml:space="preserve">
+        <value>Anforderungswarteschlange</value>
+    </data>
+    <data name="requestQueueContent" xml:space="preserve">
+        <value>Sehen Sie sich ausstehende Testaufträge an und beginnen Sie mit der Bearbeitung.</value>
+    </data>
+    <data name="enterResults" xml:space="preserve">
+        <value>Geben Sie Ergebnisse ein</value>
+    </data>
+    <data name="enterResultsContent" xml:space="preserve">
+        <value>Wählen Sie eine Anfrage aus und zeichnen Sie die Ergebnisse auf.</value>
+    </data>
+    <data name="resultsHistory" xml:space="preserve">
+        <value>Ergebnisverlauf</value>
+    </data>
+    <data name="resultHistoryContent" xml:space="preserve">
+        <value>Suchen und zeigen Sie frühere Ergebnisse an.</value>
+    </data>
+    <data name="pendingRequests" xml:space="preserve">
+        <value>Ausstehende Anfragen</value>
+    </data>
+    <data name="startTest" xml:space="preserve">
+        <value>Test starten</value>
+    </data>
+    <data name="complete" xml:space="preserve">
+        <value>Vollständig</value>
+    </data>
+    <data name="selectRequest" xml:space="preserve">
+        <value>Anfrage auswählen</value>
+    </data>
+    <data name="appointments" xml:space="preserve">
+        <value>Termine</value>
+    </data>
+    <data name="appointmentDetails" xml:space="preserve">
+        <value>Termindetails</value>
+    </data>
+    <data name="appointmentsContent" xml:space="preserve">
+        <value>Tagespläne anzeigen/verwalten und Status aktualisieren.</value>
+    </data>
+    <data name="scheduleAppointment" xml:space="preserve">
+        <value>Termin vereinbaren</value>
+    </data>
+    <data name="scheduleAppointmentContent" xml:space="preserve">
+        <value>Erstellen Sie einen neuen Termin für einen Patienten.</value>
+    </data>
+    <data name="admissionsAndBeds" xml:space="preserve">
+        <value>Aufnahmen und Betten</value>
+    </data>
+    <data name="admissionsAndBedsContent" xml:space="preserve">
+        <value>Patienten aufnehmen/entlassen und Zimmerbelegung verfolgen.</value>
+    </data>
+    <data name="labReqRes" xml:space="preserve">
+        <value>Labor (Anfragen und Ergebnisse)</value>
+    </data>
+    <data name="labReqResContent" xml:space="preserve">
+        <value>Erstellen Sie Laboranfragen und verfolgen Sie die Ergebnisse.</value>
+    </data>
+    <data name="surgeriesContent" xml:space="preserve">
+        <value>Sehen Sie sich den Dienstplan an und weisen Sie die umhergehenden/operativen Pflegekräfte zu.</value>
+    </data>
+    <data name="patients" xml:space="preserve">
+        <value>Patienten</value>
+    </data>
+    <data name="patientsContent" xml:space="preserve">
+        <value>Erstellen/Bearbeiten Sie demografische Patientendaten.</value>
+    </data>
+    <data name="umcn" xml:space="preserve">
+        <value>Identifikationsnummer</value>
+    </data>
+    <data name="phone" xml:space="preserve">
+        <value>Telefonnummer</value>
+    </data>
+    <data name="patientDetails" xml:space="preserve">
+        <value>Patientendaten</value>
+    </data>
+    <data name="surgeryDetails" xml:space="preserve">
+        <value>Details zur Operation</value>
+    </data>
+    <data name="assignedNurses" xml:space="preserve">
+        <value>Zugewiesene Krankenschwestern</value>
+    </data>
+    <data name="nurseTitle" xml:space="preserve">
+        <value>Nurse consoleSchwesternkonsole</value>
+    </data>
+    <data name="mySurgeries" xml:space="preserve">
+        <value>Meine Operationen</value>
+    </data>
+    <data name="mySurgeriesContent" xml:space="preserve">
+        <value>Überprüfen und bearbeiten Sie anstehende Fälle; verwalten Sie Team-Checklisten.</value>
+    </data>
+    <data name="scheduleSurgeryContent" xml:space="preserve">
+        <value>Erstellen Sie einen neuen Fall mit Patient, OP und Zeitpunkt.</value>
+    </data>
+    <data name="surgeryHistory" xml:space="preserve">
+        <value>Geschichte der Operation</value>
+    </data>
+    <data name="surgeryHistoryContent" xml:space="preserve">
+        <value>Durchsuchen Sie frühere Fälle und postoperative Ergebnisse.</value>
+    </data>
+    <data name="details" xml:space="preserve">
+        <value>Details</value>
+    </data>
+    <data name="team" xml:space="preserve">
+        <value>Team</value>
+    </data>
+    <data name="assignNurses" xml:space="preserve">
+        <value>Weisen Sie Krankenschwestern zu</value>
+    </data>
+    <data name="availableNurses" xml:space="preserve">
+        <value>Verfügbare Krankenschwestern</value>
+    </data>
+    <data name="assign" xml:space="preserve">
+        <value>Zuordnen</value>
+    </data>
+    <data name="remove" xml:space="preserve">
+        <value>Entfernen</value>
+    </data>
+    <data name="surgeonTitle" xml:space="preserve">
+        <value>Chirurgenkonsole</value>
+    </data>
+    <data name="notes" xml:space="preserve">
+        <value>Notizen</value>
+    </data>
+    <data name="requestLaboratory" xml:space="preserve">
+        <value>Labor anfordern</value>
+    </data>
+    <data name="requestLaboratoryContent" xml:space="preserve">
+        <value>Bestellen Sie Labortests und verfolgen Sie deren Status.</value>
+    </data>
+    <data name="userDoesNotExist" xml:space="preserve">
+        <value>Benutzername existiert nicht!</value>
+    </data>
+    <data name="invalidPassword" xml:space="preserve">
+        <value>Ungültiges Passwort!</value>
+    </data>
+    <data name="patientError" xml:space="preserve">
+        <value>Bitte wählen Sie einen Patienten aus.</value>
+    </data>
+    <data name="medicalRecordError" xml:space="preserve">
+        <value>Bitte wählen Sie eine Krankenakte aus.</value>
+    </data>
+    <data name="dateError" xml:space="preserve">
+        <value>Bitte wählen Sie ein Datum aus.</value>
+    </data>
+    <data name="timeError" xml:space="preserve">
+        <value>Bitte wählen Sie eine Uhrzeit aus.</value>
+    </data>
+    <data name="laboratoryTestError" xml:space="preserve">
+        <value>Bitte wählen Sie einen Test aus.</value>
+    </data>
+    <data name="laboratoryTechnicianError" xml:space="preserve">
+        <value>Bitte wählen Sie einen Labormitarbeiter aus.</value>
+    </data>
+    <data name="roomError" xml:space="preserve">
+        <value>Bitte wählen Sie ein Zimmer aus.</value>
+    </data>
+    <data name="admissionError" xml:space="preserve">
+        <value>Bitte wählen Sie eine Zulassung aus.</value>
+    </data>
+    <data name="prescriptionError" xml:space="preserve">
+        <value>Bitte wählen Sie ein Rezept aus.</value>
+    </data>
+    <data name="medicationError" xml:space="preserve">
+        <value>Bitte Medikament auswählen.</value>
+    </data>
+    <data name="surgeryError" xml:space="preserve">
+        <value>Bitte wählen Sie eine Operation.</value>
+    </data>
+    <data name="appointmentError" xml:space="preserve">
+        <value>Bitte wählen Sie einen Termin aus.</value>
+    </data>
+    <data name="patientUmcnError" xml:space="preserve">
+        <value>Identifikationsnummer muss 13 Zeichen lang sein.</value>
+    </data>
+    <data name="patientUmcnLetterError" xml:space="preserve">
+        <value>Identifikationsnummer darf nur Buchstaben enthalten</value>
+    </data>
+    <data name="doctorError" xml:space="preserve">
+        <value>Bitte wählen Sie einen Arzt aus.</value>
+    </data>
+    <data name="nurseError" xml:space="preserve">
+        <value>Bitte wählen Sie eine Pflegekraft aus.</value>
+    </data>
+    <data name="nameError" xml:space="preserve">
+        <value>Bitte geben Sie einen Namen ein.</value>
+    </data>
+    <data name="userExists" xml:space="preserve">
+        <value>Der Benutzername ist bereits vorhanden.</value>
+    </data>
+    <data name="testStarted" xml:space="preserve">
+        <value>Test gestartet</value>
+    </data>
+    <data name="surgeryDepartment" xml:space="preserve">
+        <value>Chirurgische Abteilung</value>
+    </data>
 </root>

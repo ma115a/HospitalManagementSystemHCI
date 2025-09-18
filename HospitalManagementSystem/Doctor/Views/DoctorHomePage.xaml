@@ -9,7 +9,9 @@
 
              mc:Ignorable="d">
     <!-- <materialDesign:TransitionerSlide> -->
-                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <ScrollViewer VerticalScrollBarVisibility="Auto"
+                              Background="{DynamicResource MaterialDesignPaper}"
+                              >
                     <Grid Margin="10 20">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -144,7 +146,7 @@
                             </materialDesign:Card>
 
                             <!-- Laboratory Results -->
-                            <materialDesign:Card Margin="20" Padding="20"
+                            <!--<materialDesign:Card Margin="20" Padding="20"
                        UniformCornerRadius="12"
                        materialDesign:ElevationAssist.Elevation="Dp8">
                                 <Grid>
@@ -176,12 +178,12 @@
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
-                            </materialDesign:Card>
+                            </materialDesign:Card>-->
 
                             <!-- Request Laboratory -->
                             <materialDesign:Card Margin="20" Padding="20"
-                       UniformCornerRadius="12"
-                       materialDesign:ElevationAssist.Elevation="Dp8">
+                                                 UniformCornerRadius="12"
+                                                 materialDesign:ElevationAssist.Elevation="Dp8">
                                 <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto"/>
@@ -196,20 +198,20 @@
                                         </Grid.ColumnDefinitions>
                                         <materialDesign:PackIcon Grid.Column="0" Kind="FlaskOutline" Width="32" Height="32" VerticalAlignment="Center"/>
                                         <TextBlock Grid.Column="1" Margin="10,0,0,0"
-                   Text="Request Laboratory"
-                   FontWeight="SemiBold" FontSize="16"
-                   TextWrapping="Wrap" VerticalAlignment="Center"/>
+                                                   Text="Request Laboratory"
+                                                   FontWeight="SemiBold" FontSize="16"
+                                                   TextWrapping="Wrap" VerticalAlignment="Center"/>
                                     </Grid>
 
                                     <TextBlock Grid.Row="1" Margin="0,10,0,0"
-                 Text="Order lab tests and track their status."
-                 FontSize="14" TextWrapping="Wrap"/>
+                                               Text="Order lab tests and track their status."
+                                               FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="Open" Width="100" Height="30"
-              materialDesign:ElevationAssist.Elevation="Dp2"
-              Command="{Binding DataContext.GoToLaboratoryRequestsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-              Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
+                                            Content="Open" Width="100" Height="30"
+                                            materialDesign:ElevationAssist.Elevation="Dp2"
+                                            Command="{Binding DataContext.GoToLaboratoryRequestsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                            Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
                                 </Grid>
                             </materialDesign:Card>
 
@@ -241,7 +243,7 @@
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="{loc:Loc adminCardButtonj}" Width="100" Height="30"
+              Content="{loc:Loc adminCardButton}" Width="100" Height="30"
               materialDesign:ElevationAssist.Elevation="Dp2"
           Command="{Binding DataContext.GoToAdmissionCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>
@@ -276,7 +278,7 @@
                  FontSize="14" TextWrapping="Wrap"/>
 
                                     <Button Grid.Row="2" Margin="0,12,0,0"
-              Content="{loc:Loc adminCardButtonj}" Width="100" Height="30"
+              Content="{loc:Loc adminCardButton}" Width="100" Height="30"
           Command="{Binding DataContext.GoToSurgeriesCommand, RelativeSource={RelativeSource AncestorType=Window}}"
               materialDesign:ElevationAssist.Elevation="Dp2"
               Style="{DynamicResource MaterialDesignRaisedLightButton}"/>

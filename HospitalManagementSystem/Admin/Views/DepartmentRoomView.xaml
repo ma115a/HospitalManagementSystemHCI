@@ -6,6 +6,7 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
 
+             Background="{DynamicResource MaterialDesignPaper}"
              xmlns:local="clr-namespace:HospitalManagementSystem"
              mc:Ignorable="d">
 
@@ -134,6 +135,7 @@
                                 <RowDefinition Height="Auto"/>  <!-- name -->
                                 <RowDefinition Height="Auto"/>  <!-- code -->
                                 <RowDefinition Height="Auto"/>  <!-- head -->
+                                <RowDefinition Height="Auto"/>  <!-- surgery -->
                                 <RowDefinition Height="Auto"/>  <!-- actions -->
                             </Grid.RowDefinitions>
 
@@ -177,8 +179,13 @@
                                     </DataTemplate>
                                 </ComboBox.ItemTemplate>
                             </ComboBox>
+                            <CheckBox Grid.Row="4" Grid.ColumnSpan="2"
+                                      Content="{loc:Loc surgeryDepartment}"
+                                      IsChecked="{Binding SelectedDepartment.surgery_department, Mode=TwoWay}"
+                                      Margin="0,0,0,10"
+                                      Style="{DynamicResource MaterialDesignCheckBox}"/>
 
-                            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <StackPanel Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right">
                                 <Button Content="{loc:Loc cancelBtn}"
                                         Style="{DynamicResource MaterialDesignFlatButton}"
                                         Command="{Binding CloseNewDepartmentCommand}"/>

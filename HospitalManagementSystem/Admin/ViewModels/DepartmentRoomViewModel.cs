@@ -115,7 +115,8 @@ public partial class DepartmentRoomViewModel : ObservableObject
         SelectedDepartment = new department
         {
             name = string.Empty,
-            code = string.Empty
+            code = string.Empty,
+            surgery_department = false
         };
         OnPropertyChanged(nameof(IsAnyDialogOpen));
     }

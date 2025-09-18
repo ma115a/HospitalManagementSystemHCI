@@ -7,6 +7,7 @@
              xmlns:local="clr-namespace:HospitalManagementSystem"
              xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
     <DockPanel>
@@ -34,8 +35,8 @@
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
                             <Button Content="{loc:Loc newBtn}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewUserCommand}"/>
-                            <Button Content="{loc:Loc editBtn}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditUserCommand}"/>
-                            <Button Content="{loc:Loc deleteBtn}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteUserCommand}"/>
+                            <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsControls2Enabled}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditUserCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsControls2Enabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteUserCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -138,6 +139,11 @@
                                     <ComboBox Grid.Row="3" Grid.Column="0"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
                                               materialDesign:HintAssist.Hint="{loc:Loc roleGrid}"
+                                              
+                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                              materialDesign:HintAssist.IsFloating="False"
                                               Margin="0,0,5,10"
                                               SelectedValuePath="Content"
                                               Name="RoleBox"
@@ -154,6 +160,11 @@
                                               materialDesign:HintAssist.Hint="{loc:Loc departmentBox}"
                                               Margin="5,0,0,10"
                                               SelectedValuePath="Content"
+                                              
+                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
+                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
+                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
+                                              materialDesign:HintAssist.IsFloating="False"
                                               IsEnabled="{Binding DataContext.IsDepartmentEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                               Name="DepartmentBox"
                                               SelectedValue="{Binding DataContext.SelectedDepartment ,Mode=TwoWay,RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged}">
@@ -184,7 +195,7 @@
                                              Text="{Binding phone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
                                     <TextBox Grid.Row="4" Grid.Column="1"
                                              Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                             materialDesign:HintAssist.Hint=""
+                                             materialDesign:HintAssist.Hint= "{loc:Loc emailBox}"
                                              IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}"
                                              Name="EmailTextBox"
                                              materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
@@ -216,10 +227,30 @@
                                              materialDesign:HintAssist.Hint=""
                                              Text="{Binding notes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
+                                    <materialDesign:Snackbar Grid.Row="7" Grid.Column="0" 
+                                                             MessageQueue="{Binding DataContext.MessageQueue, RelativeSource={RelativeSource AncestorType=UserControl}}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Bottom"
+                                                             HorizontalContentAlignment="Center"
+                                                             Padding="0"
+                                         
+                                                             Background="{DynamicResource MaterialDesignPaper}"
+                                                             Foreground="{DynamicResource MaterialDesignBody}"
+                                    >
+                                        <materialDesign:Snackbar.Resources>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            </Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </materialDesign:Snackbar.Resources>
+                                    </materialDesign:Snackbar>
                                     <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal"
+                                                Margin="0,0,0,10"
                                                 HorizontalAlignment="Right">
-                                        <Button Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
-                                        <Button Content="{loc:Loc saveBtn}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc cancelBtn}" IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DataContext.CancelEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
+                                        <Button Content="{loc:Loc saveBtn}"  IsEnabled="{Binding DataContext.IsControlsEnabled, RelativeSource={RelativeSource AncestorType=UserControl}}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding DataContext.SaveEmployeeCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

@@ -8,16 +8,11 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml"/>
-                <materialDesign:BundledTheme BaseTheme="Light" 
-                                           PrimaryColor="Indigo" 
-                                           SecondaryColor="Blue" />
+                <materialDesign:BundledTheme BaseTheme="Dark" 
+                                           PrimaryColor="Green" 
+                                           SecondaryColor="Yellow" />
             </ResourceDictionary.MergedDictionaries>
-
-            <SolidColorBrush x:Key="MaterialDesignSnackbar.Background" Color="White"/>
-            <SolidColorBrush x:Key="MaterialDesignSnackbar.Foreground" Color="Green"/>
-            <!-- Additional custom brushes -->
-            <SolidColorBrush x:Key="LoginGridBackground" Color="#F8F8F8"/>
             
-        </ResourceDictionary>
+            </ResourceDictionary>
     </Application.Resources>
 </Application>

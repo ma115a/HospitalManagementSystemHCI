@@ -3,6 +3,10 @@
   "WorkspaceRootPath": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|c:\\users\\qwert\\riderprojects\\hospitalmanagementsystem\\hospitalmanagementsystem\\admin\\views\\adminhomepageview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{DE3ED09E-D8FF-4D52-8DDD-F2A34D40EE4D}|HospitalManagementSystem\\HospitalManagementSystem.csproj|solutionrelative:hospitalmanagementsystem\\admin\\views\\adminhomepageview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
@@ -31,6 +35,18 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "HospitalManagementSystem\\LoginWindow.xaml",
+              "ToolTip": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\LoginWindow.xaml",
+              "RelativeToolTip": "HospitalManagementSystem\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2025-09-17T19:45:45.665Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
               "Title": "AdminHomePageView.xaml",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\Admin\\Views\\AdminHomePageView.xaml",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\Admin\\Views\\AdminHomePageView.xaml",
@@ -42,7 +58,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "LoginWindow.xaml.cs",
               "DocumentMoniker": "C:\\Users\\qwert\\RiderProjects\\HospitalManagementSystem\\HospitalManagementSystem\\LoginWindow.xaml.cs",
               "RelativeDocumentMoniker": "HospitalManagementSystem\\LoginWindow.xaml.cs",
@@ -50,8 +66,7 @@
               "RelativeToolTip": "HospitalManagementSystem\\LoginWindow.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-21T20:24:54.088Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-21T20:24:54.088Z"
             }
           ]
         }

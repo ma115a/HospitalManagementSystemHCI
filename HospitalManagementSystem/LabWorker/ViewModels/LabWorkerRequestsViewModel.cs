@@ -11,6 +11,8 @@ using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Nurse.Views;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.LabWorker.ViewModels;
 
@@ -21,6 +23,11 @@ public partial class LabWorkerRequestsViewModel : ObservableObject, IActivable
     private readonly LaboratoryTestService  _laboratoryTestService;
     private readonly UserService _userService;
     private readonly PatientService _patientService;
+    private LoggedInUser _user;
+    [ObservableProperty] private employee _employee;
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
 
     [ObservableProperty] private ObservableCollection<doctor> _doctors = new();
@@ -43,14 +50,28 @@ public partial class LabWorkerRequestsViewModel : ObservableObject, IActivable
     private patient? _selectedPatientFilter;
 
 
+    [ObservableProperty] private bool _isControlsEnabled;
+
+
     public LabWorkerRequestsViewModel(LaboratoryTestService laboratoryTestService, UserService userService, PatientService patientService)
     {
         _laboratoryTestService = laboratoryTestService;
         _userService = userService;
         _patientService = patientService;
 
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        Employee = _user.LoggedInEmployee;
+        _user.EmployeeChanged += OnUserChanged;
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
         LaboratoryTestsView = CollectionViewSource.GetDefaultView(LaboratoryTests);
         LaboratoryTestsView.Filter = LaboratoryTestsFilter;
+    }
+    
+    private void OnUserChanged(employee value)
+    {
+        Console.WriteLine("OnUserChanged");
+        Employee = _user.LoggedInEmployee;
     }
 
 
@@ -115,6 +136,17 @@ public partial class LabWorkerRequestsViewModel : ObservableObject, IActivable
     }
 
 
+    partial void OnSelectedLaboratoryTestChanged(laboratory_test? value)
+    {
+        if (value is not null)
+        {
+            if (value.status == "Requested") IsControlsEnabled = true;
+        }
+        
+        else IsControlsEnabled = false;
+    }
+
+
     [RelayCommand]
     private void ClearFilters()
     {
@@ -159,7 +191,7 @@ public partial class LabWorkerRequestsViewModel : ObservableObject, IActivable
         
         
         LaboratoryTests.Clear();
-        var tests = await _laboratoryTestService.GetAllTests();
+        var tests = await _laboratoryTestService.GetAllTestsForLabWorker(_user.LoggedInEmployee.employee_id);
         Console.WriteLine(tests.Count());
         foreach (var test in tests)
         {
@@ -172,8 +204,14 @@ public partial class LabWorkerRequestsViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task StartTest()
     {
-        if (SelectedLaboratoryTest is null) return;
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
         await _laboratoryTestService.StartTest(SelectedLaboratoryTest);
+        MessageQueue.Enqueue(_localizationManager.GetString("testStarted"));
+        
     }
     
     

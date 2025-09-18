@@ -2,6 +2,7 @@
 using System.Data;
 using System.Net.Security;
 using System.Windows;
+using System.Windows.Media;
 using HospitalManagementSystem.Admin;
 using HospitalManagementSystem.Data;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,9 @@ using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Surgeon;
 using HospitalManagementSystem.Surgeon.ViewModels;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
 using SurgeriesViewViewModel = HospitalManagementSystem.Surgeon.ViewModels.SurgeriesViewViewModel;
+using HospitalManagementSystem.Properties;
 
 namespace HospitalManagementSystem;
 
@@ -45,11 +48,17 @@ public partial class App : Application
                         cs + "SslMode=None;AllowPublicKeyRetrieval=True;", // helpful for MySQL 8 dev defaults
                         serverVersion,
                         o => o.EnableRetryOnFailure()));
+
+
+                services.AddSingleton<ThemeService>();
+                
+                
                 //admin
                 services.AddSingleton<UserService>();
                 services.AddSingleton<VehiclesService>();
                 services.AddSingleton<DepartmentService>();
                 services.AddTransient<AdminWindow>();
+                services.AddTransient<AdminWindowViewModel>();
                 services.AddTransient<UserProfilesViewModel>();
                 services.AddTransient<VehiclesViewModel>();
                 services.AddTransient<DepartmentRoomViewModel>();
@@ -77,8 +86,10 @@ public partial class App : Application
 
                 services.AddTransient<DoctorWindow>();
                 services.AddSingleton<SharedDataService>();
-                
-                
+
+
+                // services.AddTransient<DoctorTopPanelViewModel>();
+                // services.AddTransient<DoctorTopPanel>();
                 services.AddTransient<DoctorWindowViewModel>();
                 services.AddTransient<DoctorHomePageViewModel>();
                 services.AddTransient<LaboratoryRequestsViewViewModel>();
@@ -121,9 +132,15 @@ public partial class App : Application
 
     protected override async void OnStartup(StartupEventArgs e)
     {
-        Console.WriteLine("alo e");
         await HostApp.StartAsync();
         base.OnStartup(e);
+
+        
+        var themeService = HostApp.Services.GetRequiredService<ThemeService>();
+        
+        
+
+        
         
         var login = HostApp.Services.GetRequiredService<LoginWindow>();
         login.Show();

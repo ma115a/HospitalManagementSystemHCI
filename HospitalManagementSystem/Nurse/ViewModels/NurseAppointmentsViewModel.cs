@@ -10,6 +10,8 @@ using CommunityToolkit.Mvvm.Input;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Nurse.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Nurse.ViewModels;
 
@@ -18,6 +20,8 @@ public partial class NurseAppointmentsViewModel : ObservableObject,  IActivable
     private readonly AppointmentService _appointmentService;
     private readonly DoctorService _doctorService;
     private readonly PatientService _patientService;
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
     
     public bool IsLoaded { get; private set; }
     [ObservableProperty] private bool _isControlsEnabled = false;
@@ -51,12 +55,17 @@ public partial class NurseAppointmentsViewModel : ObservableObject,  IActivable
     [ObservableProperty] private DateTime? _filterDate;
     [ObservableProperty] private string? _filterStatus;
 
+
+    [ObservableProperty] private bool _isControls2Enabled = false;
+
     public NurseAppointmentsViewModel(AppointmentService appointmentService, DoctorService doctorService, PatientService patientService)
     {
        _appointmentService = appointmentService; 
        _doctorService = doctorService;
        _patientService = patientService;
        
+       _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+       MessageQueue = new SnackbarMessageQueue();
        AppointmentsView = CollectionViewSource.GetDefaultView(Appointments);
        AppointmentsView.Filter = AppointmentsFilter;
        AppointmentsView.SortDescriptions.Add(
@@ -130,6 +139,8 @@ public partial class NurseAppointmentsViewModel : ObservableObject,  IActivable
     }
     partial void OnSelectedAppointmentChanged(appointment? value)
     {
+        if (value is not null) IsControls2Enabled = true;
+        else IsControls2Enabled = false;
         if (value?.date is DateTime dt)
         {
             NewAppointmentDate = dt.Date;
@@ -174,7 +185,6 @@ public partial class NurseAppointmentsViewModel : ObservableObject,  IActivable
     
     public async Task ActivateAsync()
     {
-        Console.WriteLine("appointments activated");
         await LoadData();
     }
 
@@ -209,7 +219,11 @@ public partial class NurseAppointmentsViewModel : ObservableObject,  IActivable
     [RelayCommand]
     private async Task DeleteAppointment()
     {
-        if (SelectedAppointment is null) return;
+        if (SelectedAppointment is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("appointmentError"));
+            return;
+        }
         await _appointmentService.DeleteAppointment(SelectedAppointment);
         await LoadData();
     }
@@ -227,7 +241,11 @@ public partial class NurseAppointmentsViewModel : ObservableObject,  IActivable
     private async Task SaveAppointment()
     {
         if (SelectedAppointment is null) return;
-        if (NewAppointmentDate is null) return;
+        if (NewAppointmentDate is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("timeError"));
+            return;
+        }
         var time = TimeSpan.Zero;
         if (!string.IsNullOrWhiteSpace(NewAppointmentTime))
         {

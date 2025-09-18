@@ -6,7 +6,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem"
              xmlns:utils="clr-namespace:HospitalManagementSystem.Utils"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              d:DesignHeight="600" d:DesignWidth="800">
     <UserControl.Resources>
         <utils:DateConverter x:Key="DateConverter"></utils:DateConverter>
@@ -21,7 +23,7 @@
                                 Click="GoToDashboard_Click">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -31,9 +33,9 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewAdmissionCommand}"/>
-                            <Button Content="Edit"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditAdmissionCommand}"/>
-                            <Button Content="Delete" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteAdmissionCommand}"/>
+                            <Button Content="{loc:Loc newBtn}"   Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewAdmissionCommand}"/>
+                            <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsControls2Enabled}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditAdmissionCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsControls2Enabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteAdmissionCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -58,7 +60,7 @@
       <RowDefinition Height="*"/>     <!-- admissions grid -->
     </Grid.RowDefinitions>
 
-    <TextBlock Text="Rooms" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
+    <TextBlock Text="{loc:Loc rooms}" FontSize="16" FontWeight="SemiBold" Margin="0,0,0,12"/>
 
     <!-- Filters -->
     <Grid Grid.Row="1">
@@ -69,7 +71,7 @@
 
       <ComboBox Grid.Column="0"
                 Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                materialDesign:HintAssist.Hint="Department"
+                materialDesign:HintAssist.Hint="{loc:Loc department}"
                 materialDesign:HintAssist.IsFloating="False"
                 ItemsSource="{Binding Departments}"
                 Margin="0,0,0,10"
@@ -83,7 +85,7 @@
       </ComboBox>
 
       <Border Grid.Column="1" VerticalAlignment="Center" Margin="5,0,0,10">
-        <Button Content="Clear"
+        <Button Content="{loc:Loc cancelBtn}"
                 Style="{DynamicResource MaterialDesignFlatButton}"
                 Command="{Binding ClearFilterCommand}"/>
       </Border>
@@ -100,14 +102,14 @@
               SelectedItem="{Binding SelectedRoom}">
       <DataGrid.Columns>
         <!-- Keep your properties, or switch to room_id/capacity if that’s what your model exposes -->
-        <DataGridTextColumn Header="Room" Binding="{Binding number}" Width="*"/>
-        <DataGridTextColumn Header="Capacity" Binding="{Binding capacity}" Width="Auto"/>
+        <DataGridTextColumn Header="{loc:Loc room}" Binding="{Binding number}" Width="*"/>
+        <DataGridTextColumn Header="{loc:Loc capacityGrid}" Binding="{Binding capacity}" Width="Auto"/>
       </DataGrid.Columns>
     </DataGrid>
 
     <!-- Admissions header -->
     <TextBlock Grid.Row="3"
-               Text="Admissions for selected room"
+               Text="{loc:Loc admissionsForRoom}"
                FontSize="14" FontWeight="SemiBold"
                Margin="0,12,0,6"/>
 
@@ -121,13 +123,13 @@
               ItemsSource="{Binding Admissions}"
               SelectedItem="{Binding SelectedAdmission}">
       <DataGrid.Columns>
-        <DataGridTextColumn Header="Patient"
+        <DataGridTextColumn Header="{loc:Loc patient}"
                             Binding="{Binding patient_umcnNavigation.name}"
                             Width="1*"/>
-        <DataGridTextColumn Header="Admitted"
+        <DataGridTextColumn Header="{loc:Loc admitted}"
                             Binding="{Binding admission_date}"
                             Width="*"/>
-        <DataGridTextColumn Header="Discharged"
+        <DataGridTextColumn Header="{loc:Loc discharged}"
                             Binding="{Binding discharge_date}"
                             Width="*"/>
       </DataGrid.Columns>
@@ -154,12 +156,12 @@
                                         <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <TextBlock Grid.ColumnSpan="2" Text="Admission"
+                                    <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc admission}"
                                                FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                     <ComboBox Grid.Row="1" Grid.ColumnSpan="2"
                                               Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                              materialDesign:HintAssist.Hint="Patient"
+                                              materialDesign:HintAssist.Hint="{loc:Loc patient}"
                                               materialDesign:HintAssist.IsFloating="False"
                                               materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                               ItemsSource="{Binding Patients}"
@@ -189,7 +191,7 @@
                                         </Grid.ColumnDefinitions>
                                         <DatePicker Grid.Column="0"
                                                     Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                    materialDesign:HintAssist.Hint="Admit date"
+                                                    materialDesign:HintAssist.Hint="{loc:Loc admitDate}"
                                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -199,7 +201,7 @@
                                                     SelectedDate="{Binding SelectedAdmission.admission_date, Mode=TwoWay, Converter={StaticResource DateConverter}}"/>
                                         <DatePicker Grid.Column="1"
                                                     Style="{DynamicResource MaterialDesignFilledDatePicker}"
-                                                    materialDesign:HintAssist.Hint="Expected discharge"
+                                                    materialDesign:HintAssist.Hint="{loc:Loc expectedDischarge}"
                                                     materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                     materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                     materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -219,14 +221,35 @@
                                              materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                              materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                              materialDesign:HintAssist.IsFloating="False"
-                                             materialDesign:HintAssist.Hint="Reason / Notes"
+                                             materialDesign:HintAssist.Hint="{loc:Loc notes}"
                                              Margin="0,0,0,10"
                                              IsEnabled="{Binding IsControlsEnabled}"
                                              Text="{Binding SelectedAdmission.reason, Mode=TwoWay}"/>
 
-                                    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Right">
-                                        <Button IsEnabled="{Binding IsControlsEnabled}" Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelAdmissionCommand}"/>
-                                        <Button Content="Save"  IsEnabled="{Binding IsControlsEnabled}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAdmissionCommand}"/>
+                                    <materialDesign:Snackbar Grid.Row="5" Grid.Column="0" 
+                                                             MessageQueue="{Binding MessageQueue}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Bottom"
+                                                             HorizontalContentAlignment="Center"
+                                                             Padding="0"
+                                         
+                                                             Background="{DynamicResource MaterialDesignPaper}"
+                                                             Foreground="{DynamicResource MaterialDesignBody}"
+                                    >
+                                        <materialDesign:Snackbar.Resources>
+                                            <Style TargetType="ContentPresenter">
+                                                <Setter Property="HorizontalAlignment" Value="Center"/>
+                                            </Style>
+                                            <Style TargetType="Grid">
+                                                <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                            </Style>
+                                        </materialDesign:Snackbar.Resources>
+                                    </materialDesign:Snackbar>
+                                    <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Orientation="Horizontal"
+                                                Margin="0,0,0,10"
+                                                HorizontalAlignment="Right">
+                                        <Button IsEnabled="{Binding IsControlsEnabled}" Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelAdmissionCommand}"/>
+                                        <Button Content="{loc:Loc saveBtn}"  IsEnabled="{Binding IsControlsEnabled}"   Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveAdmissionCommand}"/>
                                     </StackPanel>
                                 </Grid>
                             </ScrollViewer>

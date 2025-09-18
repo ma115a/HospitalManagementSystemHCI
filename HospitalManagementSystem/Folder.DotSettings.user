@@ -10,4 +10,6 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=HospitalManagementSystem_002FResources_002FString/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=HospitalManagementSystem_002FResources_002FString/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowComments/@EntryValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyErrors/@EntryValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/ShowOnlyStringResources/@EntryValue">False</s:Boolean></wpf:ResourceDictionary>

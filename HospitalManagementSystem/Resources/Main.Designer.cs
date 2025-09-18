@@ -159,6 +159,150 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admission.
+        /// </summary>
+        internal static string admission {
+            get {
+                return ResourceManager.GetString("admission", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select an admission..
+        /// </summary>
+        internal static string admissionError {
+            get {
+                return ResourceManager.GetString("admissionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admissions and Beds.
+        /// </summary>
+        internal static string admissionsAndBeds {
+            get {
+                return ResourceManager.GetString("admissionsAndBeds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admit/discharge patients and track room occupancy..
+        /// </summary>
+        internal static string admissionsAndBedsContent {
+            get {
+                return ResourceManager.GetString("admissionsAndBedsContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admissions for selected room.
+        /// </summary>
+        internal static string admissionsForRoom {
+            get {
+                return ResourceManager.GetString("admissionsForRoom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admit date.
+        /// </summary>
+        internal static string admitDate {
+            get {
+                return ResourceManager.GetString("admitDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admitted.
+        /// </summary>
+        internal static string admitted {
+            get {
+                return ResourceManager.GetString("admitted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All statuses.
+        /// </summary>
+        internal static string allStatuses {
+            get {
+                return ResourceManager.GetString("allStatuses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appointment Details.
+        /// </summary>
+        internal static string appointmentDetails {
+            get {
+                return ResourceManager.GetString("appointmentDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select an appointment..
+        /// </summary>
+        internal static string appointmentError {
+            get {
+                return ResourceManager.GetString("appointmentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Appointments.
+        /// </summary>
+        internal static string appointments {
+            get {
+                return ResourceManager.GetString("appointments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View/manage daily schedules and update status..
+        /// </summary>
+        internal static string appointmentsContent {
+            get {
+                return ResourceManager.GetString("appointmentsContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign.
+        /// </summary>
+        internal static string assign {
+            get {
+                return ResourceManager.GetString("assign", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assigned nurses.
+        /// </summary>
+        internal static string assignedNurses {
+            get {
+                return ResourceManager.GetString("assignedNurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Assign Nurses.
+        /// </summary>
+        internal static string assignNurses {
+            get {
+                return ResourceManager.GetString("assignNurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Available nurses.
+        /// </summary>
+        internal static string availableNurses {
+            get {
+                return ResourceManager.GetString("availableNurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Back to Dashboard.
         /// </summary>
         internal static string backToDashboard {
@@ -195,11 +339,29 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Clinical information / Reason.
+        /// </summary>
+        internal static string clinicalReason {
+            get {
+                return ResourceManager.GetString("clinicalReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Code.
         /// </summary>
         internal static string codeGrid {
             get {
                 return ResourceManager.GetString("codeGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Complete.
+        /// </summary>
+        internal static string complete {
+            get {
+                return ResourceManager.GetString("complete", resourceCulture);
             }
         }
         
@@ -227,6 +389,24 @@ namespace HospitalManagementSystem.Resources {
         internal static string currentPatientsOptional {
             get {
                 return ResourceManager.GetString("currentPatientsOptional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string date {
+            get {
+                return ResourceManager.GetString("date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a date..
+        /// </summary>
+        internal static string dateError {
+            get {
+                return ResourceManager.GetString("dateError", resourceCulture);
             }
         }
         
@@ -276,6 +456,42 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        internal static string details {
+            get {
+                return ResourceManager.GetString("details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Diagnosis.
+        /// </summary>
+        internal static string diagnosis {
+            get {
+                return ResourceManager.GetString("diagnosis", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Discharged.
+        /// </summary>
+        internal static string discharged {
+            get {
+                return ResourceManager.GetString("discharged", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Doctor.
+        /// </summary>
+        internal static string doctor {
+            get {
+                return ResourceManager.GetString("doctor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admit a patient to a room..
         /// </summary>
         internal static string doctorAdmissionContent {
@@ -294,11 +510,29 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please select a doctor..
+        /// </summary>
+        internal static string doctorError {
+            get {
+                return ResourceManager.GetString("doctorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Review completed lab test results..
         /// </summary>
         internal static string doctorLaboratoryContent {
             get {
                 return ResourceManager.GetString("doctorLaboratoryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search requests.
+        /// </summary>
+        internal static string doctorLaboratorySearch {
+            get {
+                return ResourceManager.GetString("doctorLaboratorySearch", resourceCulture);
             }
         }
         
@@ -375,6 +609,33 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Dosage.
+        /// </summary>
+        internal static string dosage {
+            get {
+                return ResourceManager.GetString("dosage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration.
+        /// </summary>
+        internal static string duration {
+            get {
+                return ResourceManager.GetString("duration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Duration (min).
+        /// </summary>
+        internal static string durationMin {
+            get {
+                return ResourceManager.GetString("durationMin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit.
         /// </summary>
         internal static string editBtn {
@@ -389,6 +650,51 @@ namespace HospitalManagementSystem.Resources {
         internal static string emailBox {
             get {
                 return ResourceManager.GetString("emailBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter Results.
+        /// </summary>
+        internal static string enterResults {
+            get {
+                return ResourceManager.GetString("enterResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pick a request and record results..
+        /// </summary>
+        internal static string enterResultsContent {
+            get {
+                return ResourceManager.GetString("enterResultsContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Expected discharge.
+        /// </summary>
+        internal static string expectedDischarge {
+            get {
+                return ResourceManager.GetString("expectedDischarge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        internal static string frequency {
+            get {
+                return ResourceManager.GetString("frequency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From date.
+        /// </summary>
+        internal static string fromDate {
+            get {
+                return ResourceManager.GetString("fromDate", resourceCulture);
             }
         }
         
@@ -420,6 +726,87 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid pasword!.
+        /// </summary>
+        internal static string invalidPassword {
+            get {
+                return ResourceManager.GetString("invalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a lab worker..
+        /// </summary>
+        internal static string laboratoryTechnicianError {
+            get {
+                return ResourceManager.GetString("laboratoryTechnicianError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a test..
+        /// </summary>
+        internal static string laboratoryTestError {
+            get {
+                return ResourceManager.GetString("laboratoryTestError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Laboratory Console.
+        /// </summary>
+        internal static string laboratoryTitle {
+            get {
+                return ResourceManager.GetString("laboratoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lab (Requests and Results).
+        /// </summary>
+        internal static string labReqRes {
+            get {
+                return ResourceManager.GetString("labReqRes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create lab requests and follow results..
+        /// </summary>
+        internal static string labReqResContent {
+            get {
+                return ResourceManager.GetString("labReqResContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lab Requests.
+        /// </summary>
+        internal static string labRequests {
+            get {
+                return ResourceManager.GetString("labRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lab Results.
+        /// </summary>
+        internal static string labResults {
+            get {
+                return ResourceManager.GetString("labResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Lab Tehnician.
+        /// </summary>
+        internal static string labTehnician {
+            get {
+                return ResourceManager.GetString("labTehnician", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Service.
         /// </summary>
         internal static string lastServiceGrid {
@@ -434,6 +821,69 @@ namespace HospitalManagementSystem.Resources {
         internal static string loginBtn {
             get {
                 return ResourceManager.GetString("loginBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a medical record..
+        /// </summary>
+        internal static string medicalRecordError {
+            get {
+                return ResourceManager.GetString("medicalRecordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medical Records.
+        /// </summary>
+        internal static string medicalRecords {
+            get {
+                return ResourceManager.GetString("medicalRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Medication.
+        /// </summary>
+        internal static string medication {
+            get {
+                return ResourceManager.GetString("medication", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select medication..
+        /// </summary>
+        internal static string medicationError {
+            get {
+                return ResourceManager.GetString("medicationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to My Surgeries.
+        /// </summary>
+        internal static string mySurgeries {
+            get {
+                return ResourceManager.GetString("mySurgeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Review and edit upcoming cases; manage team checklists..
+        /// </summary>
+        internal static string mySurgeriesContent {
+            get {
+                return ResourceManager.GetString("mySurgeriesContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a name..
+        /// </summary>
+        internal static string nameError {
+            get {
+                return ResourceManager.GetString("nameError", resourceCulture);
             }
         }
         
@@ -465,11 +915,29 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Prescription.
+        /// </summary>
+        internal static string newPrescription {
+            get {
+                return ResourceManager.GetString("newPrescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to New Room.
         /// </summary>
         internal static string newRoomBtn {
             get {
                 return ResourceManager.GetString("newRoomBtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notes.
+        /// </summary>
+        internal static string notes {
+            get {
+                return ResourceManager.GetString("notes", resourceCulture);
             }
         }
         
@@ -492,11 +960,74 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nurse.
+        /// </summary>
+        internal static string nurse {
+            get {
+                return ResourceManager.GetString("nurse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a nurse..
+        /// </summary>
+        internal static string nurseError {
+            get {
+                return ResourceManager.GetString("nurseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nurses.
+        /// </summary>
+        internal static string nurses {
+            get {
+                return ResourceManager.GetString("nurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nurse console.
+        /// </summary>
+        internal static string nurseTitle {
+            get {
+                return ResourceManager.GetString("nurseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         internal static string passwordBox {
             get {
                 return ResourceManager.GetString("passwordBox", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient.
+        /// </summary>
+        internal static string patient {
+            get {
+                return ResourceManager.GetString("patient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Patient Details.
+        /// </summary>
+        internal static string patientDetails {
+            get {
+                return ResourceManager.GetString("patientDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a patient..
+        /// </summary>
+        internal static string patientError {
+            get {
+                return ResourceManager.GetString("patientError", resourceCulture);
             }
         }
         
@@ -519,11 +1050,65 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Patients.
+        /// </summary>
+        internal static string patients {
+            get {
+                return ResourceManager.GetString("patients", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create/edit patient demographics..
+        /// </summary>
+        internal static string patientsContent {
+            get {
+                return ResourceManager.GetString("patientsContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to UMCN:.
         /// </summary>
         internal static string patientUmcn {
             get {
                 return ResourceManager.GetString("patientUmcn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Umcn must be 13 characters logn..
+        /// </summary>
+        internal static string patientUmcnError {
+            get {
+                return ResourceManager.GetString("patientUmcnError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Umcn needs to contain only letters..
+        /// </summary>
+        internal static string patientUmcnLetterError {
+            get {
+                return ResourceManager.GetString("patientUmcnLetterError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pending Requests.
+        /// </summary>
+        internal static string pendingRequests {
+            get {
+                return ResourceManager.GetString("pendingRequests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Phone.
+        /// </summary>
+        internal static string phone {
+            get {
+                return ResourceManager.GetString("phone", resourceCulture);
             }
         }
         
@@ -537,11 +1122,182 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pick Nurses.
+        /// </summary>
+        internal static string pickNurses {
+            get {
+                return ResourceManager.GetString("pickNurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Plate.
         /// </summary>
         internal static string plateGrid {
             get {
                 return ResourceManager.GetString("plateGrid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a prescription..
+        /// </summary>
+        internal static string prescriptionError {
+            get {
+                return ResourceManager.GetString("prescriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prescriptions.
+        /// </summary>
+        internal static string prescriptions {
+            get {
+                return ResourceManager.GetString("prescriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Procedure.
+        /// </summary>
+        internal static string procedure {
+            get {
+                return ResourceManager.GetString("procedure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record Details.
+        /// </summary>
+        internal static string recordDetails {
+            get {
+                return ResourceManager.GetString("recordDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refills.
+        /// </summary>
+        internal static string refills {
+            get {
+                return ResourceManager.GetString("refills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove.
+        /// </summary>
+        internal static string remove {
+            get {
+                return ResourceManager.GetString("remove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Details.
+        /// </summary>
+        internal static string requestDetails {
+            get {
+                return ResourceManager.GetString("requestDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requested.
+        /// </summary>
+        internal static string requested {
+            get {
+                return ResourceManager.GetString("requested", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Request Laboratory.
+        /// </summary>
+        internal static string requestLaboratory {
+            get {
+                return ResourceManager.GetString("requestLaboratory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Order lab tests and track their status..
+        /// </summary>
+        internal static string requestLaboratoryContent {
+            get {
+                return ResourceManager.GetString("requestLaboratoryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See pending test orders and start processing..
+        /// </summary>
+        internal static string requestQueueContent {
+            get {
+                return ResourceManager.GetString("requestQueueContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requests.
+        /// </summary>
+        internal static string requests {
+            get {
+                return ResourceManager.GetString("requests", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Requests Queue.
+        /// </summary>
+        internal static string requestsQueue {
+            get {
+                return ResourceManager.GetString("requestsQueue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result data.
+        /// </summary>
+        internal static string resultData {
+            get {
+                return ResourceManager.GetString("resultData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result Details.
+        /// </summary>
+        internal static string resultDetails {
+            get {
+                return ResourceManager.GetString("resultDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search and view past results..
+        /// </summary>
+        internal static string resultHistoryContent {
+            get {
+                return ResourceManager.GetString("resultHistoryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results.
+        /// </summary>
+        internal static string results {
+            get {
+                return ResourceManager.GetString("results", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Results History.
+        /// </summary>
+        internal static string resultsHistory {
+            get {
+                return ResourceManager.GetString("resultsHistory", resourceCulture);
             }
         }
         
@@ -555,11 +1311,38 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Room.
+        /// </summary>
+        internal static string room {
+            get {
+                return ResourceManager.GetString("room", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a room..
+        /// </summary>
+        internal static string roomError {
+            get {
+                return ResourceManager.GetString("roomError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Room number.
         /// </summary>
         internal static string roomNumber {
             get {
                 return ResourceManager.GetString("roomNumber", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rooms.
+        /// </summary>
+        internal static string rooms {
+            get {
+                return ResourceManager.GetString("rooms", resourceCulture);
             }
         }
         
@@ -582,11 +1365,263 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schedule Appointment.
+        /// </summary>
+        internal static string scheduleAppointment {
+            get {
+                return ResourceManager.GetString("scheduleAppointment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new appointment for a patient..
+        /// </summary>
+        internal static string scheduleAppointmentContent {
+            get {
+                return ResourceManager.GetString("scheduleAppointmentContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Schedule Surgery.
+        /// </summary>
+        internal static string scheduleSurgery {
+            get {
+                return ResourceManager.GetString("scheduleSurgery", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create a new case with patient, OR, and timing..
+        /// </summary>
+        internal static string scheduleSurgeryContent {
+            get {
+                return ResourceManager.GetString("scheduleSurgeryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search nurses.
+        /// </summary>
+        internal static string searchNurses {
+            get {
+                return ResourceManager.GetString("searchNurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search patient (name).
         /// </summary>
         internal static string searchPatient {
             get {
                 return ResourceManager.GetString("searchPatient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search prescriptions.
+        /// </summary>
+        internal static string searchPrescriptions {
+            get {
+                return ResourceManager.GetString("searchPrescriptions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search records.
+        /// </summary>
+        internal static string searchRecords {
+            get {
+                return ResourceManager.GetString("searchRecords", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search surgeries (by procedure).
+        /// </summary>
+        internal static string searchSurgeries {
+            get {
+                return ResourceManager.GetString("searchSurgeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select nurses….
+        /// </summary>
+        internal static string selectNurses {
+            get {
+                return ResourceManager.GetString("selectNurses", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select request.
+        /// </summary>
+        internal static string selectRequest {
+            get {
+                return ResourceManager.GetString("selectRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start test.
+        /// </summary>
+        internal static string startTest {
+            get {
+                return ResourceManager.GetString("startTest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status.
+        /// </summary>
+        internal static string status {
+            get {
+                return ResourceManager.GetString("status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surgeon.
+        /// </summary>
+        internal static string surgeon {
+            get {
+                return ResourceManager.GetString("surgeon", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surgeon Console.
+        /// </summary>
+        internal static string surgeonTitle {
+            get {
+                return ResourceManager.GetString("surgeonTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surgeries.
+        /// </summary>
+        internal static string surgeries {
+            get {
+                return ResourceManager.GetString("surgeries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to See schedule and assign circulating/scrub nurses..
+        /// </summary>
+        internal static string surgeriesContent {
+            get {
+                return ResourceManager.GetString("surgeriesContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surgery department.
+        /// </summary>
+        internal static string surgeryDepartment {
+            get {
+                return ResourceManager.GetString("surgeryDepartment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surgery Details.
+        /// </summary>
+        internal static string surgeryDetails {
+            get {
+                return ResourceManager.GetString("surgeryDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a surgery..
+        /// </summary>
+        internal static string surgeryError {
+            get {
+                return ResourceManager.GetString("surgeryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Surgery History.
+        /// </summary>
+        internal static string surgeryHistory {
+            get {
+                return ResourceManager.GetString("surgeryHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Browse past cases and post-op outcomes..
+        /// </summary>
+        internal static string surgeryHistoryContent {
+            get {
+                return ResourceManager.GetString("surgeryHistoryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Team.
+        /// </summary>
+        internal static string team {
+            get {
+                return ResourceManager.GetString("team", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test name.
+        /// </summary>
+        internal static string testName {
+            get {
+                return ResourceManager.GetString("testName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Started.
+        /// </summary>
+        internal static string testStarted {
+            get {
+                return ResourceManager.GetString("testStarted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time (HH:mm).
+        /// </summary>
+        internal static string time {
+            get {
+                return ResourceManager.GetString("time", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please select a time..
+        /// </summary>
+        internal static string timeError {
+            get {
+                return ResourceManager.GetString("timeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To date.
+        /// </summary>
+        internal static string toDate {
+            get {
+                return ResourceManager.GetString("toDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Treatment.
+        /// </summary>
+        internal static string treatment {
+            get {
+                return ResourceManager.GetString("treatment", resourceCulture);
             }
         }
         
@@ -600,11 +1635,38 @@ namespace HospitalManagementSystem.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to UMCN.
+        /// </summary>
+        internal static string umcn {
+            get {
+                return ResourceManager.GetString("umcn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Details.
         /// </summary>
         internal static string userDetails {
             get {
                 return ResourceManager.GetString("userDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username does not exist!.
+        /// </summary>
+        internal static string userDoesNotExist {
+            get {
+                return ResourceManager.GetString("userDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username already exists..
+        /// </summary>
+        internal static string userExists {
+            get {
+                return ResourceManager.GetString("userExists", resourceCulture);
             }
         }
         

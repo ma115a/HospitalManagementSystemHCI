@@ -24,12 +24,12 @@ public class SurgeryService
 
 
 
-    public async Task<surgery> SaveSurgery(surgery surgery, patient patient, room room, ObservableCollection<NurseItem> nurses)
+    public async Task<surgery> SaveSurgery(surgery surgery, patient patient, room room, ObservableCollection<NurseItem> nurses, int id)
     {
         await using var context = await _factory.CreateDbContextAsync();
         surgery.patient_umcn = patient.umcn;
         surgery.room_id = room.room_id;
-        surgery.surgeon_id = 3;
+        surgery.surgeon_id = id;
         surgery.status = "Scheduled";
         context.surgeries.Add(surgery);
         await context.SaveChangesAsync();

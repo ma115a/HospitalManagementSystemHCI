@@ -56,9 +56,10 @@ public class PatientService
     }
 
 
-    public async Task<medical_record> SaveMedicalRecord(medical_record record)
+    public async Task<medical_record> SaveMedicalRecord(medical_record record, int id)
     {
         await using var context = await _factory.CreateDbContextAsync();
+        record.doctor_id = id;
         context.medical_records.Add(record);
         await context.SaveChangesAsync();
         return record;

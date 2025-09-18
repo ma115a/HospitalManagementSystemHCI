@@ -6,7 +6,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:local="clr-namespace:HospitalManagementSystem.Surgeon"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              >
     <DockPanel>
                     <!-- Back -->
@@ -19,7 +21,7 @@
                                 Command="{Binding DataContext.GoToDashboardCommand, RelativeSource={RelativeSource AncestorType=Window}}">
                             <StackPanel Orientation="Horizontal">
                                 <materialDesign:PackIcon Kind="ArrowLeft" Width="18" Height="18" Margin="0,0,8,0"/>
-                                <TextBlock Text="Back to Dashboard"/>
+                                <TextBlock Text="{loc:Loc backToDashboard}"/>
                             </StackPanel>
                         </Button>
                     </Border>
@@ -29,9 +31,9 @@
                             BorderBrush="{DynamicResource MaterialDesign.Brush.Divider}"
                             BorderThickness="0,0,0,1" Padding="8,6">
                         <StackPanel Orientation="Horizontal">
-                            <Button Content="New"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewTestCommand}"/>
-                            <Button Content="Edit" IsEnabled="{Binding IsOptionsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditSurgeryCommand}"/>
-                            <Button Content="Delete" IsEnabled="{Binding IsOptionsEnabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteSurgeryCommand}"/>
+                            <Button Content="{loc:Loc newBtn}"  Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding NewTestCommand}"/>
+                            <Button Content="{loc:Loc editBtn}" IsEnabled="{Binding IsOptionsEnabled}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding EditSurgeryCommand}"/>
+                            <Button Content="{loc:Loc deleteBtn}" IsEnabled="{Binding IsOptionsEnabled}" Foreground="Red" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding DeleteSurgeryCommand}"/>
                         </StackPanel>
                     </Border>
 
@@ -52,7 +54,7 @@
                                     <RowDefinition Height="*"/>
                                 </Grid.RowDefinitions>
 
-                                <TextBlock Text="Upcoming Surgeries"
+                                <TextBlock Text="{loc:Loc surgeries}"
                                            FontSize="16" FontWeight="SemiBold" Margin="0,0,0,8"/>
 
                                 <!-- Filters -->
@@ -64,7 +66,7 @@
                                     </Grid.ColumnDefinitions>
                                     <DatePicker Grid.Column="0"
                                                 Style="{DynamicResource MaterialDesignOutlinedDatePicker}"
-                                                materialDesign:HintAssist.Hint="Date"
+                                                materialDesign:HintAssist.Hint="{loc:Loc date}"
                                                 Margin="0,0,5,10"
                                                 SelectedDate="{Binding SurgeryFilterDate}"/>
                                   
@@ -84,7 +86,7 @@
                                         <ComboBoxItem>Follow-up needed</ComboBoxItem>
                                     </ComboBox>
                                     <Border Grid.Column="2" VerticalAlignment="Center" Margin="5,0,0,10">
-                                        <Button Content="Clear"
+                                        <Button Content="{loc:Loc cancelBtn}"
                                                 Style="{DynamicResource MaterialDesignFlatButton}"
                                                 Command="{Binding ClearFiltersCommand}"/>
                                     </Border>
@@ -99,10 +101,10 @@
                                           ItemsSource="{Binding SurgeriesView}"
                                           SelectedItem="{Binding SelectedSurgery, Mode=TwoWay}">
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="Date" Binding="{Binding date}" Width="*"/>
-                                        <DataGridTextColumn Header="Patient" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
-                                        <DataGridTextColumn Header="Procedure" Binding="{Binding procedure}" Width="2*"/>
-                                        <DataGridTextColumn Header="OR" Binding="{Binding room.number}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc date}" Binding="{Binding date}" Width="*"/>
+                                        <DataGridTextColumn Header="{loc:Loc patient}" Binding="{Binding patient_umcnNavigation.name}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc procedure}" Binding="{Binding procedure}" Width="2*"/>
+                                        <DataGridTextColumn Header="{loc:Loc room}" Binding="{Binding room.number}" Width="*"/>
                                         <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
                                     </DataGrid.Columns>
                                 </DataGrid>
@@ -116,7 +118,7 @@
                                              >
                             <TabControl SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}" >
                                 <!-- DETAILS TAB -->
-                                <TabItem Header="Details">
+                                <TabItem Header="{loc:Loc details}">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <Grid Margin="0,0,0,10">
                                             <Grid.ColumnDefinitions>
@@ -134,7 +136,7 @@
                                                 <RowDefinition Height="Auto"/>  <!-- buttons -->
                                             </Grid.RowDefinitions>
 
-                                            <TextBlock Grid.ColumnSpan="2" Text="Surgery Details"
+                                            <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc surgeryDetails}"
                                                        FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                             <!-- Date / Time -->
@@ -151,7 +153,7 @@
                                                             materialDesign:HintAssist.IsFloating="False"
                                                             Margin="0, 0, 5, 10"
                                                             IsEnabled="{Binding IsControlsEnabled}"
-                                                            materialDesign:HintAssist.Hint="Date"
+                                                            materialDesign:HintAssist.Hint="{loc:Loc date}"
                                                             SelectedDate="{Binding SurgeryDate}"/>
                                                 <TextBox Grid.Column="1"
                                                          Style="{DynamicResource MaterialDesignFilledTextBox}"
@@ -161,7 +163,7 @@
                                                          materialDesign:HintAssist.IsFloating="False"
                                                          Margin="5, 0, 0, 10"
                                                          IsEnabled="{Binding IsControlsEnabled}"
-                                                         materialDesign:HintAssist.Hint="Time (HH:mm)"
+                                                         materialDesign:HintAssist.Hint="{loc:Loc time}"
                                                          Text="{Binding SurgeryTime}"/>
                                                 <!-- Swap to a TimePicker if you use MahApps or MaterialDesignExtensions -->
                                             </Grid>
@@ -180,11 +182,11 @@
                                                          materialDesign:HintAssist.IsFloating="False"
                                                          Margin="0, 0, 5, 10"
                                                          IsEnabled="{Binding IsControlsEnabled}"
-                                                         materialDesign:HintAssist.Hint="Duration (min)"
-                                                         Text="{Binding SelectedSurgery.duration}"/>
+                                                         materialDesign:HintAssist.Hint="{loc:Loc durationMin}"
+                                                         Text="{Binding SelectedSurgery.duration, TargetNullValue=''}"/>
                                                 <ComboBox Grid.Column="1"
                                                           Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                                          materialDesign:HintAssist.Hint="OR / Room"
+                                                          materialDesign:HintAssist.Hint="{loc:Loc room}"
                                                           materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                           materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                           materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
@@ -193,7 +195,7 @@
                                                           IsEnabled="{Binding IsControlsEnabled}"
                                                           ItemsSource="{Binding Rooms}"
                                                           SelectedValuePath="number"
-                                                          SelectedValue="{Binding SelectedSurgery.room.number}">
+                                                          SelectedValue="{Binding SelectedSurgery.room.number, TargetNullValue=''}">
                                                     <ComboBox.ItemTemplate>
                                                         <DataTemplate>
                                                             <StackPanel Orientation="Horizontal">
@@ -207,13 +209,13 @@
                                             <!-- Patient -->
                                             <ComboBox Grid.Row="3" Grid.ColumnSpan="2"
                                                       Style="{DynamicResource MaterialDesignOutlinedComboBox}"
-                                                      materialDesign:HintAssist.Hint="Patient"
+                                                      materialDesign:HintAssist.Hint="{loc:Loc patient}"
                                                       materialDesign:HintAssist.IsFloating="False"
                                                       ItemsSource="{Binding Patients}"
                                                       IsTextSearchEnabled="True"
                                                       SelectedValuePath="umcn"
                                                       IsEnabled="{Binding IsControlsEnabled}"
-                                                      SelectedValue="{Binding SelectedSurgery.patient_umcn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      SelectedValue="{Binding SelectedSurgery.patient_umcn, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}"
                                                       Margin="0,0,0,10">
                                                 <ComboBox.ItemTemplate>
                                                     <DataTemplate>
@@ -230,14 +232,14 @@
                                             <!-- Procedure -->
                                             <TextBox Grid.Row="4" Grid.ColumnSpan="2"
                                                      Style="{DynamicResource MaterialDesignFilledTextBox}"
-                                                     materialDesign:HintAssist.Hint="Procedure"
+                                                     materialDesign:HintAssist.Hint="{loc:Loc procedure}"
                                                      materialDesign:TextFieldAssist.TextFieldCornerRadius="6" 
                                                      materialDesign:TextFieldAssist.HasOutlinedTextField="True"
                                                      materialDesign:TextFieldAssist.RippleOnFocusEnabled="True"
                                                      materialDesign:HintAssist.IsFloating="False"
                                                      Margin="0, 0, 0, 10"
                                                      IsEnabled="{Binding IsControlsEnabled}"
-                                                     Text="{Binding SelectedSurgery.procedure}"/>
+                                                     Text="{Binding SelectedSurgery.procedure, TargetNullValue=''}"/>
 
                                             <!-- Status -->
                                             <ComboBox Grid.Row="5" Grid.ColumnSpan="2"
@@ -250,7 +252,7 @@
                                                       Margin="0, 0, 0, 10"
                                                       IsEnabled="{Binding IsControlsEnabled}"
                                                       SelectedValuePath="Content"
-                                                      SelectedValue="{Binding SelectedSurgery.status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                                                      SelectedValue="{Binding SelectedSurgery.status, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, TargetNullValue=''}">
                                                 <ComboBoxItem>Scheduled</ComboBoxItem>
                                                 <ComboBoxItem>Cancelled</ComboBoxItem>
                                                 <ComboBoxItem>Completed</ComboBoxItem>
@@ -273,20 +275,40 @@
                                                      materialDesign:HintAssist.IsFloating="False"
                                                      Margin="0, 0, 0, 10"
                                                      IsEnabled="{Binding IsControlsEnabled}"
-                                                     materialDesign:HintAssist.Hint="Notes"
-                                                     Text="{Binding SelectedSurgery.notes}"/>
+                                                     materialDesign:HintAssist.Hint="{loc:Loc notes}"
+                                                     Text="{Binding SelectedSurgery.notes, TargetNullValue=''}"/>
+                                            
+                                            <materialDesign:Snackbar Grid.Row="7" Grid.Column="0" 
+                                                                     MessageQueue="{Binding MessageQueue}"
+                                                                     HorizontalAlignment="Center"
+                                                                     VerticalAlignment="Bottom"
+                                                                     HorizontalContentAlignment="Center"
+                                                                     Padding="0"
+                                         
+                                                                     Background="{DynamicResource MaterialDesignPaper}"
+                                                                     Foreground="{DynamicResource MaterialDesignBody}"
+                                            >
+                                                <materialDesign:Snackbar.Resources>
+                                                    <Style TargetType="ContentPresenter">
+                                                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                                                    </Style>
+                                                    <Style TargetType="Grid">
+                                                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                                                    </Style>
+                                                </materialDesign:Snackbar.Resources>
+                                            </materialDesign:Snackbar>
 
                                             <StackPanel Grid.Row="7" Grid.ColumnSpan="2"
                                                         Orientation="Horizontal" HorizontalAlignment="Right">
-                                                <Button IsEnabled="{Binding IsControlsEnabled}" Content="Cancel" Style="{DynamicResource MaterialDesignFlatButton}"/>
-                                                <Button Content="Save" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveSurgeryCommand}"/>
+                                                <Button IsEnabled="{Binding IsControlsEnabled}" Content="{loc:Loc cancelBtn}" Style="{DynamicResource MaterialDesignFlatButton}" Command="{Binding CancelCommand}"/>
+                                                <Button Content="{loc:Loc saveBtn}" IsEnabled="{Binding IsControlsEnabled}" Style="{DynamicResource MaterialDesignRaisedButton}" Margin="8,0,0,0" Command="{Binding SaveSurgeryCommand}"/>
                                             </StackPanel>
                                         </Grid>
                                     </ScrollViewer>
                                 </TabItem>
 
                                 <!-- TEAM TAB -->
-                                <TabItem Header="Team">
+                                <TabItem Header="{loc:Loc team}">
                                     <ScrollViewer VerticalScrollBarVisibility="Auto">
                                         <Grid >
                                             <Grid.ColumnDefinitions>
@@ -298,7 +320,7 @@
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
 
-                                            <TextBlock Grid.ColumnSpan="2" Text="Assign Nurses"
+                                            <TextBlock Grid.ColumnSpan="2" Text="{loc:Loc assignNurses}"
                                                        FontSize="16" FontWeight="SemiBold" Margin="0,0,0,6"/>
 
                                             <Grid Grid.Row="1" Grid.ColumnSpan="2">
@@ -308,7 +330,7 @@
                                                 </Grid.ColumnDefinitions>
 
                                                 <StackPanel Grid.Column="0" HorizontalAlignment="Stretch" >
-                                                    <TextBlock Text="Available nurses" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{loc:Loc availableNurses}" FontWeight="SemiBold"/>
                                                     <ListBox ItemsSource="{Binding Nurses}"
                                                              SelectedItem="{Binding SelectedNurseToAdd}"
                                                              MinHeight="180">
@@ -320,7 +342,7 @@
                                                             </DataTemplate>
                                                         </ListBox.ItemTemplate>
                                                     </ListBox>
-                                                    <Button Content="Assign"
+                                                    <Button Content="{loc:Loc assign}"
                                                             Style="{DynamicResource MaterialDesignRaisedButton}"
                                                             Margin="0,8,5,0"
                                                             IsEnabled="{Binding IsAssignNursesEnabled}"
@@ -328,7 +350,7 @@
                                                 </StackPanel>
 
                                                 <StackPanel Grid.Column="1" HorizontalAlignment="Stretch">
-                                                    <TextBlock Text="Assigned nurses" FontWeight="SemiBold"/>
+                                                    <TextBlock Text="{loc:Loc assignedNurses}" FontWeight="SemiBold"/>
                                                     <ListBox ItemsSource="{Binding AssignedNurses}"
                                                              SelectedItem="{Binding SelectedNurseToRemove}"
                                                              MinHeight="180">
@@ -340,7 +362,7 @@
                                                             </DataTemplate>
                                                         </ListBox.ItemTemplate>
                                                     </ListBox>
-                                                    <Button Content="Remove"
+                                                    <Button Content="{loc:Loc remove}"
                                                             Style="{DynamicResource MaterialDesignRaisedButton}"
                                                             Background="Red"
                                                             Margin="5,8,0,0"

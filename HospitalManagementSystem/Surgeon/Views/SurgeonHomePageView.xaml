@@ -5,7 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:HospitalManagementSystem.Surgeon"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
              >
     <ScrollViewer VerticalScrollBarVisibility="Auto">
                     <Grid>
@@ -35,13 +37,13 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="CalendarClock" Width="32" Height="32"/>
-                                        <TextBlock Text="My Surgeries" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc mySurgeries}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9"
-                                               Text="Review and edit upcoming cases; manage team checklists."
+                                               Text="{loc:Loc mySurgeriesContent}"
                                                TextWrapping="Wrap"/>
-                                    <Button Grid.Row="2" Content="Open" Width="140"
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}" Width="140"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             
                                             Command="{Binding DataContext.GoToSurgeriesCommand, RelativeSource={RelativeSource AncestorType=Window}}"
@@ -59,13 +61,13 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="CalendarPlus" Width="32" Height="32"/>
-                                        <TextBlock Text="Schedule Surgery" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc scheduleSurgery}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9"
-                                               Text="Create a new case with patient, OR, and timing."
+                                               Text="{loc:Loc scheduleSurgeryContent}"
                                                TextWrapping="Wrap"/>
-                                    <Button Grid.Row="2" Content="Open" Width="160"
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}" Width="160"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Command="{Binding DataContext.GoToScheduleSurgeryCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                             />
@@ -73,27 +75,27 @@
                             </materialDesign:Card>
 
                             <!-- History -->
-                            <materialDesign:Card>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto"/>
-                                        <RowDefinition Height="*"/>
-                                        <RowDefinition Height="Auto"/>
-                                    </Grid.RowDefinitions>
-                                    <StackPanel Orientation="Horizontal">
-                                        <materialDesign:PackIcon Kind="History" Width="32" Height="32"/>
-                                        <TextBlock Text="Surgery History" Margin="10,0,0,0"
-                                                   FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
-                                    </StackPanel>
-                                    <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9"
-                                               Text="Browse past cases and post-op outcomes."
-                                               TextWrapping="Wrap"/>
-                                    <Button Grid.Row="2" Content="Open" Width="140"
-                                            Style="{DynamicResource MaterialDesignRaisedLightButton}"
-                                            Command="{Binding DataContext.GoToHistoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"
-                                            />
-                                </Grid>
-                            </materialDesign:Card>
+                            <!-- <materialDesign:Card> -->
+                            <!--     <Grid> -->
+                            <!--         <Grid.RowDefinitions> -->
+                            <!--             <RowDefinition Height="Auto"/> -->
+                            <!--             <RowDefinition Height="*"/> -->
+                            <!--             <RowDefinition Height="Auto"/> -->
+                            <!--         </Grid.RowDefinitions> -->
+                            <!--         <StackPanel Orientation="Horizontal"> -->
+                            <!--             <materialDesign:PackIcon Kind="History" Width="32" Height="32"/> -->
+                            <!--             <TextBlock Text="{loc:Loc surgeryHistory}" Margin="10,0,0,0" -->
+                            <!--                        FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/> -->
+                            <!--         </StackPanel> -->
+                            <!--         <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9" -->
+                            <!--                    Text="{loc:Loc surgeryHistoryContent}" -->
+                            <!--                    TextWrapping="Wrap"/> -->
+                            <!--         <Button Grid.Row="2" Content="{loc:Loc adminCardButton}" Width="140" -->
+                            <!--                 Style="{DynamicResource MaterialDesignRaisedLightButton}" -->
+                            <!--                 Command="{Binding DataContext.GoToHistoryCommand, RelativeSource={RelativeSource AncestorType=Window}}" -->
+                            <!--                 /> -->
+                            <!--     </Grid> -->
+                            <!-- </materialDesign:Card> -->
                         </UniformGrid>
                     </Grid>
                 </ScrollViewer>

@@ -4,6 +4,7 @@
 
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Nurse.Views;
 using HospitalManagementSystem.Utils;
 using Microsoft.Extensions.DependencyInjection;
@@ -16,12 +17,17 @@ public partial class NurseWindowViewModel : ObservableObject
     private readonly IServiceProvider _sp;
     private readonly Dictionary<int, Lazy<IActivable>> _slides;
     
+    private LoggedInUser _user;
+    [ObservableProperty] private employee _employee;
+    
     
     
     public NurseWindowViewModel(IServiceProvider sp)
     {
         _sp = sp;
-        
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
+        Employee = _user.LoggedInEmployee;
+        _user.EmployeeChanged += OnUserChanged;
 
         _slides = new()
         {
@@ -33,6 +39,13 @@ public partial class NurseWindowViewModel : ObservableObject
             { 6, new Lazy<IActivable>(() => _sp.GetRequiredService<NurseRegisterPatientViewModel>()) },
         };
     }    
+    private void OnUserChanged(employee value)
+    {
+        Console.WriteLine("OnUserChanged");
+        Employee = _user.LoggedInEmployee;
+    }
+
+
     
     
     public NurseRegisterPatientViewModel? PatientsVm

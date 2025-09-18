@@ -4,7 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:loc="clr-namespace:HospitalManagementSystem.Utils"
              xmlns:local="clr-namespace:HospitalManagementSystem"
+             Background="{DynamicResource MaterialDesignPaper}"
              mc:Ignorable="d"
              >
     
@@ -37,12 +39,12 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="ClipboardListOutline" Width="32" Height="32"/>
-                                        <TextBlock Text="Requests Queue" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc requestsQueue}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9"
-                                               Text="See pending test orders and start processing." TextWrapping="Wrap"/>
-                                    <Button Grid.Row="2" Content="Open" Width="130"
+                                               Text="{loc:Loc requestQueueContent}" TextWrapping="Wrap"/>
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}" Width="130"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Command="{Binding DataContext.GoToRequestsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                             />
@@ -59,12 +61,12 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="FlaskRoundBottom" Width="32" Height="32"/>
-                                        <TextBlock Text="Enter Results" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc enterResults}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9"
-                                               Text="Pick a request and record results." TextWrapping="Wrap"/>
-                                    <Button Grid.Row="2" Content="Open" Width="130"
+                                               Text="{loc:Loc enterResultsContent}" TextWrapping="Wrap"/>
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}" Width="130"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Command="{Binding DataContext.GoToResultsCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                             />
@@ -81,12 +83,12 @@
                                     </Grid.RowDefinitions>
                                     <StackPanel Orientation="Horizontal">
                                         <materialDesign:PackIcon Kind="FileDocumentOutline" Width="32" Height="32"/>
-                                        <TextBlock Text="Results History" Margin="10,0,0,0"
+                                        <TextBlock Text="{loc:Loc resultsHistory}" Margin="10,0,0,0"
                                                    FontSize="16" FontWeight="SemiBold" VerticalAlignment="Center"/>
                                     </StackPanel>
                                     <TextBlock Grid.Row="1" Margin="0,12,0,0" Opacity=".9"
-                                               Text="Search and view past results." TextWrapping="Wrap"/>
-                                    <Button Grid.Row="2" Content="Open" Width="130"
+                                               Text="{loc:Loc resultHistoryContent}" TextWrapping="Wrap"/>
+                                    <Button Grid.Row="2" Content="{loc:Loc adminCardButton}" Width="130"
                                             Style="{DynamicResource MaterialDesignRaisedLightButton}"
                                             Command="{Binding DataContext.GoToHistoryCommand, RelativeSource={RelativeSource AncestorType=Window}}"
                                             />

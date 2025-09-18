@@ -11,6 +11,8 @@ using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Doctor.ViewModels;
 
@@ -23,6 +25,10 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
     private readonly LaboratoryTestService _laboratoryTestService;
     private readonly PatientService _patientService;
     private readonly UserService  _userService;
+    private readonly LoggedInUser _user;
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
     
     [ObservableProperty]
@@ -83,8 +89,11 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
         _patientService = patientService;
         _userService = userService;
         _sharedDataService.PatientChanged += OnPatientChanged;
+        _user = App.HostApp.Services.GetRequiredService<LoggedInUser>();
 
 
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
 
         TestsView = CollectionViewSource.GetDefaultView(LaboratoryTests);
         TestsView.Filter = LaboratoryTestFilter;
@@ -204,7 +213,11 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
     private async Task LoadTests()
     {
 
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         LaboratoryTests.Clear();
         var laboratoryTests = await _laboratoryTestService.GetAllTestsForPatient(SelectedPatient);
         foreach (var laboratoryTest in laboratoryTests)
@@ -215,7 +228,11 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
     
     private async Task LoadResults()
     {
-        if (SelectedPatient is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
         var results = await _laboratoryTestService.GetAllTestResultsForPatient(SelectedPatient);
         foreach (var result in results)
         {
@@ -238,8 +255,27 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
     [RelayCommand]
         private void  EditTest()
     {
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
         _isEditing = true;
         IsControlsEnabled = true;
+    }
+
+
+    [RelayCommand]
+    private async Task DeleteLabTest()
+    {
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
+
+        await _laboratoryTestService.DeleteTest(SelectedLaboratoryTest);
+        await LoadTests();
     }
 
     
@@ -264,9 +300,23 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
     [RelayCommand]
     private async Task SaveTest()
     {
-        if (SelectedPatient is null) return;
-        if (SelectedLaboratoryTest is null) return;
-        if(SelectedLaboratoryTechnician is null) return;
+        if (SelectedPatient is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("patientError"));
+            return;
+        }
+
+        if (SelectedLaboratoryTest is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTestError"));
+            return;
+        }
+
+        if (SelectedLaboratoryTechnician is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("laboratoryTechnicianError"));
+            return;
+        }
 
         if (_isEditing)
         {
@@ -275,7 +325,7 @@ public partial class LaboratoryRequestsViewViewModel : ObservableObject, IActiva
         }
         else
         {
-            await _laboratoryTestService.SaveTest(SelectedLaboratoryTest, SelectedPatient, SelectedLaboratoryTechnician);
+            await _laboratoryTestService.SaveTest(SelectedLaboratoryTest, SelectedPatient, SelectedLaboratoryTechnician, _user.LoggedInEmployee.employee_id);
         }
 
 

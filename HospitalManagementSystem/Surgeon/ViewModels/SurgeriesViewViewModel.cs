@@ -12,6 +12,8 @@ using HospitalManagementSystem.Admin.Services;
 using HospitalManagementSystem.Data.Models;
 using HospitalManagementSystem.Services;
 using HospitalManagementSystem.Utils;
+using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace HospitalManagementSystem.Surgeon.ViewModels;
 
@@ -25,6 +27,9 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     private readonly PatientService _patientService;
     private readonly DepartmentService _departmentService;
     private readonly SurgeryService _surgeryService;
+    
+    public ISnackbarMessageQueue MessageQueue { get; set; }
+    private readonly LocalizationManager _localizationManager;
 
 
     [ObservableProperty] private ObservableCollection<patient> _patients = new();
@@ -81,6 +86,8 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
         _departmentService = departmentService;
         _surgeryService = surgeryService;
 
+        _localizationManager = App.HostApp.Services.GetRequiredService<LocalizationManager>();
+        MessageQueue = new SnackbarMessageQueue();
 
         SurgeriesView = CollectionViewSource.GetDefaultView(Surgeries);
         SurgeriesView.Filter = SurgeriesFilter;
@@ -136,6 +143,8 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     partial void OnSelectedSurgeryChanged(surgery? value)
     {
         if (value is not null) IsOptionsEnabled = true;
+        else IsOptionsEnabled = false;
+        if (value is not null) IsOptionsEnabled = true;
         if (value?.date is DateTime dt)
         {
             SurgeryDate = dt.Date;
@@ -147,7 +156,7 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
             SurgeryTime = null;
         }
 
-        if (value.nurses != null)
+        if (value?.nurses != null)
         {
             AssignedNurses = new ObservableCollection<nurse>(value.nurses);
         }
@@ -163,6 +172,8 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     public async Task ActivateAsync()
     {
         await LoadData();
+        SelectedSurgery = null;
+        Console.WriteLine("surgery view activated");
     }
 
 
@@ -217,8 +228,17 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task AssignNurse()
     {
-        if (SelectedNurseToAdd is null) return;
-        if (SelectedSurgery is null) return;
+        if (SelectedNurseToAdd is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("nurseError"));
+            return;
+        }
+
+        if (SelectedSurgery is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("surgeryError"));
+            return;
+        }
         Console.WriteLine($"Before: AssignedNurses count = {AssignedNurses.Count}");
         
         await _surgeryService.AssignNurseToSurgery(SelectedSurgery, SelectedNurseToAdd);
@@ -237,8 +257,17 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task RemoveAssignedNurse()
     {
-        if (SelectedNurseToRemove is null) return;
-        if (SelectedSurgery is null) return;
+        if (SelectedNurseToRemove is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("nurseError"));
+            return;
+        }
+
+        if (SelectedSurgery is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("surgeryError"));
+            return;
+        }
        await _surgeryService.RemoveNurseFromSurgery(SelectedSurgery, SelectedNurseToRemove);
        
        var nurseToRemove =
@@ -263,7 +292,11 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     [RelayCommand]
     private async Task DeleteSurgery()
     {
-        if (SelectedSurgery is null) return;
+        if (SelectedSurgery is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("surgeryError"));
+            return;
+        }
         await _surgeryService.DeleteSurgery(SelectedSurgery);
         await LoadSurgeries();
 
@@ -275,6 +308,11 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
     private async Task SaveSurgery()
     {
         if (SelectedSurgery is null) return;
+        if (SelectedSurgery.date is null)
+        {
+            MessageQueue.Enqueue(_localizationManager.GetString("dateError"));
+            return;
+        }
 
         var time = TimeSpan.Zero;
         if (!string.IsNullOrWhiteSpace(SurgeryTime))
@@ -290,6 +328,18 @@ public partial class SurgeriesViewViewModel : ObservableObject, IActivable
         _isEditing = false;
         IsControlsEnabled = false;
          await LoadSurgeries();
+    }
+
+
+    [RelayCommand]
+    private void Cancel()
+    {
+        SelectedSurgery = null;
+        SurgeryTime = null;
+        SurgeryDate = null;
+        IsControlsEnabled = false;
+        IsOptionsEnabled = false;
+
     }
     
 
