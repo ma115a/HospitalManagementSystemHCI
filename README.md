@@ -38,4 +38,11 @@ The system is backed by a **MySQL database schema** (`create_hms.sql`) that defi
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/your-username/hospital-management-system.git
-   cd hospital-management-system
+   cd hospital-management-system```
+2. **Set up the database**:
+   Open MySQL Workbench and run the two scripts for creating the schema, and populating the database.
+3. **Configure application**
+   - Update your connection string(username, password, database) in the appsettings.json
+   - Build and run the application
+
+## 📖 User manual
