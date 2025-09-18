@@ -14,7 +14,7 @@ The motivation behind this project is to:
 - Simplify hospital workflows by centralizing data.  
 - Enable healthcare professionals to quickly access patient and institutional records.  
 - Improve patient care by streamlining appointments, admissions, and prescriptions.  
-- Provide administrators with better control over hospital resources (staff, rooms, vehicles, medications).  
+- Provide administrators with better control over hospital resources (staff, rooms, vehicles).  
 
 ---
 
